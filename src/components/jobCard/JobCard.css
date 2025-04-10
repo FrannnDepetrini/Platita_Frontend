@@ -6,7 +6,7 @@
 }
 
 .job-card-container {
-  max-width: 48rem;
+  max-width: 54rem;
   margin: 0 auto;
 }
 
@@ -79,6 +79,7 @@
   font-weight: 300;
   flex-grow: 1;
   width: 100%;
+  transform: translateX(10px);
 }
 
 .job-details {
@@ -88,6 +89,7 @@
   font-size: 0.875rem;
   padding-top: 0.5rem;
   flex-wrap: wrap;
+  transform: translateX(10px);
 }
 
 .detail-item {
@@ -124,9 +126,9 @@
 }
 
 /* Hover effect for the price */
-.job-card:hover .job-price {
+/* .job-card:hover .job-price {
   transform: scale(1.05);
-}
+} */
 
 .user-info {
   display: flex;
