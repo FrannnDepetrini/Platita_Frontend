@@ -13,7 +13,7 @@ export default function JobCard() {
                         </div>
 
                         <p className="job-description">
-                            Necesito a alguien con conocimientos de albañilería para levantar un tapial en mi local
+                            Necesito a alguien con conocimientos de albañilería para levantar un tapial en mi localddddddddddddddddddddddddddddddddddddddddddd
                         </p>
 
                         <div className="job-details">
