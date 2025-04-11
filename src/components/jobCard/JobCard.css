@@ -1,4 +1,3 @@
-/* Import Google Font - Poppins */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 @import url("../../utils/colors/colors.css");
 * {
@@ -20,9 +19,7 @@
   cursor: pointer;
 }
 
-/* Hover effect for the card */
 .job-card:hover {
-  transform: translateY(-4px) scale(1.01);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   border: 1px solid black;
 }
@@ -55,11 +52,6 @@
   transition: color 0.2s ease;
 }
 
-/* Hover effect for the title */
-/* .job-card:hover .job-title {
-  color: #2563eb;
-} */
-
 .job-icon {
   height: 1.5rem;
   width: 1.5rem;
@@ -68,7 +60,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Hover effect for the icon */
 .job-card:hover .job-icon {
   transform: rotate(10deg);
 }
@@ -113,8 +104,8 @@
   flex-direction: column;
   align-items: flex-end;
   justify-content: space-between;
-  min-width: 100px; /* Ensure minimum width */
-  flex-shrink: 0; /* Prevent shrinking */
+  min-width: 100px;
+  flex-shrink: 0;
 }
 
 .job-price {
@@ -122,19 +113,14 @@
   font-size: 0.875rem;
   font-weight: 500;
   transition: transform 0.2s ease;
-  white-space: nowrap; /* Prevent wrapping */
+  white-space: nowrap;
 }
-
-/* Hover effect for the price */
-/* .job-card:hover .job-price {
-  transform: scale(1.05);
-} */
 
 .user-info {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: auto; /* Push to the bottom */
+  margin-top: auto;
 }
 
 .user-name {
@@ -157,9 +143,4 @@
   background-color: var(--principalYellow);
   border-radius: 9999px;
   transition: transform 0.3s ease;
-}
-
-/* Hover effect for the avatar */
-.job-card:hover .user-avatar {
-  transform: scale(1.1);
 }
