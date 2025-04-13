@@ -1,0 +1,23 @@
+.home-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  padding: 32px;
+  box-sizing: border-box;
+  height: calc(100vh - 20px); /* Ajustá si tu navbar tiene otro alto */
+}
+
+.hero-section {
+  flex: 1;
+  min-width: 400px;
+  margin-left: 2rem;
+  margin-top: -1.5rem;
+}
+
+.jobs-section {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  margin-top: -11rem;
+  margin-left: 32rem;
+}

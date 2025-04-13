@@ -1,0 +1,50 @@
+
+ /* Estilo para el contenedor principal */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea todo a la izquierda por defecto */
+  margin-left: 1rem;
+  margin-top: -9rem;
+}
+
+.hero-title {
+  font-style: italic;
+  font-size: 70px;
+  line-height: 88%;
+  color: #000;
+  max-width: 400px;
+  text-align: center;
+  margin-left: 1rem;
+  font-weight: 800;
+}
+
+.platita {
+  color: #FEC43B;
+}
+
+/* Estilo para el subtítulo */
+.hero-sub-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Alinea el texto del subtítulo a la derecha */
+  margin-top: -4.3rem; /* Ajuste para que no esté tan arriba */
+  margin-left: 1.8rem;
+
+}
+
+.hero-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 25px; /* Tamaño de fuente del subtítulo */
+  line-height: 1.1; /* Mejora el espaciado entre líneas */
+  text-align: right; /* Alinea el texto a la derecha */
+  color: #000000; /* Puedes personalizar el color */
+  width: 100%;
+}
+
+.hero-comillas {
+  width: 63px;
+  height: 63px;
+  margin-top: -2.5rem;
+  margin-right: -2rem;
+}
