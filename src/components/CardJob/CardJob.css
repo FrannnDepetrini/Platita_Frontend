@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url("../../utils/colors/colors.css");
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.parent {
+  display: grid;
+  grid-template-rows: 50px 60px 50px;
+  /* max-width: 60rem; */
+  margin: 0 auto;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+  transform: scaleX(0.8);
+  border: 1px solid black;
+  background-color: var(--beige);
+  padding: 4px;
+  transition: all 0.3s ease;
+}
+
+.parent:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  /* transform: scale(1.02); */
+  z-index: 10;
+}
+
+.parent:hover .job-icon {
+  transform: rotate(10deg);
+}
+
+.topCard {
+  grid-area: 1 / 1 / 2 / 4;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topCard .priceSection {
+  color: var(--principalGreen);
+}
+
+.middleCard {
+  grid-area: 2 / 1 / 3 / 4;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+
+  word-break: break-word;
+}
+
+.middleCard p {
+  color: #1f2937;
+  margin: 0 20px 0px 0px;
+  font-weight: 300;
+}
+
+.bottomCard {
+  grid-area: 3 / 1 / 4 / 4;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topCard .middleCard .bottomCard {
+  background-color: transparent;
+}
+
+.titleSection {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titleSection h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.job-icon {
+  height: 2.2rem;
+  width: 2.2rem;
+  color: var(--principalRed);
+  fill: var(--principalRed);
+  transition: transform 0.3s ease;
+}
+
+.infoJobSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.infoJobSection .detail-label {
+  font-weight: 800;
+}
+
+.infoJobSection strong {
+  font-weight: 800;
+}
+
+.detailJob-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: max-content;
+}
+
+.divider {
+  height: 1.25rem;
+  width: 2.3px;
+  background-color: var(--lightBlack);
+}
+
+.profileUser {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profileUser .user-name {
+  margin: 0;
+  gap: 0.5rem;
+}
+
+.profileUser .name {
+  font-weight: 500;
+  margin: 0;
+}
+
+.profileUser .lastName {
+  margin: 0;
+}
+
+.profileUser .user-name {
+  text-align: right;
+  font-size: 0.85rem;
+}
+
+.profileUser .user-avatar {
+  width: 3rem;
+  height: 3rem;
+  background-color: var(--principalYellow);
+  border-radius: 9999px;
+}
+
+/* Para no tener problemas con el tamaño de la pantalla */
+@media (max-width: 800px) {
+  .bottomCard .infoJobSection {
+    gap: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  .parent {
+    grid-template-rows: auto auto auto;
+    max-width: 100%;
+    width: 350px;
+  }
+
+  .topCard {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 12px 0px 12px;
+  }
+
+  .titleSection {
+    justify-content: space-between;
+  }
+
+  .middleCard p {
+    margin-right: 0;
+    font-size: 0.9rem;
+  }
+
+  .middleCard {
+    padding: 0px 16px 0px 16px;
+  }
+
+  .bottomCard {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .infoJobSection {
+    flex-wrap: wrap;
+    row-gap: 8px;
+    width: 100%;
+  }
+
+  .divider {
+    display: none;
+  }
+
+  .profileUser {
+    justify-content: space-between;
+    margin-top: 8px;
+    transform: translateX(220px);
+  }
+}
+
+@media (max-width: 480px) {
+  .titleSection h2 {
+    font-size: 1.1rem;
+  }
+
+  .priceSection p {
+    font-size: 0.9rem;
+  }
+
+  .detailJob-item {
+    flex: 1 0 45%;
+  }
+
+  .applications {
+    flex: 1 0 100%;
+    margin-top: 4px;
+  }
+
+  .job-icon {
+    height: 1.8rem;
+    width: 1.8rem;
+  }
+
+  .user-avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}

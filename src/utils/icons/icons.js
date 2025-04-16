@@ -17,3 +17,5 @@ export { FaRegCopyright } from "react-icons/fa";
 export { MdOutlinePlumbing } from "react-icons/md";
 export { FaPaintBrush } from "react-icons/fa";
 export { MdOutlinePets } from "react-icons/md";
+export { GiDrill } from "react-icons/gi";
+export { FaLaptop } from "react-icons/fa";
