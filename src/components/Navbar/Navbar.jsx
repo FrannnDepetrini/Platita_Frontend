@@ -1,5 +1,5 @@
 import './Navbar.css';
-import logo from "../../utils/images/platita-logo.svg"
+import logo from "../../utils/images/PlatitaLogo.png"
 export default function Navbar() {
   return (
     <nav className="navbar">

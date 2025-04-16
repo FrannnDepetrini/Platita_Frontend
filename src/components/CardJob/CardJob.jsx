@@ -81,7 +81,7 @@ import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 //     userName: "Fulano Detal",
 //     category: "Construction",
 
-import "./JobCard.css";
+import "./CardJob.css";
 
 export default function JobCard({ jobInfo }) {
   const maxLength = 140;
@@ -133,16 +133,10 @@ export default function JobCard({ jobInfo }) {
       </div>
       <div className="bottomCard">
         <div className="infoJobSection">
-          <div className="detailJob-item">
-            <span className="detail-label">Fecha:</span>
-            <span className="detail-value">{jobInfo.date}</span>
-          </div>
-
-          <div className="divider"></div>
 
           <div className="detailJob-item">
             <span className="detail-label">Ubicación:</span>
-            <span className="detail-value">{jobInfo.location}</span>
+            <span className="detail-value">{jobInfo.city}</span>
           </div>
 
           <div className="divider"></div>

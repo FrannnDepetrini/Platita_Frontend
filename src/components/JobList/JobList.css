@@ -12,10 +12,10 @@
   padding: 16px;
   border-radius: 20px;
   box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
-  transform: scale(0.7);
+  /* transform: scale(0.7); */
   width: 700px;
   height: 500px;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .job-list-title {
@@ -25,22 +25,26 @@
   margin-top: 5px;
   margin-left: 20px;
 }
+.scroll-job{
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 24px ;
+}
+
+.scroll-job::-webkit-scrollbar {
+  width: 8px;
+  background-color: #fdfbf6;
+  border-radius: 16px;
+}
+
+.scroll-job::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 16px;
+}
 
 .job-scroll-box {
-  /* max-height: 400px;
-  max-width: 600px; */
-  overflow-y: auto;
-  padding-right: 25px;
   display: flex;
   flex-direction: column;
-  gap: 5px;
-}
-
-.job-scroll-box::-webkit-scrollbar {
-  width: 6px;
-}
-.job-scroll-box::-webkit-scrollbar-thumb {
-  background-color: black;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
+  gap: 8px;
+  overflow-y: auto;
 }

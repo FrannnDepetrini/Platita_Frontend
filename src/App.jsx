@@ -3,7 +3,7 @@ import "./App.css";
 import React from "react";
 // import HomePage from "./pages/HomePage";
 // import Home from "./pages/Home/Home";
-import JobCard from "./components/JobCard/JobCard";
+import CardJob from "./components/CardJob/CardJob.jsx";
 import Layout from "./components/Layout/Layout";
 import Home from "./pages/Home/Home";
 
@@ -31,7 +31,7 @@ var jobInfo = {
 function App() {
   return (
     <div>
-      {/* <JobCard jobInfo={jobInfo} />; */}
+      {/* <CardJob jobInfo={jobInfo} />; */}
       {/* <Layout>
         <h1>main</h1>
       </Layout> */}
