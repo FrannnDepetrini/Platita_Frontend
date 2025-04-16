@@ -3,22 +3,26 @@ import "./Home.css";
 import Hero from "../../components/Hero/Hero";
 import JobList from "../../components/JobList/JobList";
 import Navbar from "../../components/Navbar/Navbar";
+import Layout from "../../components/Layout/Layout";
 const Home = () => {
   return (
-    <div>
-      <header>
+    <Layout>
+      {/* <header>
         <Navbar />
-      </header>
-      <main className="home-layout">
-        <div className="hero-section">
-          <Hero />
+      </header> */}
+
+      {/* <Hero />
+
+      <JobList /> */}
+      <div className="home_container">
+        <div className="hero_container">
+          <Hero></Hero>
         </div>
-        <div className="jobs-section">
-          <JobList />
+        <div className="jobList_container">
+          <JobList></JobList>
         </div>
-        
-    </main>
-    </div>
+      </div>
+    </Layout>
   );
 };
 

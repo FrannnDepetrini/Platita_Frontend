@@ -1,40 +1,46 @@
+@import url(../../utils/colors/colors.css);
+@import url(../../utils/fonts/fonts.css);
 
-  .job-list-wrapper {
-    max-width: 620px;
-    background: white;
-    padding: 16px;
-    border-radius: 20px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
-    font-family: sans-serif;
-  }
-  
-  .job-list-title {
-    font-size: 23px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    margin-top: 5px;
-    text-align: center;
-  }
-  
-  .job-scroll-box {
-    max-height: 400px;
-    max-width: 600px;
-    overflow-y: auto;
-    padding-right: 25px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .job-scroll-box::-webkit-scrollbar {
-    width: 6px;
-  }
-  .job-scroll-box::-webkit-scrollbar-thumb {
-    background-color: #ccc;
-    border-radius: 4px;
-    transition: background-color 0.2s ease;
-  }
-  
-  .job-scroll-box::-webkit-scrollbar-thumb:hover {
-    background-color: black
-  }
+* {
+  box-sizing: border-box;
+  padding: 0;
+  font-family: var(--Inter);
+}
+
+.job-list-wrapper {
+  background: white;
+  padding: 16px;
+  border-radius: 20px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
+  transform: scale(0.7);
+  width: 700px;
+  height: 500px;
+  overflow-y: auto;
+}
+
+.job-list-title {
+  font-size: 23px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 5px;
+  margin-left: 20px;
+}
+
+.job-scroll-box {
+  /* max-height: 400px;
+  max-width: 600px; */
+  overflow-y: auto;
+  padding-right: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.job-scroll-box::-webkit-scrollbar {
+  width: 6px;
+}
+.job-scroll-box::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}

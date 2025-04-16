@@ -1,55 +1,57 @@
 import React from "react";
-import JobCard from "../JobCard/JobCard";
+
 import { GiBrickWall } from "react-icons/gi";
 import { MdLocalShipping } from "react-icons/md";
 import { FaHammer } from "react-icons/fa";
 import "./JobList.css";
+import JobCard from "../JobCard/JobCard";
 
+//Cuando este la api, sacar
 const jobs = [
   {
-    title: "Levantar un tapial",
-    icon: <GiBrickWall size={20} className="job-icon" />,
-    description: "Necesito a alguien con conocimientos de albañilería para levantar un tapial de X metros",
-    date: "Esta semana",
+    jobTitle: "Levantar un tapial",
+    description:
+      "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
+    date: "Para esta semana",
     location: "Santa fe 50, Rosario",
-    applications: "+300 Postulaciones",
-    reward: "Promedio +10000$",
-    poster: "Fulano",
-    bgColor: "#e7e6d9",
+    applications: 300,
+    averagePrice: 10000,
+    userName: "Fulano Detal",
+    category: "Construction",
   },
   {
-    title: "Ayuda en mudanza",
-    icon: <MdLocalShipping size={20} className="job-icon" />,
-    description: "Necesito ayuda para cargar y descargar muebles",
-    date: "El mes que viene",
-    location: "Corrientes 400, Rosario",
-    applications: "+300 Postulaciones",
-    reward: "Promedio +10000$",
-    poster: "Fulano",
-    bgColor: "#f5f1df",
+    jobTitle: "Levantar un tapial",
+    description:
+      "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
+    date: "Para esta semana",
+    location: "Santa fe 50, Rosario",
+    applications: 300,
+    averagePrice: 10000,
+    userName: "Fulano Detal",
+    category: "Construction",
   },
   {
-    title: "Armar muebles",
-    icon: <FaHammer size={20} className="job-icon" />,
-    description: "Alguien con herramientas para armar un ropero y una mesa",
-    date: "Indefinido",
-    location: "San lorenzo 400, Rosario",
-    applications: "+300 Postulaciones",
-    reward: "Promedio +10000$",
-    poster: "Fulano",
-    bgColor: "#e7e6d9",
+    jobTitle: "Levantar un tapial",
+    description:
+      "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
+    date: "Para esta semana",
+    location: "Santa fe 50, Rosario",
+    applications: 300,
+    averagePrice: 10000,
+    userName: "Fulano Detal",
+    category: "Construction",
   },
 ];
+
+const jobsMapped = () =>
+  jobs.map((job, index) => <JobCard key={index} jobInfo={job} />);
 
 const JobList = () => {
   return (
     <div className="job-list-wrapper">
       <h2 className="job-list-title">Algunos de los trabajos</h2>
-      <div className="job-scroll-box">
-        {jobs.map((job, index) => (
-          <JobCard key={index} {...job} />
-        ))}
-      </div>
+      <div className="job-scroll-box">{jobsMapped()}</div>
+      <h2>...</h2>
     </div>
   );
 };

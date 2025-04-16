@@ -1,0 +1,92 @@
+@import url(../utils/fonts/fonts.css);
+@import url(../utils/colors/colors.css);
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: var(--Inter);
+}
+
+.header_container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.logo_container {
+  position: relative;
+}
+
+.logo {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  height: 100px;
+  width: 100px;
+  z-index: 4;
+  filter: drop-shadow(-1px 7px 5px rgba(0, 0, 0, 0.3));
+}
+
+.nav_container {
+  gap: 60px;
+  display: flex;
+  align-items: flex-end;
+  margin-top: 10px;
+  margin-left: 200px;
+  height: 100%;
+}
+
+.nav_container h1 {
+  font-weight: 600;
+  font-size: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  position: relative;
+}
+
+.nav_container h1::after {
+  top: 35px;
+  left: 0;
+  position: absolute;
+  border-radius: 4px;
+  background-color: var(--principalRed);
+  width: 40px;
+  content: "";
+  height: 5px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+}
+
+.nav_container h1:hover::after {
+  transform: scaleX(1);
+}
+
+/* .nav_container h1:hover {
+  color: var(--principalRed);
+} */
+
+.session_container {
+  margin-top: 50px;
+  align-content: flex-end;
+}
+
+.session_container button {
+  position: relative;
+  background-color: var(--principalGreen);
+  border: 0;
+  margin-right: 30px;
+  padding: 20px;
+  font-weight: 600;
+  font-size: 15px;
+  color: white;
+  border-radius: 10px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.session_container button:hover {
+  background-color: #2a6f42;
+}
