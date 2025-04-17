@@ -4,7 +4,9 @@ import { GiBrickWall } from "react-icons/gi";
 import { MdLocalShipping } from "react-icons/md";
 import { FaHammer } from "react-icons/fa";
 import "./JobList.css";
+
 import CardJob from "../CardJob/CardJob";
+
 
 //Cuando este la api, sacar
 const jobs = [
