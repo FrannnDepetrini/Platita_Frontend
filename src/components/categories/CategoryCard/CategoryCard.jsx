@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/CategoryCard.css"
+import "./CategoryCard.css"
 
 const CategoryCard = ({name, icon}) => {
     return(

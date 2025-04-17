@@ -1,5 +1,5 @@
-@import url(../utils/fonts/fonts.css);
-@import url(../utils/colors/colors.css);
+@import url(../../utils/fonts/fonts.css);
+@import url(../../utils/colors/colors.css);
 
 * {
   box-sizing: border-box;

@@ -81,7 +81,7 @@ import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 //     userName: "Fulano Detal",
 //     category: "Construction",
 
-import "./JobCard.css";
+import "./CardJob.css";
 
 export default function JobCard({ jobInfo }) {
   const maxLength = 140;
