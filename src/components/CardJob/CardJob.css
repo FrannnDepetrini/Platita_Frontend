@@ -7,22 +7,18 @@
 .parent {
   display: grid;
   grid-template-rows: 50px 60px 50px;
-  /* max-width: 60rem; */
-  margin: 0 auto;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
-  transform: scaleX(0.8);
   border: 1px solid black;
   background-color: var(--beige);
-  padding: 4px;
+  padding: 12px;
   transition: all 0.3s ease;
 }
 
 .parent:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  /* transform: scale(1.02); */
   z-index: 10;
 }
 
@@ -32,7 +28,6 @@
 
 .topCard {
   grid-area: 1 / 1 / 2 / 4;
-  padding: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -44,7 +39,6 @@
 
 .middleCard {
   grid-area: 2 / 1 / 3 / 4;
-  padding: 16px;
   display: flex;
   align-items: center;
 
@@ -59,7 +53,7 @@
 
 .bottomCard {
   grid-area: 3 / 1 / 4 / 4;
-  padding: 16px;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -96,19 +90,24 @@
   transition: all 0.3s ease;
 }
 
-.infoJobSection .detail-label {
+.infoJobSection  {
+  width: 100%;
   font-weight: 800;
 }
 
-.infoJobSection strong {
-  font-weight: 800;
+.detailJob-item{
+  width: auto;
 }
 
-.detailJob-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  min-width: max-content;
+.applications{
+  width: auto;
+  padding: 4px;
+}
+
+.detail-value{
+  padding: 4px;
+  font-size: 16px;
+  font-weight: normal
 }
 
 .divider {
@@ -117,10 +116,19 @@
   background-color: var(--lightBlack);
 }
 
+.applications span{
+  font-size: 16px;
+  font-weight: normal
+}
+
+.infoJobSection strong {
+  font-weight: 800;
+}
+
 .profileUser {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
 }
 
 .profileUser .user-name {
@@ -129,6 +137,7 @@
 }
 
 .profileUser .name {
+  font-size: 16px;
   font-weight: 500;
   margin: 0;
 }
@@ -139,14 +148,15 @@
 
 .profileUser .user-name {
   text-align: right;
-  font-size: 0.85rem;
+  font-size: 100%;
+  font-size: 12px;
 }
 
 .profileUser .user-avatar {
-  width: 3rem;
-  height: 3rem;
+  width: 25px;
+  height: 20px;
   background-color: var(--principalYellow);
-  border-radius: 9999px;
+  border-radius: 50%;
 }
 
 /* Para no tener problemas con el tamaño de la pantalla */
@@ -214,9 +224,7 @@
     font-size: 0.9rem;
   }
 
-  .detailJob-item {
-    flex: 1 0 45%;
-  }
+  
 
   .applications {
     flex: 1 0 100%;
