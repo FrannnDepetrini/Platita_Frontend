@@ -1,8 +1,8 @@
 import React from "react";
-import CategoryCard from "./CategoryCard";
-import "../styles/Categories.css"
+import CategoryCard from "../CategoryCard/CategoryCard"
+import "./Categories.css"
 //import { PiPlantFill } from "react-icons/pi";
-import { FaWrench, FaTruck, FaBabyCarriage, FaHardHat, FaPaintBrush, FaPlus, BsFillLightningChargeFill, LiaBroomSolid, PiPlantFill } from "../../utils/icons/icons";
+import { FaWrench, FaTruck, FaBabyCarriage, FaHardHat, FaPaintBrush, FaPlus, BsFillLightningChargeFill, LiaBroomSolid, PiPlantFill } from "../../../utils/icons/icons";
 //import { LiaBroomSolid } from "react-icons/lia";
 //import { BsFillLightningChargeFill } from "react-icons/bs";
 
@@ -19,6 +19,7 @@ const categories = [
 ]
 
 const Categories = () => {
+
     return(
         <section className="categories-container">
             <div className="intro-text">

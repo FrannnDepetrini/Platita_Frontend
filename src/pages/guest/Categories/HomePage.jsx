@@ -1,5 +1,6 @@
-import React from "react";
-import "../index.css";
+/*import React from "react";
+
+import "./HomePage.css";
 import { FaHardHat, PiPlantFill, BsFillLightningChargeFill, FaTruck, LiaBroomSolid, FaWrench, FaBabyCarriage, FaPlus,  } from "../utils/icons/icons";
 const categories = [
   { name: "Jardinería", icon: PiPlantFill },
@@ -63,3 +64,4 @@ const HomePage = () => {
 };
 
 export default HomePage;
+*/
