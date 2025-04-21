@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Layout.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Outlet } from "react-router-dom";
+import FooterPrueba from "../FooterPrueba/FooterPrueba";
 
-//Cuando se integre react-router, se usará outlet
-
-const Layout = ({ children }) => {
+const Layout = () => {
+  const categoriesRef = useRef(null);
   return (
     <div className="layout_container">
       <header className="header_container">
-        <Header />
+        <Header categorySection={categoriesRef} />
       </header>
       <main className="main_container">
-        <Outlet />{children} 
+        <Outlet context={{ categoriesRef }} />
       </main>
-      <footer className="footer_container">
+      <footer className="footer_container_layout">
         <Footer />
       </footer>
     </div>

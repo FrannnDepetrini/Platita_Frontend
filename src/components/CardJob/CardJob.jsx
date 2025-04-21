@@ -83,7 +83,7 @@ import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 
 import "./CardJob.css";
 
-export default function JobCard({ jobInfo }) {
+export default function CardJob({ jobInfo }) {
   const maxLength = 140;
   const wordLimit = 20;
   const ellipsis = "...";
@@ -133,7 +133,6 @@ export default function JobCard({ jobInfo }) {
       </div>
       <div className="bottomCard">
         <div className="infoJobSection">
-
           <div className="detailJob-item">
             <span className="detail-label">Ubicación:</span>
             <span className="detail-value">{jobInfo.city}</span>

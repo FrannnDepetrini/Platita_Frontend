@@ -14,7 +14,7 @@
   box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
   /* transform: scale(0.7); */
   width: 700px;
-  height: 500px;
+  height: 510px;
   /* overflow-y: auto; */
 }
 
@@ -25,10 +25,10 @@
   margin-top: 5px;
   margin-left: 20px;
 }
-.scroll-job{
+.scroll-job {
   overflow-y: auto;
   max-height: 400px;
-  padding-right: 24px ;
+  padding-right: 24px;
 }
 
 .scroll-job::-webkit-scrollbar {
@@ -45,6 +45,6 @@
 .job-scroll-box {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   overflow-y: auto;
 }

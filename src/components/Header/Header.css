@@ -45,7 +45,21 @@
   position: relative;
 }
 
-.nav_container h1::after {
+/* .nav_container h1::after {
+  top: 35px;
+  left: 0;
+  position: absolute;
+  border-radius: 4px;
+  background-color: var(--principalRed);
+  width: 40px;
+  content: "";
+  height: 5px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease-in-out;
+} */
+
+.nav_h1::after {
   top: 35px;
   left: 0;
   position: absolute;
@@ -59,7 +73,11 @@
   transition: transform 0.4s ease-in-out;
 }
 
-.nav_container h1:hover::after {
+.nav_h1:hover::after {
+  transform: scaleX(1);
+}
+
+.nav_h1.activeIndex::after {
   transform: scaleX(1);
 }
 

@@ -1,0 +1,16 @@
+.Welcome_container {
+  display: flex;
+  margin-top: 10px;
+  justify-content: space-around;
+  align-content: center;
+}
+
+.hero_container {
+  margin-right: 100px;
+  margin-top: 40px;
+}
+
+.jobList_container {
+  margin: 0;
+  padding: 0;
+}

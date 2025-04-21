@@ -1,7 +1,9 @@
 @import url(../../utils/colors/colors.css);
 .layout_container {
-  display: grid;
-  grid-template-rows: 50px, auto, 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
 }
 .header_container {
   background-color: var(--background);
@@ -10,8 +12,6 @@
 .main_container {
   background-color: var(--background);
   padding-top: 50px;
-  height: 607px;
-}
-.footer_container {
-  height: 30px;
+
+  flex: 1;
 }
