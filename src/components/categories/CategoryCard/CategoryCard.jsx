@@ -1,13 +1,17 @@
 import React from "react";
-import "./CategoryCard.css"
+import "./CategoryCard.css";
+import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 
-const CategoryCard = ({name, icon}) => {
-    return(
-        <div className="category-card">
-            <div className="category-icon">{icon}</div>
-            <span className="category-name">{name}</span>
-        </div>
-    );
-}
+const CategoryCard = ({ name, category }) => {
+  const CategoryIcon = UseCategoryIcon(category);
+  return (
+    <div className="category-card">
+      <div className="category-icon-container">
+        <CategoryIcon className="category_icon" />
+      </div>
+      <span className="category-name">{name}</span>
+    </div>
+  );
+};
 
 export default CategoryCard;

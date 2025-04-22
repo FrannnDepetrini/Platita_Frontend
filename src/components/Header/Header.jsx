@@ -1,12 +1,20 @@
 import "./Header.css";
-import Logo from "../../utils/images/PlatitaLogo.png"
+import Logo from "../../utils/images/PlatitaLogo.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-const Header = () => {
+
+const Header = ({ categorySection }) => {
   const navigate = useNavigate();
-  const handleLogin = () =>{
+  const handleLogin = () => {
     navigate("/login");
-  }
+  };
+
+  const scrollToCategories = () => {
+    categorySection.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
   return (
     <div className="header_container">
       <div className="logo-nav_container">
@@ -14,12 +22,15 @@ const Header = () => {
           <img className="logo" src={Logo}></img>
         </div>
         <div className="nav_container">
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h1>Inicio</h1>
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <h1 className={`nav_h1 activeIndex`}>Inicio</h1>
           </Link>
-          <Link to="/categories" style={{ textDecoration: 'none', color: 'inherit' }}>
+          {/* <Link to="/categories" style={{ textDecoration: 'none', color: 'inherit' }}>
           <h1>Categorias</h1>
-          </Link>
+          </Link> */}
+          <h1 className="nav_h1" onClick={scrollToCategories}>
+            Categorias
+          </h1>
         </div>
       </div>
       <div className="session_container">

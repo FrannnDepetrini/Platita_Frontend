@@ -2,19 +2,20 @@ import React from "react";
 import "./Home.css";
 import Hero from "../../../components/Hero/Hero";
 import JobList from "../../../components/JobList/JobList";
-import Layout from "../../../components/Layout/Layout";
+import Welcome from "../Welcome/Welcome";
+import Categories from "../../../components/categories/Categories/Categories";
+import { useOutletContext } from "react-router-dom";
 const Home = () => {
+  const { categoriesRef } = useOutletContext();
   return (
-
-      <div className="home_container">
-        <div className="hero_container">
-          <Hero></Hero>
-        </div>
-        <div className="jobList_container">
-          <JobList></JobList>
-        </div>
-      </div>
-
+    <div className="home_container">
+      <section>
+        <Welcome />
+      </section>
+      <section ref={categoriesRef} id="categories" className="categories">
+        <Categories />
+      </section>
+    </div>
   );
 };
 

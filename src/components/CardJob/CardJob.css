@@ -1,25 +1,26 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
 @import url("../../utils/colors/colors.css");
+
 * {
-  font-family: "Poppins", sans-serif;
+  font-family: var(--Inter);
 }
 
 .parent {
   display: grid;
-  grid-template-rows: 50px 60px 50px;
+  grid-template-rows: 40px 50px 40px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   overflow: hidden;
-  border: 1px solid black;
+  border: 1px solid var(--beige);
   background-color: var(--beige);
   padding: 12px;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease-in-out;
 }
 
 .parent:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 10;
+  border: 1px solid black;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */
 }
 
 .parent:hover .job-icon {
@@ -46,9 +47,9 @@
 }
 
 .middleCard p {
-  color: #1f2937;
   margin: 0 20px 0px 0px;
   font-weight: 300;
+  margin-left: 10px;
 }
 
 .bottomCard {
@@ -71,7 +72,7 @@
 
 .titleSection h2 {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -90,24 +91,24 @@
   transition: all 0.3s ease;
 }
 
-.infoJobSection  {
+.infoJobSection {
   width: 100%;
   font-weight: 800;
 }
 
-.detailJob-item{
+.detailJob-item {
   width: auto;
 }
 
-.applications{
+.applications {
   width: auto;
   padding: 4px;
 }
 
-.detail-value{
+.detail-value {
   padding: 4px;
   font-size: 16px;
-  font-weight: normal
+  font-weight: normal;
 }
 
 .divider {
@@ -116,9 +117,9 @@
   background-color: var(--lightBlack);
 }
 
-.applications span{
+.applications span {
   font-size: 16px;
-  font-weight: normal
+  font-weight: normal;
 }
 
 .infoJobSection strong {
@@ -223,8 +224,6 @@
   .priceSection p {
     font-size: 0.9rem;
   }
-
-  
 
   .applications {
     flex: 1 0 100%;

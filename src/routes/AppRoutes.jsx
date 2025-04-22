@@ -2,11 +2,10 @@
 import { Routes, Route } from "react-router-dom";
 
 // Guest
-import Layout from "../components/Layout/Layout"
+import Layout from "../components/Layout/Layout";
 import Login from "../pages/guest/Login/Login";
 import Categories from "../components/categories/Categories/Categories";
 import Home from "../pages/guest/Home/Home";
-
 
 // Employee
 import EmployeeHome from "../pages/employee/EmployeeHome/EmployeeHome";
@@ -20,15 +19,16 @@ import EmployerJobDetails from "../pages/employer/EmployerJobDetails/EmployerJob
 
 // Admin
 import AdminHome from "../pages/admin/AdminHome/AdminHome";
+import Welcome from "../pages/guest/Welcome/Welcome";
 
 export default function AppRoutes() {
   return (
     <Routes>
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-      <Route path="/login" element={<Login />} />
-      <Route index element={<Home />} />
-      <Route path="/categories" element={<Categories />} />
+        <Route path="/login" element={<Login />} />
+        <Route index element={<Home />} />
+        <Route path="/categories" element={<Categories />} />
       </Route>
 
       {/* Empleado */}
