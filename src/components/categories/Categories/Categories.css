@@ -5,8 +5,8 @@
 }
 
 .intro-text {
-  background-color: var(--background);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
   padding: 24px 24px;
   border-radius: 12px;
   font-family: var(--Inter);

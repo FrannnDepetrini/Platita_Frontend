@@ -1,7 +1,7 @@
 @import url(../../utils/colors/colors.css);
 @import url(../../utils/fonts/fonts.css);
 
-.footer_container_hola {
+.footer_container {
   background-color: var(--beige);
   font-family: var(--Inter);
   font-weight: 100;
@@ -11,7 +11,7 @@
   height: 30px;
 }
 
-#footer_container_hola {
+#footer_container {
   height: 30px;
   background-color: var(--beige);
   font-family: var(--Inter);
@@ -21,7 +21,7 @@
   align-items: center;
 }
 
-.h3bro {
+.footer_container h3 {
   font-weight: 400;
   font-size: 15px;
 }

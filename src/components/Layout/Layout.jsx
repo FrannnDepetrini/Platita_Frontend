@@ -3,7 +3,6 @@ import "./Layout.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { Outlet } from "react-router-dom";
-import FooterPrueba from "../FooterPrueba/FooterPrueba";
 
 const Layout = () => {
   const categoriesRef = useRef(null);
