@@ -1,24 +1,12 @@
 @import url(../../utils/colors/colors.css);
-@import url(../../utils/fonts/fonts.css);
 
 .footer_container {
   background-color: var(--beige);
-  font-family: var(--Inter);
   font-weight: 100;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 30px;
-}
-
-#footer_container {
-  height: 30px;
-  background-color: var(--beige);
-  font-family: var(--Inter);
-  font-weight: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .footer_container h3 {
