@@ -2,11 +2,19 @@ import "./Header.css";
 import Logo from "../../utils/images/PlatitaLogo.png";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
-const Header = ({ categorySection }) => {
+const Header = ({ categorySection, handleLogin, userRole }) => {
+  const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
-  const handleLogin = () => {
-    navigate("/login");
+  const onLogin = () => {
+    // navigate("/login");
+    handleLogin();
+  };
+
+  const handleNavigateTo = (url = "") => {
+    setActiveIndex(url);
+    navigate(`/${url}`);
   };
 
   const scrollToCategories = () => {
@@ -22,19 +30,53 @@ const Header = ({ categorySection }) => {
           <img className="logo" src={Logo}></img>
         </div>
         <div className="nav_container">
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            <h1 className={`nav_h1 activeIndex`}>Inicio</h1>
-          </Link>
-          {/* <Link to="/categories" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h1>Categorias</h1>
-          </Link> */}
-          <h1 className="nav_h1" onClick={scrollToCategories}>
-            Categorias
-          </h1>
+          {userRole == "guest" ? (
+            <>
+              <h1
+                onClick={() => handleNavigateTo()}
+                className={`nav_h1 activeIndex`}
+              >
+                Inicio
+              </h1>
+
+              <h1 className="nav_h1" onClick={scrollToCategories}>
+                Categorias
+              </h1>
+            </>
+          ) : (
+            <>
+              <h1
+                onClick={() => handleNavigateTo("employee/home")}
+                className={`nav_h1 ${
+                  activeIndex == "employee/home" && "activeIndex"
+                } `}
+              >
+                Inicio
+              </h1>
+
+              <h1
+                onClick={() => handleNavigateTo("employee/postulations")}
+                className={`nav_h1 ${
+                  activeIndex == "employee/postulations" && "activeIndex"
+                } `}
+              >
+                Postulaciones
+              </h1>
+
+              <h1
+                onClick={() => handleNavigateTo("employee/historial")}
+                className={`nav_h1 ${
+                  activeIndex == "employee/historial" && "activeIndex"
+                } `}
+              >
+                Historial
+              </h1>
+            </>
+          )}
         </div>
       </div>
       <div className="session_container">
-        <button onClick={handleLogin}>Iniciar sesion</button>
+        <button onClick={onLogin}>Iniciar sesion</button>
       </div>
     </div>
   );
