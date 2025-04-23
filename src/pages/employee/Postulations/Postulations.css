@@ -1,0 +1,82 @@
+.postulations_container {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.table_container {
+  padding-bottom: 50px;
+}
+
+.table_postulations {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.2);
+  width: 1200px;
+  border-collapse: collapse;
+}
+
+.category_icon {
+  color: var(--principalRed);
+  width: 30px;
+  height: 30px;
+}
+
+.delete_icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.delete_icon:hover {
+  color: var(--principalRed);
+}
+
+.td_empleador h4 {
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.td_empleador h4:hover {
+  color: var(--principalYellow);
+}
+
+.td_state {
+  border-radius: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.Pending {
+  background-color: rgba(252, 169, 16, 0.3);
+
+  color: var(--principalYellow);
+}
+.Accepted {
+  background-color: rgba(68, 175, 105, 0.3);
+  color: var(--principalGreen);
+}
+.Finished {
+  background-color: rgba(248, 51, 60, 0.3);
+  color: var(--principalRed);
+}
+
+td {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--lightGray);
+}
+
+th {
+  padding: 15px;
+}
+
+tr:last-child {
+  border-bottom: 1px solid var(--lightGray);
+}
+
+tfoot td {
+  padding: 20px;
+}
