@@ -1,0 +1,78 @@
+@import url(../../utils/colors/colors.css);
+
+.containerCard {
+  /* margin: 0 auto; Esto hay que sacarlo */
+  width: 100%;
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 14px;
+  overflow: hidden;
+  max-width: 800px;
+  padding: 12px;
+  box-shadow: var(--shadow);
+}
+
+.containerSections {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.sectionPostulation {
+  flex: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #ddd;
+  overflow: hidden;
+  height: auto;
+  border: none;
+}
+
+.sectionCleanBtn {
+  flex: 0.1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  height: auto;
+}
+
+.iconoTrash {
+  height: 24px;
+  width: 24px;
+  color: var(--lightBlack);
+}
+
+.botonClean {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.notificationContent {
+  margin: auto auto auto 10px;
+  justify-content: space-between;
+  gap: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.notificationLink {
+  color: var(--principalYellow);
+  text-decoration: none;
+  font-weight: 500;
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-size: 265px 1px;
+  background-repeat: no-repeat;
+  user-select: none;
+}
+
+.notificationTitle {
+  font-weight: 500;
+  user-select: none;
+}

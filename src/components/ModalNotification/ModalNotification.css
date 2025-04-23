@@ -1,0 +1,72 @@
+@import url(../../utils/colors/colors.css);
+
+.containerModal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
+  height: 600px;
+  overflow: hidden;
+  border-radius: 20px;
+  flex: 1;
+  gap: 8px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.containerTop {
+  display: flex;
+  flex: 0.1;
+}
+
+.sectionTitle {
+  height: auto;
+  flex: 0.9;
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(
+    var(--principalYellow),
+    var(--principalYellow)
+  );
+  background-position: 0 100%;
+  background-size: 400px 2px;
+  background-repeat: no-repeat;
+}
+
+.sectionTitle .title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.sectionCloseBtn {
+  height: auto;
+  display: flex;
+  flex: 0.1;
+  align-items: start;
+  justify-content: end;
+}
+
+.containerList {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  flex: 0.9;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  padding: 8px 0px 8px 8px;
+}
+
+.btnClose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: var(--principalRed);
+  cursor: pointer;
+  color: white;
+  font-size: 1.2rem;
+  padding: 8px;
+  border-radius: 100px;
+  transform: rotate(45deg);
+}
