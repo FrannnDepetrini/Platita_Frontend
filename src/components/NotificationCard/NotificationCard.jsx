@@ -2,7 +2,7 @@ import "./NotificationCard.css"
 import { FaTrashAlt } from "../../utils/icons/icons.js"
 
 
-function NotificationCard({notification, onDelete}) {
+function NotificationCard({notification, onDelete, isDeleting}) {
 
     const maxNum = 23; 
 
@@ -14,7 +14,7 @@ function NotificationCard({notification, onDelete}) {
     };
 
     return (
-        <div className="containerCard">
+        <div className={`containerCard ${isDeleting ? "fade-out" : ""}`}>
             <div className="containerSections">
                 <section className="sectionPostulation">
                     <div className="notificationContent">
