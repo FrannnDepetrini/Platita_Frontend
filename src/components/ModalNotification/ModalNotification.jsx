@@ -1,10 +1,10 @@
 import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 import NotificationCard from "../NotificationCard/NotificationCard";
 import "./ModalNotification.css";
+import { useState } from "react";
 
-function ModalNotification() {
-
-    const notifications = [
+function ModalNotification({onClose}) {
+    const [notifications, setNotifications] = useState([
         {
             "job": "Levantar un tapial"
         },
@@ -35,10 +35,15 @@ function ModalNotification() {
         {
             "job": "Revisar el sistema eléctrico"
         }
-    ]
+    ]);
+
+    const deleteHandler = (index) => {
+        const newNotifications = notifications.filter((_, i) => i !== index);
+        setNotifications(newNotifications);
+    }
 
     const notificationMapped = () =>{
-        return notifications.map((notification, index) => <NotificationCard notification={notification} key={index}/>)
+        return notifications.map((notification, index) => <NotificationCard notification={notification} key={index} onDelete={() => deleteHandler(index)}/>)
     }
 
     const IconoClose = UseCategoryIcon("Others")
@@ -50,7 +55,7 @@ function ModalNotification() {
                     <h2 className="title">Tus notificaciones</h2>
                 </section>
                 <section className="sectionCloseBtn">
-                    <button className="btnClose">
+                    <button className="btnClose" onClick={onClose}>
                         <IconoClose />
                     </button>
                 </section>

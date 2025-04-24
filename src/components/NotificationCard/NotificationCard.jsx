@@ -2,7 +2,7 @@ import "./NotificationCard.css"
 import { FaTrashAlt } from "../../utils/icons/icons.js"
 
 
-function NotificationCard({notification}) {
+function NotificationCard({notification, onDelete}) {
 
     const maxNum = 23; 
 
@@ -29,7 +29,7 @@ function NotificationCard({notification}) {
                 <section className="sectionCleanBtn">
                     <button
                         className="botonClean"
-                        onClick={() => console.log("Eliminar notificación")}
+                        onClick={onDelete}
                     >
                         <FaTrashAlt className="iconoTrash" />
                     </button>
