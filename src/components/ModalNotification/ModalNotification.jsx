@@ -61,7 +61,11 @@ function ModalNotification({onClose}) {
                 </section>
             </div>
             <div className="containerList">
-                {notificationMapped()}
+                {notifications.length > 0 ? (notificationMapped()): (
+                    <div className="noNotifications">
+                        <h3>No tienes notificaciones</h3>
+                    </div>
+                )}
             </div>
         </div>
     )
