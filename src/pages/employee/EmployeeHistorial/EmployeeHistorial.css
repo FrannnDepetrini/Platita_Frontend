@@ -1,6 +1,10 @@
 .employee-historial {
     padding: 2rem 1.5rem;
+    max-width: 1200px;
+    margin: -2.5rem 5.3rem;
+    padding-left: -20rem;
   }
+  
   
   .employee-historial .breadcrumb {
     font-size: 0.875rem;
@@ -14,28 +18,19 @@
     color: #000;
   }
   
-  .employee-historial h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-    border-bottom: 2px solid #e5e7eb;
-    padding-bottom: 0.5rem;
-    width: fit-content;
-  }
-  
   .employee-historial .table-container {
     background-color: white;
     border-radius: 1rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #e5e7eb;  
   }
   
   .employee-historial table {
     width: 100%;
-    font-size: 0.875rem;
+    font-size: 1.2rem;
     text-align: left;
-    border-collapse: collapse;
+    border-collapse:collapse;
   }
   
   .employee-historial thead {
@@ -45,7 +40,7 @@
   
   .employee-historial th,
   .employee-historial td {
-    padding: 1rem 1.5rem;
+    padding: 1.8rem 1.2rem;
   }
   
   .employee-historial tr {
@@ -63,13 +58,14 @@
   
   .employee-historial .icon {
     color: #ef4444;
-    font-size: 1.125rem;
+    font-size: 2rem;
   }
   
   .employee-historial .stars {
     display: flex;
     gap: 0.25rem;
     color: #facc15;
+    font-size: 1.5rem;
   }
   
   .employee-historial .stars .inactive {
@@ -80,6 +76,7 @@
     color: #fcab10;
     font-weight: 500;
     cursor: pointer;
+    font-size: 1.3rem;
   }
   
   .employee-historial .comment-link:hover {
@@ -89,12 +86,7 @@
   .employee-historial .expired {
     color: #9ca3af;
     font-style: italic;
+    font-size: 1.3rem;
   }
-  
-  .employee-historial footer {
-    margin-top: 1.5rem;
-    font-size: 0.75rem;
-    text-align: center;
-    color: #9ca3af;
-  }
-  
+
+ 

@@ -66,9 +66,9 @@ export default function EmployeeHistorial() {
 
   return (
     <div className="employee-historial">
+      
       <div className="breadcrumb">Inicio / <span className="current-page">Historial</span></div>
       
-
       <div className="table-container">
         <table>
           <thead>
@@ -97,7 +97,7 @@ export default function EmployeeHistorial() {
         </table>
       </div>
 
-      
+
     </div>
   );
 }
