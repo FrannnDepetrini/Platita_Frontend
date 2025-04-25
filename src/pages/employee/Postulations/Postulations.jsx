@@ -110,7 +110,7 @@ export default function Postulations() {
       return postulations.map((ps) => {
         const CategoryIcon = UseCategoryIcon(ps.categoria);
         return (
-          <tr>
+          <tr key={ps.id}>
             <td>{ps.trabajo} </td>
             {/* Ese onClick debera enviarte al perfil de ese usuario */}
             <td onClick={null} className="td_empleador">
@@ -162,17 +162,21 @@ export default function Postulations() {
               <th>Acciones</th>
             </tr>
           </thead>
-          {loading ? (
-            <tr>
-              <td colspan={6}>
-                Cargando postulaciones<span className="dots"></span>
-              </td>
-            </tr>
-          ) : (
-            <tbody>{postMapped()}</tbody>
-          )}
+          <tbody>
+            {loading ? (
+              <tr>
+                <td colSpan={6}>
+                  Cargando postulaciones<span className="dots"></span>
+                </td>
+              </tr>
+            ) : (
+              postMapped()
+            )}
+          </tbody>
           <tfoot>
-            <td colspan={6}></td>
+            <tr>
+              <td colSpan={6}></td>
+            </tr>
           </tfoot>
         </table>
       </div>
