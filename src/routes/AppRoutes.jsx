@@ -29,18 +29,16 @@ export default function AppRoutes() {
         <Route path="/login" element={<Login />} />
         <Route index element={<Home />} />
         <Route path="/categories" element={<Categories />} />
+        {/* Empleado  */}
+        <Route path="/employee/home" element={<EmployeeHome />} />
+        <Route path="/employee/job/:id" element={<EmployeeJobDetails />} />
+        <Route path="/employee/postulations" element={<Postulations />} />
+        <Route path="/employee/historial" element={<EmployeeHistorial />} />
       </Route>
-
-      {/* Empleado */}
-      {/*<Route path="/employee/home" element={<EmployeeHome />} />*/}
-      {/*<Route path="/employee/job/:id" element={<EmployeeJobDetails />} />*/}
-      {/*<Route path="/employee/postulations" element={<Postulations />} />*/}
-      {/*<Route path="/employee/historial" element={<EmployeeHistorial />} />*/}
 
       {/* Empleador */}
       {/*<Route path="/employer/home" element={<EmployerHome />} />*/}
       {/*<Route path="/employer/job/:id" element={<EmployerJobDetails />} />*/}
-
       {/* Admin */}
       {/*<Route path="/admin/home" element={<AdminHome />} />*/}
     </Routes>

@@ -2,15 +2,17 @@ import "./App.css";
 import React from "react";
 import AppRoutes from "./routes/AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
-import ModalNotification from "./components/ModalNotification/ModalNotification";
+import { AuthContextProvider } from "./services/AuthContext";
 
 function App() {
   return (
     <>
-      {/* <Router>
-        <AppRoutes />
-      </Router> */}
-      <ModalNotification />
+
+      <Router>
+        <AuthContextProvider>
+          <AppRoutes />
+        </AuthContextProvider>
+      </Router>
     </>
   );
 }
