@@ -6,6 +6,7 @@ import Layout from "../components/Layout/Layout";
 import Login from "../pages/guest/Login/Login";
 import Categories from "../components/categories/Categories/Categories";
 import Home from "../pages/guest/Home/Home";
+import Register from "../pages/guest/Register/Register"
 
 // Employee
 import EmployeeHome from "../pages/employee/EmployeeHome/EmployeeHome";
@@ -27,6 +28,7 @@ export default function AppRoutes() {
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />}/>
         <Route index element={<Home />} />
         <Route path="/categories" element={<Categories />} />
         {/* Empleado  */}

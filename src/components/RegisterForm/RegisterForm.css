@@ -1,0 +1,101 @@
+@import url(../../utils/colors/colors.css);
+
+.register-form {
+  min-width: 840px;
+  min-height: 300px;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background-color: white;
+}
+
+.form-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  gap: 50px;
+}
+
+.form-group {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-size: 20px;
+  color: black;
+  font-weight: 600;
+  text-align: left;
+}
+
+.first-column {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.second-column {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group input {
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  box-shadow: var(--shadow);
+  padding: 10px;
+  outline: none;
+  border: 1px solid #e0e0e000;
+  transition: border-color 0.2s ease;
+  font-size: 1.1rem;
+}
+
+.form-group input:focus {
+  border-color: #5b5c5be7;
+}
+
+.form-group input::placeholder {
+  color: #b0b0b0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.button-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 10px;
+}
+
+.button-container button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 180px;
+  width: auto;
+  height: 40px;
+  padding: 0 15px;
+  background-color: var(--principalGreen);
+  color: white;
+  border-radius: 5px;
+  border: none;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.button-container button:hover {
+  background-color: #44af69c2;
+  cursor: pointer;
+}
