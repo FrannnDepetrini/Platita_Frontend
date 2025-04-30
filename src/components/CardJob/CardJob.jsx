@@ -83,7 +83,7 @@ import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 
 import "./CardJob.css";
 
-export default function CardJob({ jobInfo }) {
+export default function CardJob({ jobInfo, handleOpenLogin }) {
   const maxLength = 140;
   const wordLimit = 20;
   const ellipsis = "...";
@@ -118,7 +118,7 @@ export default function CardJob({ jobInfo }) {
   };
 
   return (
-    <div className="parent">
+    <div onClick={handleOpenLogin} className="parent">
       <div className="topCard">
         <div className="titleSection">
           <h2>{jobInfo.jobTitle}</h2>
