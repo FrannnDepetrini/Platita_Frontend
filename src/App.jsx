@@ -7,6 +7,7 @@ import { AuthContextProvider } from "./services/AuthContext";
 function App() {
   return (
     <>
+
       <Router>
         <AuthContextProvider>
           <AppRoutes />
