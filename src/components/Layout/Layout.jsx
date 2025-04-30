@@ -13,6 +13,7 @@ const Layout = () => {
 
   const handleOpenLogin = () => setIsLoginModalOpen(true);
   const handleCloseLogin = () => setIsLoginModalOpen(false);
+  console.log(isLoginModalOpen);
 
   const categoriesRef = useRef(null);
   return (
@@ -25,12 +26,12 @@ const Layout = () => {
         />
       </header>
       <main className="main_container">
-        <Outlet context={{ categoriesRef }} />
+        <Outlet context={{ categoriesRef, handleOpenLogin }} />
       </main>
       <footer className="footer_container_layout">
         <Footer />
       </footer>
-      <ModalLogin isOpen={isLoginModalOpen} onClose={handleCloseLogin}/>
+      <ModalLogin isOpen={isLoginModalOpen} onClose={handleCloseLogin} />
     </div>
   );
 };

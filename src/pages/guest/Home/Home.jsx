@@ -6,11 +6,11 @@ import Welcome from "../Welcome/Welcome";
 import Categories from "../../../components/categories/Categories/Categories";
 import { useOutletContext } from "react-router-dom";
 const Home = () => {
-  const { categoriesRef } = useOutletContext();
+  const { categoriesRef, handleOpenLogin } = useOutletContext();
   return (
     <div className="home_container">
       <section>
-        <Welcome />
+        <Welcome handleOpenLogin={handleOpenLogin} />
       </section>
       <section ref={categoriesRef} id="categories" className="categories">
         <Categories />
