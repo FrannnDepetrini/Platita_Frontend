@@ -10,9 +10,9 @@
   border-radius: 12px;
   width: 200px;
   height: 100px;
-  transition: transform 0.2s;
   cursor: pointer;
   margin-top: 40px;
+  transition: all 0.2s ease-in-out;
 }
 
 .category-card:hover {
@@ -32,27 +32,29 @@
   background-color: #ffcccc;
   border-radius: 12px;
   padding: 16px;
-
-  /* padding: 16px; */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0, 1);
-  transition: transform 0.2s ease;
+  transition: all 0.2s ease-in-out;
 }
 
 .category_icon {
   height: 2.2rem;
   width: 2.2rem;
   font-size: 100px;
+  transition: all 0.2s ease-in-out;
+}
+
+.category-card:hover .category_icon {
+  color: white;
 }
 
 .category-icon-container:hover {
-  transform: scale(1.1);
   color: var(--background);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0, 1);
 }
 
 .category-card:hover .category-icon-container {
   background-color: var(--principalRed);
-  transition: 0.3s ease;
+  transition: all 0.3s ease;
   color: var(--background);
 }
 
