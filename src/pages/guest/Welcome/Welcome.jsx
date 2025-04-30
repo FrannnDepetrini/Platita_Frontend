@@ -3,14 +3,14 @@ import "./Welcome.css";
 import Hero from "../../../components/Hero/Hero";
 import JobList from "../../../components/JobList/JobList";
 
-const Welcome = () => {
+const Welcome = ({ handleOpenLogin }) => {
   return (
     <div className="Welcome_container">
       <div className="hero_container">
         <Hero></Hero>
       </div>
       <div className="jobList_container">
-        <JobList></JobList>
+        <JobList handleOpenLogin={handleOpenLogin}></JobList>
       </div>
     </div>
   );

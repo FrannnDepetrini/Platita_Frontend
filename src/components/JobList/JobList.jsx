@@ -40,10 +40,11 @@ const jobs = [
   },
 ];
 
-const jobsMapped = () =>
-  jobs.map((job, index) => <CardJob key={index} jobInfo={job} />);
-
-const JobList = () => {
+const JobList = ({ handleOpenLogin }) => {
+  const jobsMapped = () =>
+    jobs.map((job, index) => (
+      <CardJob key={index} handleOpenLogin={handleOpenLogin} jobInfo={job} />
+    ));
   return (
     <div className="job-list-wrapper">
       <h2 className="job-list-title">Algunos de los trabajos</h2>
