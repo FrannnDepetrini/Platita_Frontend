@@ -1,7 +1,7 @@
 import React from "react";
 
 import "./JobList.css";
-import CardJob from "../cardJob/CardJob";
+import CardJob from "../CardJob/CardJob";
 
 //Cuando este la api, sacar
 const jobs = [
