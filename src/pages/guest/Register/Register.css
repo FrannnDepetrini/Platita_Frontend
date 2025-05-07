@@ -1,7 +1,7 @@
 .register-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   padding: 0 30% 0 6%;
   width: 100%;
   gap: 30px;
@@ -10,7 +10,6 @@
 
 .breadcrumbs {
   color: #666;
-  align-self: flex-start;
   font-size: 16px;
 }
 
