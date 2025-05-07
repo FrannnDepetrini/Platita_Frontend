@@ -1,9 +1,13 @@
+import EmployeeJobList from "../../../components/EmployeeJobList/EmployeeJobList";
+import "./EmployeeHome.css"
+
 export default function EmployeeHome() {
     return (
-      <div>
-        <h1>Home Empleado</h1>
-        <p>Panel principal para empleado.</p>
+      <div className="employee-home">
+      <div className="breadcrumb">Inicio</div>
+<EmployeeJobList/>
       </div>
+      
     );
   }
   

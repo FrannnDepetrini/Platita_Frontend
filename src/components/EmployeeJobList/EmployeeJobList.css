@@ -1,0 +1,234 @@
+@import url(../../utils/colors/colors.css);
+@import url(../../utils/fonts/fonts.css);
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  font-family: var(--Inter);
+}
+
+.ejob-list-wrapper {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  max-height: 100%;
+}
+
+.ejob-list-title {
+  font-size: 23px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.ejob-bar {
+  border: none;
+  height: 1px;
+  background-color: #FCAB10;
+  margin-top: 10px;
+  width: 15%;
+}
+
+.escroll-job {
+  overflow-y: auto;
+  max-height: 400px;
+  padding-right: 24px;
+}
+
+.escroll-job::-webkit-scrollbar {
+  width: 8px;
+  background-color: #fdfbf6;
+  border-radius: 16px;
+}
+
+.escroll-job::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 16px;
+}
+
+.ejob-scroll-box {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+}
+
+.ejob-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.dropdown-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.sort-label {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: default;
+  margin-right: 5px;
+  margin-top: -13px;
+}
+
+.sort-icon {
+  background: none;
+  border: none;
+  color: #FCAB10;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-top: -26px;
+  margin-right: 30px;
+  width: 29.4px;
+  height: 17px;
+  display: inline-block;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 120%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  min-width: 160px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+.dropdown-menu.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.dropdown-menu.closed {
+  opacity: 0;
+  transform: translateY(-3px);
+  pointer-events: none;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.dropdown-menu li:hover {
+  background-color: #f0f0f0;
+}
+
+.ejob-searcher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.search-label {
+  font-size: 23px;
+  font-weight: 600;
+  color: #000;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 5px 10px;
+  background-color: #EBE8D8;
+  width: 100%;
+  max-width: 300px;
+}
+
+.search-icon {
+  margin-right: 8px;
+  color: #888;
+  font-size: 1.2em;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1em;
+  background-color: transparent;
+}
+
+/* 🌐 Media Queries para responsive design */
+@media (max-width: 768px) {
+  .ejob-list-wrapper {
+    padding: 15px;
+  }
+
+  .ejob-list-title {
+    font-size: 20px;
+  }
+
+  .search-box {
+    max-width: 100%;
+  }
+
+  .ejob-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dropdown-container {
+    margin-top: 10px;
+  }
+
+  .sort-label {
+    font-size: 18px;
+  }
+
+  .sort-icon {
+    font-size: 1.8rem;
+  }
+
+  .ejob-bar {
+    width: 100%;
+  }
+
+  .escroll-job {
+    padding-right: 0;
+    max-height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search-label {
+    font-size: 20px;
+  }
+
+  .search-box {
+    flex: 1;
+  }
+
+  .search-input {
+    font-size: 0.9em;
+  }
+
+  .dropdown-menu {
+    min-width: 100%;
+  }
+}
