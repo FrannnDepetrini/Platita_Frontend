@@ -1,89 +1,8 @@
-// // import { HardHat } from "lucide-react";
-// // import { FaHardHat } from "../../utils/icons/icons";
 import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
-// import "./JobCard.css";
-
-// export default function JobCard({ jobInfo }) {
-//   const maxLength = 100;
-//   const wordLimit = 15;
-//   const ellipsis = "...";
-//   const CategoryIcon = UseCategoryIcon(jobInfo.category);
-
-//   const getTruncatedContent = () => {
-//     if (!jobInfo.description || jobInfo.description.length <= maxLength) {
-//       return jobInfo.description;
-//     }
-
-//     let truncated = jobInfo.description.substring(0, maxLength);
-
-//     const lastSpaceIndex = truncated.lastIndexOf(" ");
-
-//     if (lastSpaceIndex > 0) {
-//       const lastWord = truncated.substring(lastSpaceIndex + 1);
-//       //   if (lastWord.length > wordLimit) {
-//       //   } else {
-//       //     truncated = truncated.substring(0, lastSpaceIndex);
-//       //   }
-//       if (!lastWord.length > wordLimit) {
-//         truncated = truncated.substring(0, lastSpaceIndex);
-//       }
-//     }
-
-//     return (
-//       <>
-//         {truncated}
-//         <span>{ellipsis}</span>
-//       </>
-//     );
-//   };
-
-//   return (
-//     <div className="job-card-container">
-//       <div className="job-card">
-//         <div className="job-card-content">
-//           <div className="job-info">
-//             <div className="title-average-container">
-//               <div className="title_container">
-//                 <h2 className="job-title">{jobInfo.jobTitle}</h2>
-//                 <CategoryIcon className="job-icon" />
-//               </div>
-//               <div className="average_container">
-//                 <span className="job-price">
-//                   Promedio: +${jobInfo.averagePrice}
-//                 </span>
-//               </div>
-//             </div>
-
-//             <p className="job-description">{getTruncatedContent()}</p>
-//           </div>
-
-//           <div className="job-meta">
-//             <div className="user-info">
-//               <div className="user-name">
-//                 <p className="name">{jobInfo.userName}</p>
-//               </div>
-//               <div className="user-avatar"></div>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// jobTitle: "Levantar un tapial",
-//     description:
-//       "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
-//     date: "Para esta semana",
-//     location: "Santa fe 50, Rosario",
-//     applications: 300,
-//     averagePrice: 10000,
-//     userName: "Fulano Detal",
-//     category: "Construction",
 
 import "./CardJob.css";
 
-export default function CardJob({ jobInfo, handleOpenLogin }) {
+export default function CardJob({ jobInfo, cardType = false }) {
   const maxLength = 140;
   const wordLimit = 20;
   const ellipsis = "...";
@@ -118,7 +37,7 @@ export default function CardJob({ jobInfo, handleOpenLogin }) {
   };
 
   return (
-    <div onClick={handleOpenLogin} className="parent">
+    <div className={`parent ${cardType && "client"}`}>
       <div className="topCard">
         <div className="titleSection">
           <h2>{jobInfo.jobTitle}</h2>

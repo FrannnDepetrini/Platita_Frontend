@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi"; // Ícono de lupa
-
+import CardJob from "../cardJob/CardJob";
 import "./EmployeeJobList.css";
 import EmployeeCardJob from "../EmployeeCardJob/EmployeeCardJob";
 
-// Simulación de datos
 const initialJobs = [
   {
     jobTitle: "Levantar un tapial",
-    description: "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
+    description:
+      "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
     city: "Rosario",
     location: "Santa fe 50",
     applications: 300,
@@ -19,7 +19,8 @@ const initialJobs = [
   },
   {
     jobTitle: "Arreglar un caño",
-    description: "Necesito a alguien con conocimientos de plomeria para arreglar un caño de mi casa",
+    description:
+      "Necesito a alguien con conocimientos de plomeria para arreglar un caño de mi casa",
     city: "Santa Fe",
     location: "San Martin 1150",
     applications: 150,
@@ -29,7 +30,8 @@ const initialJobs = [
   },
   {
     jobTitle: "Arreglar cables",
-    description: "Necesito a alguien con conocimientos de electricista para arreglar cables pelados en mi negocio",
+    description:
+      "Necesito a alguien con conocimientos de electricista para arreglar cables pelados en mi negocio",
     city: "Esperanza",
     location: "Jujuy 274",
     applications: 450,
@@ -67,18 +69,19 @@ const EmployeeJobList = () => {
     setMenuOpen(false);
   };
 
-  const filteredJobs = jobs.filter((job) =>
-    job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.city.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredJobs = jobs.filter(
+    (job) =>
+      job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      job.city.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="ejob-list-wrapper">
       <div className="ejob-searcher">
-      <span className="search-label">Trabajos</span>
+        <span className="search-label">Trabajos</span>
         <div className="search-box">
-        <FiSearch className="search-icon" />
+          <FiSearch className="search-icon" />
           <input
             type="text"
             placeholder="Buscar"
@@ -101,17 +104,22 @@ const EmployeeJobList = () => {
           <ul className={`dropdown-menu ${menuOpen ? "open" : "closed"}`}>
             <li onClick={() => handleSort("city")}>Por ciudad</li>
             <li onClick={() => handleSort("price")}>Por precio</li>
-            <li onClick={() => handleSort("applications")}>Por postulaciones</li>
+            <li onClick={() => handleSort("applications")}>
+              Por postulaciones
+            </li>
           </ul>
         </div>
       </div>
 
-      <div className="escroll-job">
-        <div className="ejob-scroll-box">
-          {filteredJobs.map((job, index) => (
-            <EmployeeCardJob key={index} jobInfo={job} />
-          ))}
+      <div className="escroll-job-wrapper">
+        <div className="escroll-job">
+          <div className="ejob-scroll-box">
+            {filteredJobs.map((job, index) => (
+              <CardJob key={index} jobInfo={job} cardType={true} />
+            ))}
+          </div>
         </div>
+        <div className="fade-bottom"></div>
       </div>
     </div>
   );

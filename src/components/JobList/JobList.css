@@ -12,10 +12,8 @@
   padding: 16px;
   border-radius: 20px;
   box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
-  /* transform: scale(0.7); */
   width: 700px;
   height: 510px;
-  /* overflow-y: auto; */
 }
 
 .job-list-title {
@@ -25,6 +23,7 @@
   margin-top: 5px;
   margin-left: 20px;
 }
+
 .scroll-job {
   overflow-y: auto;
   max-height: 400px;
