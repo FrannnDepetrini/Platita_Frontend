@@ -1,13 +1,16 @@
 .employee-home {
-    padding: 2rem 1.5rem;
-    max-width: 1200px;
-    margin: -2.5rem 5.3rem;
-    padding-left: -20rem;
-  }
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
+  height: 100%;
+}
 
 .employee-home .breadcrumb {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: black;
-    margin-bottom: 0.5rem;
-  }
+  margin-left: 90px;
+  align-self: flex-start;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 0.5rem;
+}

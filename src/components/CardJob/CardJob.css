@@ -18,6 +18,11 @@
   transition: all 0.3s ease-in-out;
 }
 
+.client {
+  transform: scale(0.95);
+  width: 70%;
+}
+
 .parent:hover {
   border: 1px solid black;
   /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); */

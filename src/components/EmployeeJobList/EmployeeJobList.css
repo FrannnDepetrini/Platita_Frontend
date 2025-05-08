@@ -12,10 +12,8 @@
   padding: 20px;
   border-radius: 20px;
   box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
-  width: auto;
-  max-width: 100%;
-  height: auto;
-  max-height: 100%;
+  width: 90%;
+  height: 85%;
 }
 
 .ejob-list-title {
@@ -28,17 +26,26 @@
 .ejob-bar {
   border: none;
   height: 1px;
-  background-color: #FCAB10;
+  background-color: #fcab10;
   margin-top: 10px;
   width: 15%;
 }
 
-.escroll-job {
-  overflow-y: auto;
-  max-height: 400px;
-  padding-right: 24px;
+/* NUEVO WRAPPER que contiene el scroll y el fade fijo */
+.escroll-job-wrapper {
+  position: relative;
+  height: 290px;
+  overflow: hidden;
 }
 
+/* CONTENEDOR SCROLLEABLE (interior) */
+.escroll-job {
+  overflow-y: auto;
+  height: 100%;
+  padding-right: 8px;
+}
+
+/* Scrollbar personalizado */
 .escroll-job::-webkit-scrollbar {
   width: 8px;
   background-color: #fdfbf6;
@@ -50,11 +57,27 @@
   border-radius: 16px;
 }
 
+/* Contenido que se scrollea */
 .ejob-scroll-box {
   display: flex;
+  gap: 8px;
   flex-direction: column;
-  gap: 12px;
+  align-items: flex-start;
   overflow-y: auto;
+  padding-bottom: 20px;
+}
+
+/* Filtro degradado que se mantiene fijo al fondo */
+
+.fade-bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 8px;
+  height: 10px; /* Antes 40px, ahora un poco más sutil */
+  background: linear-gradient(to top, white, transparent);
+  pointer-events: none;
+  z-index: 2;
 }
 
 .ejob-list-header {
@@ -63,6 +86,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: 10px;
 }
 
 .dropdown-container {
@@ -84,7 +108,7 @@
 .sort-icon {
   background: none;
   border: none;
-  color: #FCAB10;
+  color: #fcab10;
   font-size: 2rem;
   cursor: pointer;
   margin-top: -26px;
@@ -154,7 +178,7 @@
   border: 1px solid #ccc;
   border-radius: 6px;
   padding: 5px 10px;
-  background-color: #EBE8D8;
+  background-color: #ebe8d8;
   width: 100%;
   max-width: 300px;
 }
@@ -209,9 +233,8 @@
     width: 100%;
   }
 
-  .escroll-job {
-    padding-right: 0;
-    max-height: 300px;
+  .escroll-job-wrapper {
+    height: 300px;
   }
 }
 
