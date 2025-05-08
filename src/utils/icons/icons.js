@@ -19,3 +19,6 @@ export { FaPaintBrush } from "react-icons/fa";
 export { MdOutlinePets } from "react-icons/md";
 export { GiDrill } from "react-icons/gi";
 export { FaLaptop } from "react-icons/fa";
+
+export { IoMdEyeOff } from "react-icons/io";
+export { IoMdEye } from "react-icons/io";
