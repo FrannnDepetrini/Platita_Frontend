@@ -22,9 +22,17 @@
     margin-left: 80px;
 }
 
+.job-header {
+    display: flex;
+    gap: 20px;
+}
+
+.job-icon {
+    margin-top: -1px;
+}
 .box-separator {
     width: 100%;
     border: none;
-    margin: 20px 0;
+    margin: 10px 0;
     display: block;
 }
