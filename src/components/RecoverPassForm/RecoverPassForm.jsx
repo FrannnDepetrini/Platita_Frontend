@@ -1,12 +1,12 @@
 import "../RecoverPassForm/RecoverPassForm.css"
 import InputPassword from "../InputPassword/InputPassword";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import useVerificate from "../../customHooks/UseVerificate";
 import { useNavigate } from "react-router-dom";
+import { ModalContext } from "../../services/ModalContext";
 
 
 const RecoverPassForm = ({token}) => {
-
     const navigate = useNavigate();
 
     const [data, setData] = useState({
@@ -67,17 +67,25 @@ const RecoverPassForm = ({token}) => {
                     password: "",
                     passwordValidation: ""
                 });
-
+                showRecoverModal(true)
+                navigate("/");
+                
                 setTimeout(() => {
-                    navigate("/")
-                }, 3000)
+                    hideRecoverModal();
+                }, 6000)
 
             } catch (error) {
+                showRecoverModal(false)
+                navigate("/");
+
+                setTimeout(() => {
+                    hideRecoverModal();
+                }, 6000)
                 console.log(error)
             }
 
         };
-    
+    const {showRecoverModal, hideRecoverModal} = useContext(ModalContext);
         return (
             <form className="register-form-recover" onSubmit={handleSubmit}>
                 <div className="form-container-recover">
@@ -94,7 +102,7 @@ const RecoverPassForm = ({token}) => {
                         </section>
 
                         <section className="form-recover-pass">
-                            <label>Contraseña</label>
+                            <label>Confirmar contraseña</label>
                             <InputPassword
                                 onChange={handleChange}
                                 name="passwordValidation"
