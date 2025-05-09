@@ -3,7 +3,7 @@ import { IoMdEyeOff } from "../../utils/icons/icons";
 import { IoMdEye } from "../../utils/icons/icons";
 import "./InputPassword.css";
 
-function InputPassword({placeHolder= "********", onChange, value, name, areErrors}) {
+function InputPassword({placeHolder= "••••••••", onChange, value, name, areErrors}) {
     const [showPassword, setShowPassword] = useState(false);
 
     const togglePasswordVisibility = () => {

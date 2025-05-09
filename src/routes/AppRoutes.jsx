@@ -21,6 +21,7 @@ import EmployerJobDetails from "../pages/employer/EmployerJobDetails/EmployerJob
 // Admin
 import AdminHome from "../pages/admin/AdminHome/AdminHome";
 import Welcome from "../pages/guest/Welcome/Welcome";
+import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 
 export default function AppRoutes() {
   return (
@@ -29,6 +30,9 @@ export default function AppRoutes() {
       <Route path="/" element={<Layout />}>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />}/>
+        
+        <Route path="/recover-password" element={<RecoverPassword />}/>
+        
         <Route index element={<Home />} />
         <Route path="/categories" element={<Categories />} />
         {/* Empleado  */}
