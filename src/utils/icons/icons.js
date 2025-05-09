@@ -22,3 +22,7 @@ export { FaLaptop } from "react-icons/fa";
 
 export { IoMdEyeOff } from "react-icons/io";
 export { IoMdEye } from "react-icons/io";
+
+export { IoAlertCircle } from "react-icons/io5";
+export { RxCross2 } from "react-icons/rx";
+export { FaCircleCheck } from "react-icons/fa6";

@@ -5,6 +5,8 @@ import Footer from "../Footer/Footer";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { Outlet } from "react-router-dom";
 import { AuthContext } from "../../services/AuthContext";
+import { ModalContext } from "../../services/ModalContext";
+import ModalRecoverPass from "../ModalRecoverPass/ModalRecoverPass";
 
 const Layout = () => {
   const { userRole } = useContext(AuthContext);
@@ -16,6 +18,7 @@ const Layout = () => {
   console.log(isLoginModalOpen);
 
   const categoriesRef = useRef(null);
+  const {showModal, isSuccess, hideRecoverModal} = useContext(ModalContext)
   return (
     <div className="layout_container">
       <header className="header_container">
@@ -32,6 +35,11 @@ const Layout = () => {
         <Footer />
       </footer>
       <ModalLogin isOpen={isLoginModalOpen} onClose={handleCloseLogin} />
+      {showModal && 
+      <ModalRecoverPass 
+        bool={isSuccess}
+        hide={hideRecoverModal}
+      />}
     </div>
   );
 };

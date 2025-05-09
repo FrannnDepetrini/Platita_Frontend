@@ -15,10 +15,9 @@ const RecoverPassword = () => {
       if (tokenFromUrl) {
         try {
             const currentTime = Math.floor(Date.now() / 1000);
-            console.log(currentTime)
+
             const decodeToken = jwtDecode(tokenFromUrl);
-            console.log(decodeToken.name !== "resetPassword");
-            console.log(decodeToken.exp < currentTime);
+
             
             if(decodeToken.name !== "resetPassword" || decodeToken.exp < currentTime){
                 navigate("/");
