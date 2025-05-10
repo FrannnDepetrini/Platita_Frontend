@@ -242,3 +242,15 @@
   gap: 30px;
   flex-direction: column;
 }
+
+.button-login:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./ModalLogin.css";
 import platitaLogo from "../../utils/images/PlatitaLogo.png";
 import googleLogo from "../../utils/images/GoogleLogo.png";
+import Loader from "../Loader/Loader";
 
 const ModalLogin = ({ isOpen, onClose }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -14,6 +15,41 @@ const ModalLogin = ({ isOpen, onClose }) => {
     email: "",
     password: "",
   }]);
+  const [loaderStatus, setLoaderStatus] = useState('idle');
+
+
+  const mockApi = (email) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(true);
+      }, 2500);
+    });
+  }
+
+  const handleSendLink = async () => {
+    setLoaderStatus('loading');
+
+    try {
+      // Simulando una llamada a la API
+      const response = await mockApi(restoreEmail);
+
+      if (response) {
+        setLoaderStatus('success');
+        setTimeout(() => {
+          setIsFlipped(false);
+          setLoaderStatus('idle');
+          setRestoreEmail("");
+        }, 3000);
+      }
+
+    } catch (error) {
+      setLoaderStatus('error');
+      setTimeout(() => {
+        setLoaderStatus('idle');
+      }, 2000);
+    }
+  };
+
 
   useEffect(() => {
     setIsFlipped(false);
@@ -53,7 +89,12 @@ const ModalLogin = ({ isOpen, onClose }) => {
     }));
   }
 
-  const handleFlippped = () => setIsFlipped(!isFlipped);
+  const handleFlippped = () => {
+    setIsFlipped(!isFlipped);
+    setTimeout(() => {
+      setRestoreEmail("");
+    }, 300);
+  };
 
   return (
 
@@ -79,7 +120,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
           <form className="login-form">
             <div className="input-group">
               <label className="email" name="email" onChange={handleLoginChange}>Email</label>
-              <input type="email" placeholder="platita@gmail.com" value={dataLogin.email}/>
+              <input type="email" placeholder="platita@gmail.com" value={dataLogin.email} />
             </div>
 
             <div className="input-group">
@@ -120,15 +161,24 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
           <div className="separador-login"></div>
 
+
           <div className="login-form">
-            <div className="input-group">
-              <label className="email">Email</label>
-              <input type="email" placeholder="platita@gmail.com" onChange={handleEmailChange} />
-            </div>
+            {loaderStatus !== 'idle' ? (
+              <Loader status={loaderStatus} />
+            ) : (
+              <div className="input-group">
+                <label className="email">Email</label>
+                <input type="email" placeholder="platita@gmail.com" onChange={handleEmailChange} value={restoreEmail} />
+              </div>
+            )
+            }
 
             <div className="button-group">
-              <button className="button-login" onClick={() => console.log(restoreEmail)}>Enviar link</button>
-              <button className="button-cancel" onClick={handleFlippped}>Cancelar</button>
+              <button className="button-login" onClick={() => {
+                handleSendLink();
+
+              }} disabled={!restoreEmail || loaderStatus !== 'idle'}>Enviar link</button>
+              <button className="button-cancel" onClick={handleFlippped} disabled={loaderStatus === 'loading'}>Cancelar</button>
             </div>
           </div>
         </div>
