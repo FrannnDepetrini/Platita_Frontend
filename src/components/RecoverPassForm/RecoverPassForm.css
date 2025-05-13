@@ -1,0 +1,66 @@
+.register-form-recover {
+    min-width: 840px;
+    min-height: 300px;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    background-color: white;
+  }
+
+.form-container-recover {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    gap: 50px;
+}
+
+.form-recover-pass {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 1rem;
+}
+
+.form-recover-pass label {
+    font-size: 20px;
+    color: black;
+    font-weight: 600;
+    text-align: left;
+}
+
+.form-recover-pass input {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    outline: none;
+    border: 1px solid #e0e0e000;
+    transition: border-color 0.2s ease;
+    font-size: 1.1rem;
+}
+  
+.form-recover-pass input.error {
+    border-color: red;
+}
+  
+.form-recover-pass input:focus {
+    border-color: #5b5c5be7;
+}
+  
+.form-recover-pass input:focus.error {
+    border-color: red;
+}
+  
+.form-recover-pass input::placeholder {
+    color: #b0b0b0;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+

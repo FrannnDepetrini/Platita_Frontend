@@ -15,7 +15,7 @@ const useVerificate = () => {
     const validatePassword = (password) => {
         const hasMinLength = password.length >= 8;
         const hasNumber = /\d/.test(password);
-        const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+        const hasSpecialChar = /[!@#$%^&*(),.?_":{}|<>-]/.test(password);
         
         if (!hasMinLength) return { isValid: false, message: "Mínimo 8 caracteres" };
         if (!hasNumber) return { isValid: false, message: "Debe contener un número" };
@@ -44,7 +44,7 @@ const useVerificate = () => {
         };
     };
 
-    const validateField = (name, value) => {
+    const validateField = (name, value, allValues = {}) => {
         let validationResult = { isValid: true, message: "" };
 
         switch (name) {
@@ -53,6 +53,17 @@ const useVerificate = () => {
                 break;
             case "password":
                 validationResult = validatePassword(value);
+                
+                break;
+            case "passwordValidation":
+                validationResult = validatePassword(value);
+                
+                if (value !== allValues.password) {
+                    validationResult = {
+                        isValid: false,
+                        message: "Las contraseñas no coinciden"
+                    };
+                }
                 break;
             case "name":
                 validationResult = validateName(value);
