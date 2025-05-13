@@ -4,6 +4,8 @@ import "./ModalLogin.css";
 import platitaLogo from "../../utils/images/PlatitaLogo.png";
 import googleLogo from "../../utils/images/GoogleLogo.png";
 import Loader from "../Loader/Loader";
+import useVerificate from "../../customHooks/UseVerificate";
+import { data } from "react-router-dom";
 
 const ModalLogin = ({ isOpen, onClose }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -16,7 +18,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
     password: "",
   }]);
   const [loaderStatus, setLoaderStatus] = useState('idle');
-
+  const { errors, validateField } = useVerificate();
 
   const mockApi = (email) => {
     return new Promise((resolve) => {
@@ -50,6 +52,43 @@ const ModalLogin = ({ isOpen, onClose }) => {
     }
   };
 
+  const handleLogin = async () => {
+    setLoaderStatus('loading');
+
+    try {
+      const response = await mockApi(dataLogin.email);
+
+      if (response) {
+        setLoaderStatus('success');
+        onClose();
+        setTimeout(() => {
+          setLoaderStatus('idle');
+          setDataLogin({
+            email: "",
+            password: "",
+          });
+        }, 3000);
+      }
+
+    } catch (error) {
+      setTimeout(() => {
+        setLoaderStatus('idle');
+      }, 2000);
+    }
+  }
+
+  const handleClose = () => {
+    setIsFlipped(false);
+        setRestoreEmail("");
+        setDataLogin({
+          email: "",
+          password: "",
+        }); 
+        setTimeout(() => {
+          onClose()
+        }, 400);
+  }
+
 
   useEffect(() => {
     setIsFlipped(false);
@@ -65,7 +104,9 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        handleClose();
+      };
     };
 
     if (isOpen) {
@@ -79,6 +120,8 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
   const handleEmailChange = (e) => {
     setRestoreEmail(e.target.value);
+    const { name, value } = e.target;
+    validateField(name, value);
   }
 
   const handleLoginChange = (e) => {
@@ -87,12 +130,21 @@ const ModalLogin = ({ isOpen, onClose }) => {
       ...prevData,
       [name]: value,
     }));
+
+    validateField(name, value);
   }
 
   const handleFlippped = () => {
     setIsFlipped(!isFlipped);
     setTimeout(() => {
-      setRestoreEmail("");
+      if (isFlipped) {
+        setRestoreEmail("");
+      } else {
+        setDataLogin({
+          email: "",
+          password: "",
+        });
+      }
     }, 300);
   };
 
@@ -100,7 +152,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
     <div
       className={`modal-overlay ${overlayVisible && "overlayVisible"}`}
-      onClick={onClose}
+      onClick={() => handleClose()}
     >
       <div className={`card ${isFlipped ? "flipped" : ""}`} >
 
@@ -119,17 +171,20 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
           <form className="login-form">
             <div className="input-group">
-              <label className="email" name="email" onChange={handleLoginChange}>Email</label>
-              <input type="email" placeholder="platita@gmail.com" value={dataLogin.email} />
+              <label className="email">Email</label>
+              <input type="email" placeholder="platita@gmail.com" value={dataLogin.email} name="email" onChange={handleLoginChange} />
+              {errors.email && dataLogin.email.length > 0 ? <span className="error-message">{errors.email}</span> : ""}
             </div>
 
             <div className="input-group">
-              <label className="password" name="password" onChange={handleLoginChange}>Contraseña</label>
+              <label className="password">Contraseña</label>
               <div className="password-wrapper">
                 <input
+                  name="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="**********"
+                  placeholder="●●●●●●●●●"
                   value={dataLogin.password}
+                  onChange={handleLoginChange}
                 />
                 <span
                   onClick={() => setShowPassword(!showPassword)}
@@ -140,8 +195,8 @@ const ModalLogin = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <button className="button-login" onClick={() => console.log(dataLogin)}>
-              Iniciar Sesión
+            <button className="button-login" onClick={() => handleLogin()} disabled={!dataLogin.email || !dataLogin.password || loaderStatus !== 'idle'}>
+              {loaderStatus === "idle" ? "Iniciar Sesión" : <div className="container_spinner"><span className="simple_loader"></span></div>} 
             </button>
 
             <p className="register-text">
@@ -164,11 +219,14 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
           <div className="login-form">
             {loaderStatus !== 'idle' ? (
-              <Loader status={loaderStatus} />
+              <div className="container_loader">
+                <Loader status={loaderStatus} />
+              </div>
             ) : (
               <div className="input-group">
                 <label className="email">Email</label>
-                <input type="email" placeholder="platita@gmail.com" onChange={handleEmailChange} value={restoreEmail} />
+                <input type="email" placeholder="platita@gmail.com" onChange={handleEmailChange} value={restoreEmail} name="email" />
+                {errors.email && restoreEmail.length > 0 ? <span className="error-message">{errors.email}</span> : ""}
               </div>
             )
             }

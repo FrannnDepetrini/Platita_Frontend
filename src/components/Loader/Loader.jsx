@@ -25,7 +25,7 @@ const Loader = ({status}) => {
                 </>
             ) : status === "success" ? (
                 <>
-                    <svg width="200" height="200" viewBox="0 0 200 200">
+                    <svg width="150" height="150" viewBox="0 0 200 200">
                         <circle
                             cx="100"
                             cy="100"
