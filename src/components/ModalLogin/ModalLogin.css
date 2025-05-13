@@ -29,12 +29,14 @@
   width: 100%;
   max-width: 400px;
   border-radius: 20px;
-  /*box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); */
+  opacity: 0;
   text-align: center;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.6s ease-in-out;
 }
+
 .modalVisible {
   bottom: 0px;
+  opacity: 1;
 }
 
 /* Logo */
@@ -112,13 +114,17 @@
 
 /* estilo campo de texto */
 .input-group input {
-  font-weight: 600;
+  /* font-weight: 600; */
   padding: 12px;
   border-radius: 5px;
   border: none;
   box-shadow: var(--shadow);
   font-size: 1rem;
   outline: none;
+}
+
+.input-group input::placeholder {
+  font-weight: 600;
 }
 
 /* estilo contrsena */
@@ -134,7 +140,7 @@
   height: 41px;
   border-radius: 5px;
   box-sizing: border-box;
-  font-size: 14px;
+  font-size: 1rem;
 }
 
 /* estilado boton mostrar contrasena */
@@ -176,9 +182,103 @@
   margin-top: 12px;
 }
 
+.register-text:last-child {
+  margin-bottom: 0;
+}
+
 /* estilado palabra registrate */
 .register-text .highlight {
   color: var(--principalYellow);
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* Estilos para animacion de rotacion */
+
+.card {
+  perspective: 800px;
+  transform-style: preserve-3d;
+  transition: transform 0.65s ease;
+  transform: rotateY(0);
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.face {
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.restoreFace {
+  transform: rotateY(180deg);
+  opacity: 1;
+  position: absolute;
+  bottom: 0;
+}
+
+.button-cancel {
+  padding: 12px;
+  background-color: var(--principalRed);
+  color: var(--background);
+  border: none;
+  border-radius: 18px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 170px;
+  display: block;
+  margin: 0 auto;
+}
+
+.button-cancel:hover {
+  background-color: #c62828;
+}
+
+.button-group {
+  margin-top: 60px;
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+}
+
+.button-login:disabled {
+  cursor: not-allowed;
+}
+
+.container_loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  padding-top: 30px;
+}
+
+.simple_loader {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 4px solid #f9fafb9c;
+  border-top-color: transparent;
+  animation: spin 1s linear infinite;
+}
+
+.container_spinner {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
