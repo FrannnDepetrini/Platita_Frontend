@@ -46,6 +46,7 @@
   transform: translateX(0);
 }
 .user_container {
+  margin-top: 20px;
   padding: 14px;
   display: flex;
   gap: 20px;

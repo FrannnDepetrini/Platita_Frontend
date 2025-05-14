@@ -14,7 +14,7 @@ const Header = ({
   const navigate = useNavigate();
 
   //Dato que se reemplazara con el authContext
-  const userLogged = true;
+  const userLogged = false;
 
   const onLogin = () => {
     // navigate("/login");
