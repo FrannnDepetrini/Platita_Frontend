@@ -2,8 +2,9 @@ import { useParams } from "react-router-dom";
 import "./EmployeeJobDetails.css";
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { MdLocationOn } from "react-icons/md";
-import { IoCalendarOutline } from "react-icons/io5";
+import { IoCalendarOutline, IoLink } from "react-icons/io5";
 import { BsCashStack } from "react-icons/bs";
+import { FaRegBookmark } from "react-icons/fa6";
 
 const jobs = [
   {
@@ -64,6 +65,7 @@ export default function EmployerJobDetails() {
         </h1>
       </div>
 
+    <div className="align-cards">
       <div className="job-container-box">
         <div className="job-header">
           <h2>{job.jobTitle}</h2>
@@ -83,6 +85,24 @@ export default function EmployerJobDetails() {
           <p><strong>+{job.applications} Postulaciones</strong></p>
         </div>
       </div>
+
+      <div className="sidebar-container">
+        <div className="user-container">
+          <div className="user-info">
+            <h2>{job.userName}</h2>
+          </div>
+          <div className="user-picture">
+
+          </div>
+        </div>
+        <button className="postulate-button">Postulate ya</button>
+        <div className="icon-button-container">
+          <button className="save-button"><FaRegBookmark className="icon-save"/></button>
+          <button className="link-button"><IoLink className="icon-link"/></button>
+        </div>
+      </div>
+    </div>
+
       <div className="job-information">
         <div className="fecha-container">
           <IoCalendarOutline className="icon-fecha"/>
