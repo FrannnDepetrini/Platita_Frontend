@@ -24,6 +24,7 @@
 }
 
 .platita {
+  font-size: 50px !important;
   color: var(--principalYellow);
 }
 
