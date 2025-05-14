@@ -26,3 +26,6 @@ export { IoMdEye } from "react-icons/io";
 export { IoAlertCircle } from "react-icons/io5";
 export { RxCross2 } from "react-icons/rx";
 export { FaCircleCheck } from "react-icons/fa6";
+export { FaChevronDown } from "react-icons/fa";
+export { CiLight } from "react-icons/ci";
+export { CiDark } from "react-icons/ci";

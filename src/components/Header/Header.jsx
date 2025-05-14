@@ -4,9 +4,18 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 
-const Header = ({ categorySection, handleLogin, userRole }) => {
+const Header = ({
+  categorySection,
+  handleLogin,
+  userRole,
+  setIsAsideVisible,
+}) => {
   const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
+
+  //Dato que se reemplazara con el authContext
+  const userLogged = true;
+
   const onLogin = () => {
     // navigate("/login");
     handleLogin();
@@ -76,7 +85,15 @@ const Header = ({ categorySection, handleLogin, userRole }) => {
         </div>
       </div>
       <div className="session_container">
-        <button onClick={onLogin}>Iniciar sesion</button>
+        {!userLogged ? (
+          <button onClick={onLogin}>Iniciar sesion</button>
+        ) : (
+          <>
+            <button onClick={() => setIsAsideVisible(true)}>
+              Fulano Detal
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
