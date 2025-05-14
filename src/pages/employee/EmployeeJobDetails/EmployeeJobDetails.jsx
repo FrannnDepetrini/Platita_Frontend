@@ -1,14 +1,17 @@
 import { useParams } from "react-router-dom";
 import "./EmployeeJobDetails.css";
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
+import { MdLocationOn } from "react-icons/md";
+import { IoCalendarOutline } from "react-icons/io5";
+import { BsCashStack } from "react-icons/bs";
 
-// Lista de trabajos (puede moverse a un archivo externo si querés)
 const jobs = [
   {
     id: "1",
     jobTitle: "Levantar un tapial",
     description: "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
     city: "Rosario",
+    date: "21/05/25",
     location: "Santa fe 50",
     applications: 300,
     averagePrice: 10000,
@@ -20,6 +23,7 @@ const jobs = [
     jobTitle: "Arreglar un caño",
     description: "Necesito a alguien con conocimientos de plomeria para arreglar un caño de mi casa",
     city: "Santa Fe",
+    date:"23/05/2025",
     location: "San Martin 1150",
     applications: 150,
     averagePrice: 8000,
@@ -31,6 +35,7 @@ const jobs = [
     jobTitle: "Arreglar cables",
     description: "Necesito a alguien con conocimientos de electricista para arreglar cables pelados en mi negocio",
     city: "Esperanza",
+    date: "01/06/2025",
     location: "Jujuy 274",
     applications: 450,
     averagePrice: 12000,
@@ -75,11 +80,24 @@ export default function EmployerJobDetails() {
         </div>
 
         <div className="job-details">
-          <p><strong>Ciudad:</strong> {job.city}</p>
-          <p><strong>Dirección:</strong> {job.location}</p>
-          <p><strong>Postulaciones: +{job.applications}</strong></p>
-          <p><strong>Precio promedio:</strong> ${job.averagePrice}</p>
-          <p><strong>Publicado por:</strong> {job.userName}</p>
+          <p><strong>+{job.applications} Postulaciones</strong></p>
+        </div>
+      </div>
+      <div className="job-information">
+        <div className="fecha-container">
+          <IoCalendarOutline className="icon-fecha"/>
+          <h4>Fecha</h4>
+          <p>{job.date}</p>
+        </div>
+        <div className="ubicacion-container">
+          <MdLocationOn className="icon-ubicacion"/>
+          <h4>Ubicacion</h4>
+          <p>{job.location}, {job.city}</p>
+        </div>
+        <div className="salario-container">
+          <BsCashStack className="icon-dinero"/>
+          <h4>Salario Promedio</h4>
+          <p>+${job.averagePrice}</p>
         </div>
       </div>
     </div>

@@ -14,9 +14,9 @@
     background-color: var(--background);
     padding: 30px;
     width: 100%;
-    max-width: 400px;
+    max-width: 800px;
     border-radius: 20px;
-    text-align: center;
+    text-align: left;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
     margin-top: 10px;
     margin-left: 80px;
@@ -32,7 +32,109 @@
 }
 .box-separator {
     width: 100%;
+    max-width: 280px;
     border: none;
     margin: 10px 0;
     display: block;
+}
+
+.job-details {
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: -15px;
+    font-size: 14px;
+}
+
+.job-information {
+    margin-top: 20px;
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+    margin-left: 80px;
+}
+
+.fecha-container {
+    color: black;
+    background-color: #ffcccc;
+    width: 100%;
+    max-width: 150px;
+    text-align: center;
+    height: auto;
+    border-radius: 7px;
+    text-align: left;
+    gap: 6px;
+    padding: 12px 10px 10px 10px;
+}
+
+.icon-fecha {
+    color: var(--principalRed);
+    font-size: 24px;
+}
+
+.fecha-container h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.fecha-container p {
+    font-size: 14px;
+    margin: 0;
+}
+
+.ubicacion-container {
+    color: black;
+    text-align: left;
+    background-color: #ffcccc;
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    border-radius: 7px;
+    gap: 6px;
+    padding: 12px 10px 10px 10px;
+}
+
+.icon-ubicacion {
+    color: var(--principalRed);
+    font-size: 24px;
+}
+
+.ubicacion-container h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.ubicacion-container p {
+    font-size: 14px;
+    margin: 0;
+}
+
+.salario-container {
+    color: black;
+    text-align: left;
+    background-color: #44AF6938;
+    max-width: 170px;
+    width: 100%;
+    height: auto;
+    border-radius: 7px;
+    gap: 6px;
+    padding: 12px 10px 10px 10px;
+}
+
+.icon-dinero {
+    color: var(--principalGreen);
+    font-size: 24px;
+}
+
+.salario-container h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.salario-container p {
+    color: var(--principalGreen);
+    font-size: 14px;
+    margin: 0;
 }
