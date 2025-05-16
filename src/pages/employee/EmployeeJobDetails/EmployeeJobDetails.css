@@ -34,7 +34,7 @@
     margin-left: 25px;
     border-radius: 10px;
     border: none;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     cursor: pointer;
     display: flex;
 }
@@ -42,7 +42,7 @@
 .postulate-button:hover {
     transform: translateY(-3px);
     background-color: rgba(252, 171, 16, 0.22);
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     color: var(--principalYellow);
     transition: all 0.3s ease;
 }
@@ -59,14 +59,13 @@
 }
 
 .link-button:hover {
-    transform: translateY(-3px);
-    background-color: rgba(252, 171, 16, 0.22);
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--principalYellow);
+    box-shadow: var(--shadow);
     transition: all 0.3s ease;
 }
 
 .link-button:hover .icon-link {
-    color: var(--principalYellow);
+    color: white;
 }
 
 .icon-link {
@@ -85,14 +84,13 @@
 }
 
 .save-button:hover {
-    transform: translateY(-3px);
-    background-color: rgba(252, 171, 16, 0.22);
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: var(--principalYellow);
+    box-shadow: var(--shadow);
     transition: all 0.3s ease;
 }
 
 .save-button:hover .icon-save {
-    color: var(--principalYellow);
+    color: white;
 }
 
 .icon-save {
@@ -116,7 +114,7 @@
     max-width: 800px;
     border-radius: 20px;
     text-align: left;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--shadow);
     margin-top: 10px;
     margin-left: 80px;
 }
@@ -130,7 +128,7 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow);
     height: 120px;
     margin-top: 10px;
     margin-left: 100px;
