@@ -7,6 +7,7 @@ import EmployeeCardJob from "../EmployeeCardJob/EmployeeCardJob";
 
 const initialJobs = [
   {
+    id: "1",
     jobTitle: "Levantar un tapial",
     description:
       "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
@@ -18,6 +19,7 @@ const initialJobs = [
     category: "Construction",
   },
   {
+    id: "2",
     jobTitle: "Arreglar un caño",
     description:
       "Necesito a alguien con conocimientos de plomeria para arreglar un caño de mi casa",
@@ -29,6 +31,7 @@ const initialJobs = [
     category: "Construction",
   },
   {
+    id: "3",
     jobTitle: "Arreglar cables",
     description:
       "Necesito a alguien con conocimientos de electricista para arreglar cables pelados en mi negocio",
