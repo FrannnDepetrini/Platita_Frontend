@@ -1,0 +1,168 @@
+.profile_container {
+  display: flex;
+  flex-direction: column;
+}
+.breadCrumbs {
+  margin: 0 0 5px 120px;
+}
+
+.breadCrumbs h3 {
+  color: var(--lightGray);
+  font-weight: 600;
+}
+
+.breadCrumbs h3 span {
+  color: black;
+}
+
+.main_container {
+  display: flex;
+}
+
+.userInfoAndEdir_container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-left: 110px;
+}
+.userInfo_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  padding-bottom: 60px;
+  padding-top: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: var(--shadowDark);
+  width: 650px;
+  z-index: 1;
+}
+
+.userInfo_container label {
+  font-weight: 600;
+}
+
+.userInfo_container input {
+  margin-top: 5px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  padding: 15px;
+  box-shadow: var(--shadowDark);
+  color: black;
+  font-weight: 600;
+  background-color: var(--background);
+}
+
+.buttons_container {
+  display: flex;
+}
+
+.button_container {
+  position: relative;
+  bottom: 0;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s ease-in-out;
+  transform: scale(0.85);
+}
+
+.button_container.edit {
+  background-color: var(--transparentYellow);
+}
+
+.button_container.check {
+  bottom: 60px;
+  background-color: var(--transparentGreen);
+}
+
+.check_icon {
+  font-size: 30px;
+  color: var(--principalGreen);
+  margin: 0 0 2px 5px;
+  transition: all 0.2s ease-in-out;
+}
+.button_container.check:hover {
+  background-color: var(--principalGreen);
+}
+.button_container.check:hover .check_icon {
+  color: white;
+}
+
+.button_container.cancel {
+  bottom: 60px;
+  background-color: var(--transparentRed);
+}
+
+.cancel_icon {
+  font-size: 30px;
+  color: var(--principalRed);
+  transform: rotate(45deg);
+  transition: all 0.2s ease-in-out;
+}
+.button_container.cancel:hover {
+  background-color: var(--principalRed);
+}
+.button_container.cancel:hover .cancel_icon {
+  color: white;
+}
+
+.button_container.edit:hover {
+  background-color: var(--principalYellow);
+}
+
+.edit_icon {
+  font-size: 30px;
+  color: var(--principalYellow);
+  margin: 0 0 2px 5px;
+  transition: all 0.2s ease-in-out;
+}
+.button_container.edit:hover .edit_icon {
+  color: white;
+}
+
+.edit.pressed {
+  bottom: 60px;
+}
+.check.pressed {
+  bottom: 0;
+}
+
+.cancel.pressed {
+  bottom: 0;
+}
+
+.imageAndReputation {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.imageContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: white;
+  box-shadow: var(--shadowDark);
+}
+
+.user_image {
+  font-size: 80px;
+  color: var(--gray);
+}
+
+.reputationContainer {
+  display: flex;
+  gap: 30px;
+}

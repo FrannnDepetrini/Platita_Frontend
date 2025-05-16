@@ -18,6 +18,12 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     }
   };
 
+  const handleNavigateTo = (url) => {
+    setIsOverlayVisible(false);
+    setIsAsideVisible(false);
+    navigate(url);
+  };
+
   const [isOverlayVisible, setIsOverlayVisible] = useState(false);
   const [isThemeDrDwVisible, setIsThemeDrDwVisible] = useState(false);
 
@@ -50,7 +56,10 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
           <div className={styles.image_container}></div>
           <div className={styles.name_container}>
             <h2 className={styles.fullName}>Fulano Detal</h2>
-            <div onClick={() => {}} className={styles.profile_button}>
+            <div
+              onClick={() => handleNavigateTo("/myProfile")}
+              className={styles.profile_button}
+            >
               <h3 className={styles.profile_text}>Mi perfil </h3>
               <FaChevronDown className={styles.arrow_icon}></FaChevronDown>
             </div>

@@ -1,8 +1,9 @@
 // import React, { useEffect, useState } from "react";
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
-import { FaStar } from "react-icons/fa";
+import { IoIosStar } from "../../../utils/icons/icons";
 import "./EmployeeHistorial.css";
 
+<<<<<<< HEAD
 // export function EmployeeHistorial() {
 //   const [jobs, setJobs] = useState([]);
 
@@ -105,6 +106,8 @@ import { FaTrashAlt } from "../../../utils/icons/icons";
 
 import { useEffect, useState } from "react";
 
+=======
+>>>>>>> efe1c729ab946e36ec0d6cd82f967f27b9cd697b
 export default function EmployeeHistorial() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -139,7 +142,48 @@ export default function EmployeeHistorial() {
     }
   };
   useEffect(() => {
+<<<<<<< HEAD
     fetchData();
+=======
+    setJobs([
+      {
+        id: 1,
+        titulo: "Levantar un tapial",
+        empleador: "Fulano Detal",
+        categoria: "Construction",
+        fecha: "07/04/25",
+        reseña: 5,
+        tiempoExpirado: false,
+      },
+      {
+        id: 2,
+        titulo: "Levantar un tapial",
+        empleador: "Fulano Detal",
+        categoria: "Construction",
+        fecha: "07/04/25",
+        reseña: 3,
+        tiempoExpirado: false,
+      },
+      {
+        id: 3,
+        titulo: "Levantar un tapial",
+        empleador: "Fulano Detal",
+        categoria: "Construction",
+        fecha: "07/04/25",
+        reseña: null,
+        tiempoExpirado: false,
+      },
+      {
+        id: 4,
+        titulo: "Levantar un tapial",
+        empleador: "Fulano Detal",
+        categoria: "Construction",
+        fecha: "07/04/25",
+        reseña: null,
+        tiempoExpirado: true,
+      },
+    ]);
+>>>>>>> efe1c729ab946e36ec0d6cd82f967f27b9cd697b
   }, []);
 
   const handleReview = (job) => {
@@ -147,7 +191,7 @@ export default function EmployeeHistorial() {
       return (
         <div className="stars">
           {[1, 2, 3, 4, 5].map((n) => (
-            <FaStar key={n} className={n <= job.reseña ? "" : "inactive"} />
+            <IoIosStar key={n} className={n <= job.reseña ? "" : "inactive"} />
           ))}
         </div>
       );
@@ -196,9 +240,19 @@ export default function EmployeeHistorial() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="postulations_container">
       <div className="table_container">
         <table className="table_postulations">
+=======
+    <div className="employee-historial">
+      <div className="breadcrumb">
+        Inicio / <span className="current-page">Historial</span>
+      </div>
+
+      <div className="table-container">
+        <table>
+>>>>>>> efe1c729ab946e36ec0d6cd82f967f27b9cd697b
           <thead>
             <tr>
               <th>Trabajo</th>

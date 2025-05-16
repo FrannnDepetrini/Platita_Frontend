@@ -1,0 +1,67 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.reputationContainer {
+  width: 320px;
+  background-color: white;
+  box-shadow: var(--shadowDark);
+  border-radius: 10px;
+  padding: 20px;
+  transform: scale(0.9);
+}
+
+.averageAndStars_container {
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 10px;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.averageAndStars_container h2 {
+  font-size: 20px;
+}
+
+.star {
+  font-size: 20px;
+  color: var(--principalYellow);
+}
+
+.average_container {
+  display: flex;
+  gap: 10px;
+  margin: 5px;
+}
+
+.average {
+  width: 50%;
+  height: 20px;
+  border-radius: 10px;
+  border: 1px solid black;
+  position: relative;
+  overflow: hidden;
+}
+
+.averages_list {
+  padding: 0;
+  margin: 0;
+}
+
+.average_container:last-child .average {
+  margin-left: 12px;
+}
+
+.fill {
+  border-radius: 10px;
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s ease-in-out;
+  background-color: var(--principalYellow);
+}
+
+h4 {
+  padding: 0;
+  margin: 0;
+}
