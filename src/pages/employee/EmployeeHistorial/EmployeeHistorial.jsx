@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
-import { FaStar } from "react-icons/fa";
+import { IoIosStar } from "../../../utils/icons/icons";
 import "./EmployeeHistorial.css";
-
 
 export default function EmployeeHistorial() {
   const [jobs, setJobs] = useState([]);
@@ -33,7 +32,7 @@ export default function EmployeeHistorial() {
         empleador: "Fulano Detal",
         categoria: "Construction",
         fecha: "07/04/25",
-        reseña: null,       
+        reseña: null,
         tiempoExpirado: false,
       },
       {
@@ -53,7 +52,7 @@ export default function EmployeeHistorial() {
       return (
         <div className="stars">
           {[1, 2, 3, 4, 5].map((n) => (
-            <FaStar key={n} className={n <= job.reseña ? "" : "inactive"} />
+            <IoIosStar key={n} className={n <= job.reseña ? "" : "inactive"} />
           ))}
         </div>
       );
@@ -66,9 +65,10 @@ export default function EmployeeHistorial() {
 
   return (
     <div className="employee-historial">
-      
-      <div className="breadcrumb">Inicio / <span className="current-page">Historial</span></div>
-      
+      <div className="breadcrumb">
+        Inicio / <span className="current-page">Historial</span>
+      </div>
+
       <div className="table-container">
         <table>
           <thead>
@@ -96,8 +96,6 @@ export default function EmployeeHistorial() {
           </tbody>
         </table>
       </div>
-
-
     </div>
   );
 }
