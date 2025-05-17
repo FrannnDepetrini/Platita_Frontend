@@ -1,92 +1,178 @@
-.employee-historial {
-    padding: 2rem 1.5rem;
-    max-width: 1200px;
-    margin: -2.5rem 5.3rem;
-    padding-left: -20rem;
-  }
-  
-  
-  .employee-historial .breadcrumb {
-    font-size: 0.875rem;
-    color: #6b7280;
-    margin-bottom: 0.5rem;
-  }
-  .employee-historial .current-page {
+/* .employee-historial {
+  padding: 2rem 1.5rem;
+  max-width: 1200px;
+  margin: -2.5rem 5.3rem;
+  padding-left: -20rem;
+}
 
-    font-weight: bold;
-    text-decoration: underline;
-    color: #000;
-  }
-  
-  .employee-historial .table-container {
-    background-color: white;
-    border-radius: 1rem;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    border: 1px solid #e5e7eb;  
-  }
-  
-  .employee-historial table {
-    width: 100%;
-    font-size: 1.2rem;
-    text-align: left;
-    border-collapse:collapse;
-  }
-  
-  .employee-historial thead {
-    background-color: #f9fafb;
-    color: #4b5563;
-  }
-  
-  .employee-historial th,
-  .employee-historial td {
-    padding: 1.8rem 1.2rem;
-  }
-  
-  .employee-historial tr {
-    border-top: 1px solid #e5e7eb;
-  }
-  
-  .employee-historial tr:hover {
-    background-color: #f9fafb;
-  }
-  
-  .employee-historial .job-title {
-    font-weight: 500;
-    color: #111827;
-  }
-  
-  .employee-historial .icon {
-    color: #ef4444;
-    font-size: 2rem;
-  }
-  
-  .employee-historial .stars {
-    display: flex;
-    gap: 0.25rem;
-    color: #facc15;
-    font-size: 1.5rem;
-  }
-  
-  .employee-historial .stars .inactive {
-    color: #d1d5db;
-  }
-  
-  .employee-historial .comment-link {
-    color: #fcab10;
-    font-weight: 500;
-    cursor: pointer;
-    font-size: 1.3rem;
+.employee-historial .breadcrumb {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.5rem;
+}
+.employee-historial .current-page {
+  font-weight: bold;
+  text-decoration: underline;
+  color: #000;
+}
+
+.employee-historial .table-container {
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.employee-historial table {
+  width: 100%;
+  font-size: 1.2rem;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.employee-historial thead {
+  background-color: #f9fafb;
+  color: #4b5563;
+}
+
+.employee-historial th,
+.employee-historial td {
+  padding: 1.8rem 1.2rem;
+}
+
+.employee-historial tr {
+  border-top: 1px solid #e5e7eb;
+}
+
+.employee-historial tr:hover {
+  background-color: #f9fafb;
+}
+
+.employee-historial .job-title {
+  font-weight: 500;
+  color: #111827;
+}
+
+.employee-historial .icon {
+  color: #ef4444;
+  font-size: 2rem;
+}
+
+.employee-historial .stars {
+  display: flex;
+  gap: 0.25rem;
+  color: #facc15;
+  font-size: 1.5rem;
+}
+
+.employee-historial .stars .inactive {
+  color: #d1d5db;
+}
+
+
+.comment-link {
+  color: #fcab10;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: underline;
   }
   
   .employee-historial .comment-link:hover {
     text-decoration: underline;
-  }
-  
-  .employee-historial .expired {
-    color: #9ca3af;
-    font-style: italic;
-    font-size: 1.3rem;
-  }
+    }
+  */
 
- 
+.expired {
+  color: var(--gray);
+  font-style: italic;
+}
+
+.star {
+  font-size: 20px;
+  color: var(--principalYellow);
+}
+.job_container {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.table_container {
+  padding-bottom: 50px;
+}
+
+.table_job {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.2);
+  width: 1200px;
+  border-collapse: collapse;
+}
+
+.category_icon {
+  color: var(--principalRed);
+  width: 30px;
+  height: 30px;
+}
+
+.delete_icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.delete_icon:hover {
+  color: var(--principalRed);
+}
+
+.td_empleador h4 {
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.td_empleador h4:hover {
+  color: var(--principalYellow);
+}
+
+.dots::after {
+  content: "";
+  display: inline-block;
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+
+td {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--lightGray);
+}
+
+th {
+  padding: 15px;
+}
+
+tr:last-child {
+  border-bottom: 1px solid var(--lightGray);
+}
+
+tfoot td {
+  padding: 20px;
+}
