@@ -12,12 +12,25 @@ export default function EmployeeJobRating() {
         </h1>
       </div>
       <div className="rating-container-box">
-        <h1 className="description'title">Descripción</h1>
+        <h1 className="description-title">Descripción</h1>
         <textarea
-          type="text"
-          placeholder={text}
+          className="input"
+          placeholder="Descripcion"
+          value={text}
           onChange={(e) => setText(e.target.value)}
         />
+        <div className="stars-container">
+          <h1>Estrellas</h1>
+          <p>⭐⭐⭐⭐⭐</p>
+        </div>
+        <div className="send-button-container">
+          <button className="send-button">Enviar</button>
+        </div>
+      </div>
+      <div className="box-footer-text">
+        <h1>
+          Recuerda que las reseñas serán analizadas por el moderador antes de ser subidas
+        </h1>
       </div>
     </div>
   );
