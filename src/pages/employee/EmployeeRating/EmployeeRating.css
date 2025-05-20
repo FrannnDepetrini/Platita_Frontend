@@ -1,0 +1,23 @@
+.rating-title-text {
+    font-size: 8px;
+    text-align: left;
+    font-weight: bold;
+    margin-left: 90px;
+}
+
+.grey-text {
+    color: grey;
+}
+
+.rating-container-box {
+    bottom: 650px;
+    background-color: white;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 20px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    margin-top: 10px;
+    margin-left: 80px;
+}
