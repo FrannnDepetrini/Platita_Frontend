@@ -4,13 +4,17 @@ import { FaUser } from "../../utils/icons/icons";
 import CropperModal from "../CropperModal/CropperModal";
 import cn from "classnames";
 
-export default function ProfileCircle() {
+export default function ProfileCircle({value, name, onChange}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [croppedImage, setCroppedImage] = useState(null);
     const [imageSrc, setImageSrc] = useState("");
     const fileInputRef = useRef(null);
 
     const isPlus = imageSrc.length === 0;
+
+    useEffect(() => {
+        setCroppedImage(value)
+    }, [value])
 
     useEffect(() => {
         return () => {
@@ -98,7 +102,7 @@ export default function ProfileCircle() {
                 <CropperModal
                     imageSrc={imageSrc}
                     onCropComplete={(image) => {
-                        setCroppedImage(image);
+                        onChange({ target: { name, value: image } });
                         setIsModalOpen(false);
                     }}
                     onClose={handleCloseModal}
