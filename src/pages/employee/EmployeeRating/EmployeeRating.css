@@ -75,6 +75,96 @@
     cursor: pointer;
 }
 
+.custom-file-upload.shrink {
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+.image-preview {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 275px;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+
+.image-preview img:hover {
+    transform: scale(1.05);
+}
+
+.modal-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-image-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.modal-image-content img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}
+
+.modal-image-close {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-image-button {
+    background-color: var(--principalRed);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-image-button:hover {
+    background-color: var(--transparentRed);
+    color: var(--principalRed);
+    transition: all 0.3s ease;
+}
+
 .stars-container {
     margin-top: 10px;
 }
