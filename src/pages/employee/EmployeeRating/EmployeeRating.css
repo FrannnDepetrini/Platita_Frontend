@@ -9,6 +9,19 @@
     color: grey;
 }
 
+.container-align-items {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30px;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 .rating-container-box {
     bottom: 650px;
     background-color: white;
@@ -28,15 +41,60 @@
     border: 1px solid #ccc;
     background-color: var(--background);
     width: 100%;
-    height: 100px;
+    height: 150px;
     padding: 10px;
-    max-width: 250px;
+    width: 275px;
     box-shadow: var(--shadow);
     resize: none;
+    border: none;
+}
+
+.description-title {
+    font-size: 20px;
+}
+
+.picture-input {
+    display: none;
+}
+
+.picture-text {
+    font-size: 20px;
+}
+
+.custom-file-upload {
+    margin-right: 50px;
+    width: 130px;
+    height: 120px;
+    color: grey;
+    background-color: #fcf9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
 }
 
 .stars-container {
     margin-top: 10px;
+}
+
+.stars {
+    display: flex;
+    gap: 3px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    margin-top: 2px;
+}
+
+.star-icon {
+    font-size: 25px;
+    transition: color 0.3s ease;
+}
+
+.star-icon:hover {
+    transform: scale(1.2);
 }
 
 .send-button-container {
@@ -53,7 +111,7 @@
     background-color: var(--principalYellow);
     border: none;
     border-radius: 10px;
-    padding: 10px;
+    padding: 10px 25px;
     font-size: 18px;
     cursor: pointer;
 }

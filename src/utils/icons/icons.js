@@ -33,3 +33,4 @@ export { FaCircleCheck } from "react-icons/fa6";
 export { FaChevronDown } from "react-icons/fa";
 export { CiLight } from "react-icons/ci";
 export { CiDark } from "react-icons/ci";
+export { FiDownload } from "react-icons/fi";
