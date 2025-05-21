@@ -3,6 +3,7 @@ import "./RegisterForm.css";
 import { useState, useEffect } from "react";
 import useVerificate from "../../customHooks/UseVerificate";
 import ProfileCircle from "../ProfileCircle/ProfileCircle";
+import SearchInput from "../SearchInput/SearchInput";
 
 function RegisterForm() {
     const [data, setData] = useState({
@@ -10,11 +11,15 @@ function RegisterForm() {
         password: "",
         name: "",
         telephone: "",
-        avatar: ""
+        avatar: "",
+        provincia: "",
+        ciudad: "",
     });
 
     const [displayTelephone, setDisplayTelephone] = useState("");
+    const [confirmPass, setConfirmPass] = useState("");
     const { errors, validateField } = useVerificate();
+    const [isDisabled, setIsDisabled] = useState(true);
 
     useEffect(() => {
         if (data.telephone.length < 5 && displayTelephone.includes("(")) {
@@ -30,30 +35,33 @@ function RegisterForm() {
         }
     }, [data.telephone]);
 
+    useEffect(() => {
+        const isFormValid = 
+            data.email && !errors.email &&
+            data.password && !errors.password &&
+            data.name && !errors.name &&
+            data.provincia && 
+            data.ciudad &&
+            (!confirmPass || (confirmPass && data.password === confirmPass));
+            
+        setIsDisabled(!isFormValid);
+    }, [data, errors, confirmPass]);
+
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
         if (name === "telephone") {
             const rawValue = value.replace(/\D/g, "").slice(0, 11);
-            setData(prevData => ({
-                ...prevData,
-                [name]: rawValue
-            }));
-        } else {
-            setData(prevData => ({
-                ...prevData,
-                [name]: value
-            }));
+            setData(prev => ({ ...prev, telephone: rawValue }));
+        }
+        else if (name === "confirmPass") {
+            setConfirmPass(value);
+        }
+        else {
+            setData(prev => ({ ...prev, [name]: value }));
 
-            if (name === "email") {
-                validateField(name, value);
-            }
-
-            if (name === "password") {
-                validateField(name, value);
-            }
-
-            if (name === "name") {
+            if (["password", "email", "name"].includes(name)) {
                 validateField(name, value);
             }
         }
@@ -65,8 +73,12 @@ function RegisterForm() {
         const isEmailValid = validateField("email", data.email);
         const isPasswordValid = validateField("password", data.password);
         const isNameValid = validateField("name", data.name);
+        const isProvinciaValid = !!data.provincia;
+        const isCiudadValid = !!data.ciudad;
+        const isConfirmPassValid = !confirmPass || (confirmPass && data.password === confirmPass);
 
-        if (!isEmailValid || !isPasswordValid || !isNameValid) {
+        if (!isEmailValid || !isPasswordValid || !isNameValid || 
+            !isProvinciaValid || !isCiudadValid || !isConfirmPassValid) {
             return;
         }
 
@@ -77,14 +89,17 @@ function RegisterForm() {
             password: "",
             name: "",
             telephone: "",
-            avatar: ""
+            avatar: "",
+            provincia: "",
+            ciudad: "",
         });
+        setConfirmPass("");
         setDisplayTelephone("");
     };
 
     return (
         <>
-            <form className="register-form" onSubmit={handleSubmit}>
+            <form className="register-form" onSubmit={handleSubmit} autoComplete="off">
                 <div className="form-container">
                     <div className="first-column">
                         <section className="form-group">
@@ -108,6 +123,18 @@ function RegisterForm() {
                                 areErrors={errors.password && data.password.length > 0}
                             />
                             {errors.password && data.password.length > 0 ? <span className="error-message">{errors.password}</span> : ""}
+                        </section>
+                        <section className="form-group">
+                            <label>Confirmar contraseña</label>
+                            <InputPassword
+                                onChange={handleChange}
+                                name="confirmPass"
+                                value={confirmPass}
+                                block={data.password.length <= 0 && true}
+                            />
+                            {confirmPass && data.password !== confirmPass && (
+                                <span className="error-message">Las contraseñas no coinciden</span>
+                            )}
                         </section>
                     </div>
                     <div className="second-column">
@@ -134,18 +161,16 @@ function RegisterForm() {
                                 maxLength={14}
                             />
                         </section>
+
                         <section className="form-group">
-                            <label>Confirmar contraseña</label>
-                            <input
-                                type="text"
-                                name="Texto"
-                            />
+                            <label>Localidad</label>
+                            <SearchInput onChange={handleChange} />
                         </section>
                     </div>
-                    <ProfileCircle value={data.avatar} name={"avatar"} onChange={handleChange}/>
+                    <ProfileCircle value={data.avatar} name={"avatar"} onChange={handleChange} />
                 </div>
                 <div className="button-container">
-                    <button type="submit">Regístrate</button>
+                    <button type="submit" disabled={isDisabled}>Regístrate</button>
                 </div>
             </form>
         </>

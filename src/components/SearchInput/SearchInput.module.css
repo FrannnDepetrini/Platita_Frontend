@@ -1,0 +1,67 @@
+.container_inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 320px;
+  border-radius: 12px;
+  border: 1px solid #00000000;
+  transition: all 0.3s ease;
+}
+
+.container_inputs:focus-within {
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.c_input1,
+.c_input2 {
+  position: relative;
+  width: 100%;
+}
+
+.input_field {
+  width: 140px;
+  padding: 8px 12px;
+  font-size: 14px;
+  background: transparent;
+  border: none;
+  color: black;
+}
+
+.input_field:focus {
+  outline: none !important;
+  border-color: none !important;
+}
+
+.input_field:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.c_input1 .input_field:disabled {
+  color: #9ca3af;
+  cursor: wait;
+}
+
+.separator {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bar {
+  color: black;
+  font-size: 24px;
+  height: auto;
+  padding-bottom: 4px;
+}
+
+input[list]::-webkit-calendar-picker-indicator {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+input[list]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
