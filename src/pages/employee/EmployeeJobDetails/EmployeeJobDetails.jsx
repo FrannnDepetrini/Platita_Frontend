@@ -45,7 +45,7 @@ const jobs = [
   },
 ];
 
-export default function EmployerJobDetails() {
+export default function EmployeeJobDetails() {
   const { id } = useParams();
 
   const job = jobs.find((j) => j.id === id);
