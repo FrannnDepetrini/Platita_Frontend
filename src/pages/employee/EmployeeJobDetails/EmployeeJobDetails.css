@@ -12,7 +12,7 @@
 .align-cards {
     display: flex;
     align-items: flex-start;
-    gap: 40px;
+    gap:40px;
     margin-top: 10px;
     margin-right: 80px;
 }
@@ -130,8 +130,7 @@
     gap: 10px;
     box-shadow: var(--shadow);
     height: 120px;
-    margin-top: 10px;
-    margin-left: 100px;
+    margin-left: 50px;
 }
 
 .user-picture {
@@ -144,6 +143,15 @@
 .job-header {
     display: flex;
     gap: 20px;
+}
+
+.job-title {
+    font-size: 27px;
+}
+
+.description-title {
+    font-size: 20px;
+    margin-top: 15px;
 }
 
 .job-icon {
