@@ -1,0 +1,80 @@
+.horizontal {
+  position: absolute;
+  width: 18px;
+  height: 3px;
+  background-color: black;
+  /* transition: transform 0.6s ease; */
+  border-radius: 14px;
+}
+
+.vertical {
+  position: absolute;
+  width: 18px;
+  height: 3px;
+  border-radius: 14px;
+  background-color: black;
+  transform: rotate(90deg);
+  transition: transform 0.6s ease;
+}
+
+.plus .vertical {
+  transform: rotate(0deg);
+}
+
+.toggle_button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: -1px;
+  right: 10px;
+  background-color: rgba(119, 119, 119, 0.9);
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+  z-index: 2;
+}
+
+.toggle_button:hover {
+  transform: scale(1.05);
+}
+
+.toggle_button:focus {
+  outline: none;
+}
+
+.container_icon {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: lightgray;
+}
+
+.image {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.profile_container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.icon {
+  height: 80px;
+  width: 80px;
+  color: black;
+}
