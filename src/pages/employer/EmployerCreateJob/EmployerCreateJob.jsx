@@ -25,7 +25,7 @@ const EmployerCreateJob = () => {
   const [province, setProvince] = useState("");
   const [city, setCity] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("Construction");
+  const [category, setCategory] = useState("initial");
   const [expirationDate, setExpirationDate] = useState(defaultFormatted);
   const [wantExpirationDate, setWantExpirationDate] = useState(false);
   const [expandInfo, setExpandInfo] = useState(false);
@@ -47,14 +47,9 @@ const EmployerCreateJob = () => {
       case "title":
         validateField(name, value);
         break;
-      case "province":
-        break;
-      case "city":
-        break;
+
       case "description":
         validateField(name, value);
-        break;
-      case "category":
         break;
     }
   };
@@ -69,7 +64,19 @@ const EmployerCreateJob = () => {
     setExpandInfo(false);
   };
 
-  const handleCreateJob = (e) => {
+  const validateAllInputs = () => {
+    if (
+      errors.title != "" ||
+      errors.description != "" ||
+      category == "initial"
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const handleCreateJob = () => {
+    alert("goadw");
     const job = {
       title,
       province,
@@ -78,7 +85,7 @@ const EmployerCreateJob = () => {
       category,
       expirationDate,
     };
-    e.preventDefault();
+
     console.log(job);
   };
 
@@ -98,7 +105,7 @@ const EmployerCreateJob = () => {
         </h3>
       </div>
       <div className={styles.form_container}>
-        <form onSubmit={(e) => handleCreateJob(e)} className={styles.form}>
+        <form className={styles.form}>
           <div className={styles.form_grid}>
             <div className={styles.input_container}>
               <label htmlFor="Title">Titulo</label>
@@ -151,13 +158,22 @@ const EmployerCreateJob = () => {
             <div className={styles.select_container}>
               <label htmlFor="Category">Categoria</label>
               <div className={styles.selectAndIcon_container}>
-                <CategoryIcon className={styles.categoryIcon} />
+                {!(category == "initial") && (
+                  <CategoryIcon className={styles.categoryIcon} />
+                )}
                 <select
                   className={styles.select}
                   onChange={(e) => handleCategory(e.target.value)}
                   id="Category"
                   value={category}
                 >
+                  <option
+                    className={styles.optDefault}
+                    disabled
+                    value="initial"
+                  >
+                    Elige categoria
+                  </option>
                   <option value="Construction">Construcción</option>
                   <option value="Gardening">Jardinería</option>
                   <option value="Electricity">Electricidad</option>
@@ -255,7 +271,12 @@ const EmployerCreateJob = () => {
             </div>
           </div>
         </form>
-        <button type="submit" className={styles.buttonPublish}>
+        <button
+          disabled={validateAllInputs()}
+          onClick={handleCreateJob}
+          type="button"
+          className={styles.buttonPublish}
+        >
           Publicar
         </button>
       </div>

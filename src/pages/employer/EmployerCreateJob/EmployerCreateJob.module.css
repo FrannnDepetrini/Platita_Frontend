@@ -152,7 +152,7 @@
 .span_icon {
   position: absolute;
   right: 10px;
-  top: 65%;
+  top: 55%;
   transform: translateY(-50%);
   pointer-events: none;
 }
@@ -189,6 +189,12 @@
   font-weight: 700;
   font-size: 20px;
   transition: all 0.2s ease-in-out;
+  margin-bottom: 10px;
+}
+
+.buttonPublish:disabled {
+  background-color: var(--hoverYellow);
+  cursor: not-allowed;
 }
 
 .buttonPublish:hover {
