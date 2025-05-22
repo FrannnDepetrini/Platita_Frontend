@@ -1,0 +1,289 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.createJob_container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 90px;
+}
+.form_container {
+  display: flex;
+  width: 50%;
+  height: 500px;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  background-color: white;
+  padding: 10px;
+  box-shadow: var(--shadowDark);
+  border-radius: 10px;
+  z-index: 3;
+}
+
+.expandInfo_container {
+  background-color: var(--principalGreen);
+  position: absolute;
+  /* top: 400px; */
+  top: 55%;
+  /* left: 585px; */
+  left: 38%;
+  width: 220px;
+  height: 190px;
+  border-radius: 10px;
+  z-index: 1;
+  padding: 20px;
+  transition: all 0.3s ease-in-out;
+}
+
+.expandInfo_container h3 {
+  color: white;
+}
+
+.expandInfo_container::after {
+  cursor: pointer;
+  z-index: 1;
+  content: "!";
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 16px;
+  font-size: 20px;
+  color: white;
+  align-items: center;
+  position: absolute;
+  bottom: 76.5%;
+  /* bottom: 145px; */
+  /* left: 196px; */
+  left: 90%;
+  border-radius: 10px;
+  width: 50px;
+  height: 45px;
+  background-color: var(--principalGreen);
+}
+
+.expContainer_expanded {
+  z-index: 1;
+  left: 800px;
+}
+
+.form {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form_grid {
+  padding: 10px;
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.input_container {
+  height: 80px;
+}
+
+.iconAndInput_container {
+  width: 100%;
+  gap: 10px;
+  padding: 10px;
+  background-color: var(--background);
+  border-radius: 10px;
+  box-shadow: var(--shadowDark);
+  display: flex;
+
+  border: none;
+}
+
+.icon_generic {
+  color: var(--principalRed);
+  font-size: 20px;
+}
+
+.input_generic {
+  border: none;
+  background-color: var(--background);
+  font-weight: 600;
+}
+
+.input_generic:focus {
+  border: none;
+  outline: none;
+}
+
+.textarea_desc {
+  background-color: var(--background);
+  resize: none;
+  height: 125px;
+}
+
+.textarea_desc:focus {
+  border: none;
+  outline: none;
+}
+
+.select_container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.select {
+  cursor: pointer;
+  width: 100%;
+  appearance: none; /* oculta la flecha nativa */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  font-weight: 600;
+  border: none;
+  display: flex;
+  justify-content: space-between;
+
+  background-color: var(--background);
+}
+
+.select:focus {
+  border: none;
+  outline: none;
+}
+
+.span_icon {
+  position: absolute;
+  right: 10px;
+  top: 65%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.arrowIcon {
+  color: var(--principalRed);
+  font-size: 25px;
+}
+
+.selectAndIcon_container {
+  padding: 10px;
+  background-color: var(--background);
+  border-radius: 10px;
+  box-shadow: var(--shadowDark);
+  display: flex;
+  align-items: center;
+}
+
+.categoryIcon {
+  color: var(--principalRed);
+  font-size: 20px;
+  margin-right: 10px;
+}
+.buttonPublish {
+  display: flex;
+  align-self: flex-end;
+  cursor: pointer;
+  align-self: center;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--principalYellow);
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.buttonPublish:hover {
+  background-color: var(--hoverYellow);
+}
+
+.advertisement {
+  padding-top: 10px;
+  color: var(--gray);
+  font-style: italic;
+  font-weight: 600;
+}
+
+label {
+  font-weight: 500;
+}
+
+.iconAndDate_container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: var(--background);
+  border-radius: 10px;
+  box-shadow: var(--shadowDark);
+  gap: 10px;
+  border: none;
+  position: relative;
+  z-index: 1;
+}
+
+.calendarIcon {
+  cursor: pointer;
+  font-size: 20px;
+  color: var(--principalRed);
+}
+.input_date {
+  align-items: center;
+  font-weight: 600;
+  border: none;
+}
+
+.input_date:focus {
+  border: none;
+  outline: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  pointer-events: none;
+  left: 9px;
+  opacity: 0;
+}
+
+.h2_wantExpirationDate {
+  font-weight: 600;
+}
+
+.expandable_container:hover {
+  color: var(--principalYellow);
+}
+
+.arrowExpirationDate {
+  font-size: 25px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.arrowExpirationDate.rotate {
+  transform: rotate(180deg);
+}
+
+.h2_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.expandable_container {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.labelAndInput {
+  height: 100px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease-in-out;
+}
+
+.labelAndInput_visible {
+  max-height: 300px;
+}
+
+.errorSpan {
+  margin-top: 7px;
+  display: block;
+  color: var(--principalRed);
+}
