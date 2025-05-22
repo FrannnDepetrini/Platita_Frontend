@@ -5,6 +5,8 @@ import { MdLocationOn } from "react-icons/md";
 import { IoCalendarOutline, IoLink } from "react-icons/io5";
 import { BsCashStack } from "react-icons/bs";
 import { FaRegBookmark } from "react-icons/fa6";
+import ModalPostulation from "../../../components/ModalPostulation/ModalPostulation";
+import { useState } from "react";
 
 const jobs = [
   {
@@ -45,8 +47,9 @@ const jobs = [
   },
 ];
 
-export default function EmployerJobDetails() {
+export default function EmployeeJobDetails() {
   const { id } = useParams();
+  const [showModal, setShowModal] = useState(false);
 
   const job = jobs.find((j) => j.id === id);
 
@@ -58,6 +61,7 @@ export default function EmployerJobDetails() {
 
   return (
     <div>
+      {showModal && <ModalPostulation onClose={() => setShowModal(false)}/>}
       <div className="title-text">
         <h1>
           <span className="grey-text">Inicio </span>
@@ -68,7 +72,7 @@ export default function EmployerJobDetails() {
     <div className="align-cards">
       <div className="job-container-box">
         <div className="job-header">
-          <h2>{job.jobTitle}</h2>
+          <h2 className="job-title">{job.jobTitle}</h2>
           <CategoryIcon className="job-icon" />
         </div>
 
@@ -77,7 +81,7 @@ export default function EmployerJobDetails() {
         </div>
 
         <div className="job-description">
-          <h3>Descripción</h3>
+          <h3 className="description-title">Descripción</h3>
           <p>{job.description}</p>
         </div>
 
@@ -95,7 +99,9 @@ export default function EmployerJobDetails() {
 
           </div>
         </div>
-        <button className="postulate-button">Postulate ya</button>
+        <button className="postulate-button" onClick={() => setShowModal(true)}>
+          Postulate ya
+        </button>
         <div className="icon-button-container">
           <button className="save-button"><FaRegBookmark className="icon-save"/></button>
           <button className="link-button"><IoLink className="icon-link"/></button>

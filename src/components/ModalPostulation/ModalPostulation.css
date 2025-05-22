@@ -1,0 +1,172 @@
+@keyframes slideDown {
+    from {
+        transform: translateY(-500px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInOverlay {
+    form {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.postulation-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeInOverlay 0.7s ease-out;
+}
+
+.postulation-modal-container {
+    background-color: var(--background);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    position: relative;
+    animation: slideDown 0.7s ease-out;
+}
+
+.close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    background-color: var(--background);
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.postulation-title {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.postulation-separator {
+    width: 100%;
+    max-width: 350px;
+    border: none;
+    margin: 10px 0;
+    display: block;
+}
+
+.align-items {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-container {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-size: 18px;
+}
+
+.input-icon {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon input {
+    padding-left: 40px;
+}
+
+.presupuesto-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 18px;
+    color: var(--principalGreen);
+    pointer-events: none;
+}
+
+.fecha-icon {
+    position: absolute;
+    left: 10px;
+    font-size: 18px;
+    color: var(--principalRed);
+    pointer-events: none;
+}
+
+.presupuesto-input {
+    border: none;
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    width: 200px;
+    height: 10px;
+}
+
+.no-spinner::-webkit-inner-spin-button,
+.no-spinner::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.date-input {
+    border: none;
+    border-radius: 4px;
+    box-shadow: var(--shadow);
+    -moz-appearence: textfield;
+    width: 200px;
+    height: 10px;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    width: 100%;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+}
+
+.send-postulation-button-container {
+    margin-top: 20px;
+}
+
+.send-postulation-button {
+    display: flex;
+    color: white;
+    font-weight: bold;
+    background-color: var(--principalYellow);
+    border: none;
+    border-radius: 8px;
+    padding: 8px 27px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.send-postulation-button:hover {
+    background-color: var(--transparentYellow);
+    color: var(--principalYellow);
+    transition: color 0.5s ease;
+}
