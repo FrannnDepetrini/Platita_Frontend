@@ -1,15 +1,16 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./EmployeeRating.css";
-import { FaChevronDown, FaStar } from "react-icons/fa";
+import { FaTrashAlt } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { IoIosStar, IoIosStarOutline } from "react-icons/io";
+import { FaTrash } from "react-icons/fa6";
 
 export default function EmployeeJobRating() {
     const [text, setText] = useState('');
     const [images, setImages] = useState([]);
     const [rating, setRating] = useState(0);
     const [hover, setHover] = useState(0);
-    const [selectedImage, setSelectedImage] = useState(null);
+    const [selectedIndex, setSelectedIndex] = useState(null);
 
     const fileInputRef = useRef();
 
@@ -35,6 +36,33 @@ export default function EmployeeJobRating() {
     const handleRemoveImage = (id) => {
       setImages(prev => prev.filter(img => img.id !== id));
     };
+
+    const prevImage = () => {
+      if (selectedIndex > 0) setSelectedIndex(selectedIndex - 1);
+    };
+
+    const nextImage = () => {
+      if (selectedIndex < images.length - 1) setSelectedIndex(selectedIndex + 1);
+    };
+
+    useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (selectedIndex !== null) {
+        if (e.key === "ArrowLeft") {
+          prevImage();
+        } else if (e.key === "ArrowRight") {
+          nextImage();
+        } else if (e.key === "Escape") {
+          setSelectedIndex(null);
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedIndex, images]);
 
   return(
     <div>
@@ -72,9 +100,9 @@ export default function EmployeeJobRating() {
             />
             {images.length > 0 && (
               <div className="image-preview">
-                {images.map((img) => (
+                {images.map((img, index) => (
                   <div key={img.id}>
-                    <img src={img.url} alt="preview" onClick={() => setSelectedImage(img)}/>
+                    <img src={img.url} alt="preview" onClick={() => setSelectedIndex(index)}/>
                   </div>
                 ))}
               </div>
@@ -116,19 +144,30 @@ export default function EmployeeJobRating() {
         </h1>
       </div>
 
-      {selectedImage && (
-        <div className="modal-image-overlay" onClick={() => setSelectedImage(null)}>
+      {selectedIndex !== null && images[selectedIndex] && (
+        <div className="modal-image-overlay" onClick={() => setSelectedIndex(null)}>
           <div className="modal-image-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-image-close" onClick={() => setSelectedImage(null)}>
-              &times;
-            </button>
-            <img src={selectedImage.url} alt="selected"/>
-            <button className="remove-image-button" onClick={() => {
-              handleRemoveImage(selectedImage.id);
-              setSelectedImage(null);
-            }}>
-              Eliminar imagen
-            </button>
+              <img src={images[selectedIndex].url} alt="selected"/>
+            <div className="modal-image-buttons">
+              <button className="remove-image-button" onClick={() => {
+                const newImages = images.filter((_, idx) => idx !== selectedIndex);
+                let newIndex = selectedIndex;
+
+                if (selectedIndex >= newImages.length) {
+                  newIndex = newImages.length - 1;
+                }
+
+                setImages(newImages);
+                setSelectedIndex(newIndex >= 0 ? newIndex : null);
+                //handleRemoveImage(images[selectedIndex].id);
+                //setSelectedIndex(null);
+              }}>
+                <FaTrash className="trash-icon" />
+              </button>
+              <button className="modal-image-close" onClick={() => setSelectedIndex(null)}>
+                &times;
+              </button>
+            </div>
           </div>
         </div>
       )}
