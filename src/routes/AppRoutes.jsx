@@ -23,6 +23,7 @@ import AdminHome from "../pages/admin/AdminHome/AdminHome";
 import Welcome from "../pages/guest/Welcome/Welcome";
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
+import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
 
 export default function AppRoutes() {
   return (
@@ -43,6 +44,7 @@ export default function AppRoutes() {
         <Route path="/employee/historial" element={<EmployeeHistorial />} />
 
         <Route path="/myProfile" element={<UserProfile />} />
+        <Route path="/employer/createJob" element={<EmployerCreateJob />} />
       </Route>
 
       {/* Empleador */}
