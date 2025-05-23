@@ -1,5 +1,6 @@
 // src/routes/AppRoutes.jsx
 import { Routes, Route } from "react-router-dom";
+import Protected from "../components/ProtectedRoutes/Protected";
 
 // Guest
 import Layout from "../components/Layout/Layout";
@@ -22,7 +23,7 @@ import EmployerJobDetails from "../pages/employer/EmployerJobDetails/EmployerJob
 import AdminHome from "../pages/admin/AdminHome/AdminHome";
 import Welcome from "../pages/guest/Welcome/Welcome";
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
-import UserProfile from "../pages/userProfile/UserProfile";
+import UserProfile from "../pages/UserProfile/UserProfile";
 
 export default function AppRoutes() {
   return (
@@ -37,13 +38,48 @@ export default function AppRoutes() {
         <Route index element={<Home />} />
         <Route path="/categories" element={<Categories />} />
         {/* Empleado  */}
-        <Route path="/employee/home" element={<EmployeeHome />} />
-        <Route path="/employee/job/:id" element={<EmployeeJobDetails />} />
-        <Route path="/employee/postulations" element={<Postulations />} />
-        <Route path="/employee/historial" element={<EmployeeHistorial />} />
-
-        <Route path="/myProfile" element={<UserProfile />} />
-      </Route>
+        {/* rol: employee */}
+        <Route
+          path="/employee/home"
+          element={
+            <Protected deniedRoles={["guest"]}>
+              <EmployeeHome />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/job/:id"
+          element={
+            <Protected deniedRoles={["guest"]}>
+              <EmployeeJobDetails />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/postulations"
+          element={
+            <Protected deniedRoles={["guest"]}>
+              <Postulations />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/historial"
+          element={
+            <Protected deniedRoles={["guest"]}>
+              <EmployeeHistorial/>
+            </Protected>
+          }
+        />
+        <Route
+          path="/myProfile"
+          element={
+            <Protected deniedRoles={["guest"]}>
+              <UserProfile/>
+            </Protected>
+          }
+        />
+    </Route>
 
       {/* Empleador */}
       {/*<Route path="/employer/home" element={<EmployerHome />} />*/}

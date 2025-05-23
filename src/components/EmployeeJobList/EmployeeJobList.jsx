@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi"; // Ícono de lupa
-import CardJob from "../cardJob/CardJob";
+import CardJob from "../CardJob/CardJob";
 import "./EmployeeJobList.css";
 import EmployeeCardJob from "../EmployeeCardJob/EmployeeCardJob";
 
