@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { Outlet } from "react-router-dom";
-import { AuthContext } from "../../services/AuthContext";
+import useAuth from "../../services/contexts/AuthProvider";
 import { ModalContext } from "../../services/ModalContext";
 import ModalRecoverPass from "../ModalRecoverPass/ModalRecoverPass";
 import Aside from "../Aside/Aside";
@@ -12,7 +12,7 @@ import Aside from "../Aside/Aside";
 const Layout = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isAsideVisible, setIsAsideVisible] = useState(false);
-  const { userRole } = useContext(AuthContext);
+  const { user, isAuthenticated } = useAuth();
 
   const handleOpenLogin = () => setIsLoginModalOpen(true);
   const handleCloseLogin = () => setIsLoginModalOpen(false);
@@ -31,9 +31,10 @@ const Layout = () => {
       <header className="header_container">
         <Header
           categorySection={categoriesRef}
-          handleLogin={handleOpenLogin}
-          userRole={userRole}
-          setIsAsideVisible={setIsAsideVisible}
+          handleLogin={ handleOpenLogin }
+          userRole={user.role}
+          setIsAsideVisible={ setIsAsideVisible }
+          isUserLogged={ isAuthenticated }
         />
       </header>
       <main className="main_container">

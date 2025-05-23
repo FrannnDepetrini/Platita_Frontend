@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { FiSearch } from "react-icons/fi"; // Ícono de lupa
-import CardJob from "../cardJob/CardJob";
+import CardJob from "../CardJob/CardJob";
 import "./EmployeeJobList.css";
-import EmployeeCardJob from "../EmployeeCardJob/EmployeeCardJob";
+// import EmployeeCardJob from "../EmployeeCardJob/EmployeeCardJob";
 
 const initialJobs = [
   {
@@ -49,35 +49,41 @@ const EmployeeJobList = () => {
   const [jobs, setJobs] = useState(initialJobs);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
+  const toggleMenu = useCallback(() => setMenuOpen(prev => !prev), []);
 
-  const handleSort = (type) => {
-    let sortedJobs = [...jobs];
-
-    switch (type) {
-      case "city":
-        sortedJobs.sort((a, b) => a.city.localeCompare(b.city));
-        break;
-      case "price":
-        sortedJobs.sort((a, b) => b.averagePrice - a.averagePrice);
-        break;
-      case "applications":
-        sortedJobs.sort((a, b) => b.applications - a.applications);
-        break;
-      default:
-        break;
-    }
-
-    setJobs(sortedJobs);
+  const handleSort = useCallback((type) => {
+    setJobs(prevJobs => {
+      const sortedJobs = [...prevJobs];
+      
+      switch (type) {
+        case 'city':
+          sortedJobs.sort((a, b) => a.city.localeCompare(b.city));
+          break;
+        case 'price':
+          sortedJobs.sort((a, b) => b.averagePrice - a.averagePrice);
+          break;
+        case 'applications':
+          sortedJobs.sort((a, b) => b.applications - a.applications);
+          break;
+        default:
+          break;
+      }
+      
+      return sortedJobs;
+    });
+    
     setMenuOpen(false);
-  };
+  }, []);
 
-  const filteredJobs = jobs.filter(
-    (job) =>
-      job.jobTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      job.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      job.city.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredJobs = useMemo(() => {
+    const term = searchTerm.toLowerCase();
+    return jobs.filter(
+      job =>
+        job.jobTitle.toLowerCase().includes(term) ||
+        job.description.toLowerCase().includes(term) ||
+        job.city.toLowerCase().includes(term)
+    );
+  }, [jobs, searchTerm]);
 
   return (
     <div className="ejob-list-wrapper">
@@ -100,9 +106,9 @@ const EmployeeJobList = () => {
       <div className="ejob-list-header">
         <h2 className="ejob-list-title">Según tus intereses</h2>
         <div className="dropdown-container">
-          <button className="sort-label">Ordenar</button>
-          <button onClick={toggleMenu} className="sort-icon">
-            <IoMdArrowDropdown />
+          <button className="sort-label" onClick={toggleMenu}>
+            Ordenar
+            <IoMdArrowDropdown className={`sort-icon ${menuOpen ? 'open' : ''}`}/>
           </button>
           <ul className={`dropdown-menu ${menuOpen ? "open" : "closed"}`}>
             <li onClick={() => handleSort("city")}>Por ciudad</li>
@@ -122,7 +128,6 @@ const EmployeeJobList = () => {
             ))}
           </div>
         </div>
-        <div className="fade-bottom"></div>
       </div>
     </div>
   );

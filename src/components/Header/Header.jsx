@@ -9,12 +9,13 @@ const Header = ({
   handleLogin,
   userRole,
   setIsAsideVisible,
+  isUserLogged
 }) => {
   const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
 
   //Dato que se reemplazara con el authContext
-  const userLogged = true;
+  // const userLogged = true;
 
   const onLogin = () => {
     // navigate("/login");
@@ -39,7 +40,7 @@ const Header = ({
           <img className="logo" src={Logo}></img>
         </div>
         <div className="nav_container">
-          {userRole == "guest" ? (
+          {userRole == "Guest" ? (
             <>
               <h1
                 onClick={() => handleNavigateTo()}
@@ -85,7 +86,7 @@ const Header = ({
         </div>
       </div>
       <div className="session_container">
-        {!userLogged ? (
+        {!isUserLogged ? (
           <button onClick={onLogin}>Iniciar sesion</button>
         ) : (
           <>
