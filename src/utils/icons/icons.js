@@ -36,5 +36,4 @@ export { CiDark } from "react-icons/ci";
 export { IoIosArrowDown } from "react-icons/io";
 export { BsFillBriefcaseFill } from "react-icons/bs";
 export { IoIosInformationCircleOutline } from "react-icons/io";
-export { FaUser } from "react-icons/fa";
 
