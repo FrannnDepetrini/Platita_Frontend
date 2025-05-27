@@ -1,0 +1,230 @@
+.rating-title-text {
+    font-size: 8px;
+    text-align: left;
+    font-weight: bold;
+    margin-left: 90px;
+}
+
+.grey-text {
+    color: grey;
+}
+
+.container-align-items {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 30px;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.rating-container-box {
+    bottom: 650px;
+    background-color: white;
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    margin-top: 10px;
+    margin-left: 80px;
+}
+
+.input {
+    font-weight:bold;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: var(--background);
+    width: 100%;
+    height: 150px;
+    padding: 10px;
+    width: 275px;
+    box-shadow: var(--shadow);
+    resize: none;
+    border: none;
+}
+
+.description-title {
+    font-size: 20px;
+}
+
+.picture-input {
+    display: none;
+}
+
+.picture-text {
+    font-size: 20px;
+}
+
+.custom-file-upload {
+    margin-right: 50px;
+    width: 130px;
+    height: 120px;
+    color: grey;
+    background-color: #fcf9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+}
+
+.custom-file-upload.shrink {
+    width: 60px;
+    height: 60px;
+    opacity: 0.5;
+    transform: scale(0.9);
+    transition: all 0.3s ease;
+}
+
+.image-preview {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 10px;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 275px;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease;
+}
+
+.image-preview img:hover {
+    transform: scale(1.05);
+}
+
+.modal-image-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.modal-image-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 90%;
+    max-height: 90%;
+    text-align: center;
+    position: relative;
+    box-shadow: var(--shadow);
+}
+
+.modal-image-content img {
+    max-width: 100%;
+    max-height: 70vh;
+    object-fit: contain;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.modal-image-buttons {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.modal-image-close {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-image-button {
+    background-color: var(--principalRed);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.remove-image-button:hover {
+    background-color: var(--transparentRed);
+    color: var(--principalRed);
+    transition: all 0.3s ease;
+}
+
+.stars-container {
+    margin-top: 10px;
+}
+
+.stars {
+    display: flex;
+    gap: 3px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    margin-top: 2px;
+}
+
+.star-icon {
+    font-size: 25px;
+    transition: color 0.3s ease;
+}
+
+.star-icon:hover {
+    transform: scale(1.2);
+}
+
+.send-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.send-button {
+    display: flex;
+    gap: 10px;
+    color: white;
+    font-weight: bold;
+    background-color: var(--principalYellow);
+    border: none;
+    border-radius: 10px;
+    padding: 10px 25px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.send-button:hover {
+    background-color: var(--transparentYellow);
+    box-shadow: var(--shadow);
+    color: var(--principalYellow);
+    transition: all 0.3s ease;
+}
+
+.box-footer-text {
+    color: grey;
+    font-size: 8px;
+    text-align: left;
+    font-weight: bold;
+    margin-left: 80px;
+    font-style: italic;
+    margin-top: 10px;
+}
