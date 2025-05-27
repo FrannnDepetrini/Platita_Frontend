@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 // Guest
 import Layout from "../components/Layout/Layout";
 import Login from "../pages/guest/Login/Login";
-import Categories from "../components/categories/Categories/Categories";
+// import Categories from "../components/categories/Categories/Categories";
 import Home from "../pages/guest/Home/Home";
 import Register from "../pages/guest/Register/Register";
 
@@ -24,19 +24,20 @@ import AdminHome from "../pages/admin/AdminHome/AdminHome";
 import Welcome from "../pages/guest/Welcome/Welcome";
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
+import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
 
 export default function AppRoutes() {
   return (
     <Routes>
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-        <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/register" element={<Register />} />
 
         <Route path="/recover-password" element={<RecoverPassword />} />
 
         <Route index element={<Home />} />
-        <Route path="/categories" element={<Categories />} />
+        {/* <Route path="/categories" element={<Categories />} /> */}
         {/* Empleado  */}
         <Route path="/employee/home" element={<EmployeeHome />} />
         <Route path="/employee/job/:id" element={<EmployeeJobDetails />} />
@@ -45,6 +46,7 @@ export default function AppRoutes() {
         <Route path="/employee/historial" element={<EmployeeHistorial />} />
 
         <Route path="/myProfile" element={<UserProfile />} />
+        <Route path="/employer/createJob" element={<EmployerCreateJob />} />
       </Route>
 
       {/* Empleador */}
