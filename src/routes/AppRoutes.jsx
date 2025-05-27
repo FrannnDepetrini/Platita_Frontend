@@ -13,6 +13,7 @@ import EmployeeHome from "../pages/employee/EmployeeHome/EmployeeHome";
 import EmployeeJobDetails from "../pages/employee/EmployeeJobDetails/EmployeeJobDetails";
 import Postulations from "../pages/employee/Postulations/Postulations";
 import EmployeeHistorial from "../pages/employee/EmployeeHistorial/EmployeeHistorial";
+import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
 
 // Employer
 import EmployerHome from "../pages/employer/EmployerHome/EmployerHome";
@@ -41,6 +42,7 @@ export default function AppRoutes() {
         <Route path="/employee/home" element={<EmployeeHome />} />
         <Route path="/employee/job/:id" element={<EmployeeJobDetails />} />
         <Route path="/employee/postulations" element={<Postulations />} />
+        <Route path="/employee/rating" element={<EmployeeRating />} />
         <Route path="/employee/historial" element={<EmployeeHistorial />} />
 
         <Route path="/myProfile" element={<UserProfile />} />
