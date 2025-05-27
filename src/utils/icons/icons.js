@@ -39,4 +39,3 @@ export { BsFillBriefcaseFill } from "react-icons/bs";
 export { IoIosInformationCircleOutline } from "react-icons/io";
 
 
-

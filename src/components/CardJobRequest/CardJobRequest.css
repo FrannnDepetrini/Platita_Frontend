@@ -1,0 +1,75 @@
+@import url("../../utils/colors/colors.css");
+
+.cardjob-request {
+  background-color: var(--beige);
+  border: 1px solid var(--beige);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 300px; 
+  padding: 12px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.cardjob-request:hover {
+  border: 1px solid black;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.request-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.request-title h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.rjob-icon {
+  height: 2.2rem;
+  width: 2.2rem;
+  color: var(--principalRed);
+  fill: var(--principalRed);
+  transition: transform 0.3s ease;
+}
+
+.request-applications{
+      font-size: 1rem;
+  font-weight: 500;
+}
+.request-price {
+  font-size: 1rem;
+  font-weight: 500;
+  color: green;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .cardjob-request {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  .request-title h2 {
+    font-size: 1.1rem;
+  }
+
+  .request-applications,
+  .request-price {
+    font-size: 0.95rem;
+  }
+
+  .rjob-icon {
+    height: 1.8rem;
+    width: 1.8rem;
+  }
+}

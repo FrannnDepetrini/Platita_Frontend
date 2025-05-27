@@ -1,0 +1,231 @@
+@import url(../../utils/colors/colors.css);
+
+* {
+  box-sizing: border-box;
+ 
+  font-family: var(--Inter);
+}
+
+
+.erjob-layout {
+  display: flex;
+  width: 100%;
+  max-width: 1680px;
+  margin: 10px auto;
+  margin-top: -40px;
+  padding: 40px;
+  max-width: 1800px;
+  gap: 5%; /* Separación entre las dos mitades */
+  box-sizing: border-box;
+}
+
+.erjob-list-wrapper {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
+  width: 45%;
+    height: 55vh; 
+  display: flex;
+  flex-direction: column;
+}
+
+
+.erjob-bar {
+  border: none;
+  height: 1px;
+  background-color: #fcab10;
+  margin-top: 15px;
+  margin-bottom: 30px;
+  width: 47%;
+}
+
+.erscroll-job-wrapper {
+  flex:1;
+    overflow: hidden;
+}
+
+.erscroll-job {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.erscroll-job::-webkit-scrollbar {
+  width: 8px;
+  background-color: #fdfbf6;
+  border-radius: 16px;
+}
+
+.erscroll-job::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 16px;
+}
+
+.erjob-scroll-box {
+  display: flex;
+  gap: 8px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.erjob-list-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.ersort-label {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: default;
+  /* margin-right: 5px; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.erjob-searcher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.ersearch-label {
+  font-size: 23px;
+  font-weight: 600;
+  color: #000;
+}
+
+.ersearch-box {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px 10px;
+  background-color: #ebe8d8;
+  width: 100%;
+  max-width: 300px;
+}
+
+.ersearch-icon {
+  margin-right: 8px;
+  color: #888;
+  font-size: 1.2em;
+}
+
+.ersearch-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1em;
+  background-color: transparent;
+}
+
+.ercustom-button {
+  background-color: #FCAB10;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding:25px 45px;
+  font-size: 1.2rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ercustom-button:hover {
+  background-color: #e09b0d; /* un tono un poco más oscuro para hover */
+}
+
+@media (max-width: 768px) {
+  .erjob-list-wrapper {
+    padding: 15px;
+    width: 90%;
+  }
+
+  .erjob-list-title {
+    font-size: 20px;
+  }
+
+  .ersearch-box {
+    max-width: 100%;
+  }
+
+  .erjob-list-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dropdown-container {
+    margin-top: 10px;
+  }
+
+  .ersort-label {
+    font-size: 18px;
+  }
+
+  .ersort-icon {
+    font-size: 1.8rem;
+  }
+
+  .erjob-bar {
+    width: 100%;
+  }
+
+  .erscroll-job-wrapper {
+    height: 300px;
+  }
+
+  @media (max-width: 1024px) {
+  .erjob-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .erjob-list-wrapper,
+  .erjob-button-wrapper {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .ercustom-button {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    font-size: 1.1rem;
+  }
+
+  .erscroll-job-wrapper {
+    max-height: 400px; /* altura máxima en pantallas chicas */
+  }
+}
+
+@media (max-width: 480px) {
+  .ersearch-box {
+    flex-direction: row;
+    padding: 8px;
+  }
+
+  .ersearch-label {
+    font-size: 20px;
+  }
+
+  .ercustom-button {
+    font-size: 1rem;
+    padding: 16px;
+  }
+
+  .erjob-scroll-box {
+    gap: 6px;
+  }
+}
+
+}

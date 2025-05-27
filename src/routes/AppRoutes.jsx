@@ -18,6 +18,7 @@ import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
 // Employer
 import EmployerHome from "../pages/employer/EmployerHome/EmployerHome";
 import EmployerJobDetails from "../pages/employer/EmployerJobDetails/EmployerJobDetails";
+import EmployerRequest from "../pages/employer/EmployerRequest/EmployerRequest";
 
 // Admin
 import AdminHome from "../pages/admin/AdminHome/AdminHome";
@@ -46,14 +47,16 @@ export default function AppRoutes() {
         <Route path="/employee/historial" element={<EmployeeHistorial />} />
 
         <Route path="/myProfile" element={<UserProfile />} />
+        {/*Empleador*/}
         <Route path="/employer/createJob" element={<EmployerCreateJob />} />
+        <Route path="/employer/request" element={<EmployerRequest />} />
       </Route>
 
-      {/* Empleador */}
       {/*<Route path="/employer/home" element={<EmployerHome />} />*/}
       {/*<Route path="/employer/job/:id" element={<EmployerJobDetails />} />*/}
       {/* Admin */}
       {/*<Route path="/admin/home" element={<AdminHome />} />*/}
+    
     </Routes>
   );
 }
