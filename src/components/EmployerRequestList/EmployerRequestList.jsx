@@ -13,7 +13,7 @@ const EmployerRequestList = () => {
     const fetchJobs = async () => {
       try {
         const response = await fetch("inserte-api");
-       /*, {
+        /*, {
         headers: {
           Authorization: `API_KEY`,
           "Content-Type": "application/json",
@@ -26,6 +26,39 @@ const EmployerRequestList = () => {
         console.error("Error cargando trabajos:", error);
         // Fallback temporal con datos falsos si falla la API
         setJobs([
+          {
+            id: "1",
+            jobTitle: "Fallback: Levantar un tapial",
+            description: "Descripción de prueba",
+            city: "Rosario",
+            location: "Santa fe 50",
+            applications: 100,
+            averagePrice: 9000,
+            userName: "Fallback User",
+            category: "Construction",
+          },
+          {
+            id: "1",
+            jobTitle: "Fallback: Levantar un tapial",
+            description: "Descripción de prueba",
+            city: "Rosario",
+            location: "Santa fe 50",
+            applications: 100,
+            averagePrice: 9000,
+            userName: "Fallback User",
+            category: "Construction",
+          },
+          {
+            id: "1",
+            jobTitle: "Fallback: Levantar un tapial",
+            description: "Descripción de prueba",
+            city: "Rosario",
+            location: "Santa fe 50",
+            applications: 100,
+            averagePrice: 9000,
+            userName: "Fallback User",
+            category: "Construction",
+          },
           {
             id: "1",
             jobTitle: "Fallback: Levantar un tapial",
@@ -81,10 +114,8 @@ const EmployerRequestList = () => {
               ))}
             </div>
           </div>
+          <div className="fade-bottom"></div>
         </div>
-      </div>
-      <div className="erjob-button-wrapper">
-        <button className="ercustom-button">Crear un nuevo trabajo</button>
       </div>
     </div>
   );

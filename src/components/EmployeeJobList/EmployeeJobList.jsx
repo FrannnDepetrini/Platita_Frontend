@@ -49,36 +49,36 @@ const EmployeeJobList = () => {
   const [jobs, setJobs] = useState(initialJobs);
   const [searchTerm, setSearchTerm] = useState("");
 
-  const toggleMenu = useCallback(() => setMenuOpen(prev => !prev), []);
+  const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
 
   const handleSort = useCallback((type) => {
-    setJobs(prevJobs => {
+    setJobs((prevJobs) => {
       const sortedJobs = [...prevJobs];
-      
+
       switch (type) {
-        case 'city':
+        case "city":
           sortedJobs.sort((a, b) => a.city.localeCompare(b.city));
           break;
-        case 'price':
+        case "price":
           sortedJobs.sort((a, b) => b.averagePrice - a.averagePrice);
           break;
-        case 'applications':
+        case "applications":
           sortedJobs.sort((a, b) => b.applications - a.applications);
           break;
         default:
           break;
       }
-      
+
       return sortedJobs;
     });
-    
+
     setMenuOpen(false);
   }, []);
 
   const filteredJobs = useMemo(() => {
     const term = searchTerm.toLowerCase();
     return jobs.filter(
-      job =>
+      (job) =>
         job.jobTitle.toLowerCase().includes(term) ||
         job.description.toLowerCase().includes(term) ||
         job.city.toLowerCase().includes(term)
@@ -108,7 +108,9 @@ const EmployeeJobList = () => {
         <div className="dropdown-container">
           <button className="sort-label" onClick={toggleMenu}>
             Ordenar
-            <IoMdArrowDropdown className={`sort-icon ${menuOpen ? 'open' : ''}`}/>
+            <IoMdArrowDropdown
+              className={`sort-icon ${menuOpen ? "open" : ""}`}
+            />
           </button>
           <ul className={`dropdown-menu ${menuOpen ? "open" : "closed"}`}>
             <li onClick={() => handleSort("city")}>Por ciudad</li>
@@ -128,6 +130,7 @@ const EmployeeJobList = () => {
             ))}
           </div>
         </div>
+        <div className="fade-bottom"></div>
       </div>
     </div>
   );

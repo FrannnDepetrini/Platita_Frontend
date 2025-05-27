@@ -9,7 +9,7 @@ const Header = ({
   handleLogin,
   userRole,
   setIsAsideVisible,
-  isUserLogged
+  isUserLogged,
 }) => {
   const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
@@ -20,6 +20,15 @@ const Header = ({
   const onLogin = () => {
     // navigate("/login");
     handleLogin();
+  };
+
+  const handleNavigateHome = () => {
+    if (userRole == "Guest") {
+      navigate("/");
+    } else if (userRole == "Client") {
+      navigate("/employee/home");
+      setActiveIndex("employee/home");
+    }
   };
 
   const handleNavigateTo = (url = "") => {
@@ -37,7 +46,7 @@ const Header = ({
     <div className="header_container">
       <div className="logo-nav_container">
         <div className="logo_container">
-          <img className="logo" src={Logo}></img>
+          <img onClick={handleNavigateHome} className="logo" src={Logo}></img>
         </div>
         <div className="nav_container">
           {userRole == "Guest" ? (

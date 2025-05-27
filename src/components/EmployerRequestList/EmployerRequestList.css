@@ -2,20 +2,12 @@
 
 * {
   box-sizing: border-box;
- 
+
   font-family: var(--Inter);
 }
 
-
 .erjob-layout {
   display: flex;
-  width: 100%;
-  max-width: 1680px;
-  margin: 10px auto;
-  margin-top: -40px;
-  padding: 40px;
-  max-width: 1800px;
-  gap: 5%; /* Separación entre las dos mitades */
   box-sizing: border-box;
 }
 
@@ -24,12 +16,11 @@
   padding: 20px;
   border-radius: 20px;
   box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
-  width: 45%;
-    height: 55vh; 
+  width: 550px;
+  height: 65vh;
   display: flex;
   flex-direction: column;
 }
-
 
 .erjob-bar {
   border: none;
@@ -41,8 +32,9 @@
 }
 
 .erscroll-job-wrapper {
-  flex:1;
-    overflow: hidden;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
 }
 
 .erscroll-job {
@@ -63,9 +55,10 @@
 
 .erjob-scroll-box {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   flex-direction: column;
   align-items: flex-start;
+  padding-bottom: 10px;
 }
 
 .erjob-list-header {
@@ -82,8 +75,6 @@
   border: none;
   font-size: 20px;
   font-weight: 500;
-  cursor: default;
-  /* margin-right: 5px; */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -129,11 +120,11 @@
 }
 
 .ercustom-button {
-  background-color: #FCAB10;
+  background-color: #fcab10;
   border: none;
   border-radius: 10px;
   color: white;
-  padding:25px 45px;
+  padding: 15px;
   font-size: 1.2rem;
   font-weight: 650;
   cursor: pointer;
@@ -185,47 +176,46 @@
   }
 
   @media (max-width: 1024px) {
-  .erjob-layout {
-    flex-direction: column;
-    align-items: center;
+    .erjob-layout {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .erjob-list-wrapper,
+    .erjob-button-wrapper {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .ercustom-button {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1rem;
+    }
+
+    .erscroll-job-wrapper {
+      max-height: 400px; /* altura máxima en pantallas chicas */
+    }
   }
 
-  .erjob-list-wrapper,
-  .erjob-button-wrapper {
-    width: 100%;
-    max-width: 600px;
-  }
+  @media (max-width: 480px) {
+    .ersearch-box {
+      flex-direction: row;
+      padding: 8px;
+    }
 
-  .ercustom-button {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    font-size: 1.1rem;
-  }
+    .ersearch-label {
+      font-size: 20px;
+    }
 
-  .erscroll-job-wrapper {
-    max-height: 400px; /* altura máxima en pantallas chicas */
-  }
-}
+    .ercustom-button {
+      font-size: 1rem;
+      padding: 16px;
+    }
 
-@media (max-width: 480px) {
-  .ersearch-box {
-    flex-direction: row;
-    padding: 8px;
+    .erjob-scroll-box {
+      gap: 6px;
+    }
   }
-
-  .ersearch-label {
-    font-size: 20px;
-  }
-
-  .ercustom-button {
-    font-size: 1rem;
-    padding: 16px;
-  }
-
-  .erjob-scroll-box {
-    gap: 6px;
-  }
-}
-
 }
