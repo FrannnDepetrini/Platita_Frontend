@@ -100,7 +100,7 @@ function ModalNotification({ isOpen, onClose }) {
     const IconoClose = UseCategoryIcon("Others");
 
     return (
-        <div className={`overlayModal ${isClosing ? "closing": ""}`}>
+        <div className={`overlayModal ${isClosing ? "closing": ""}`} onClick={handleClose}>
             <div className={`containerModal ${isClosing ? "closing" : ""}`} onClick={(e) => e.stopPropagation()}>
                 <div className="containerTop">
                     <section className="sectionTitle">

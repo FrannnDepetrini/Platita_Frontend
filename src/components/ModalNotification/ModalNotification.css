@@ -87,6 +87,15 @@
   padding: 8px 0px 8px 8px;
 }
 
+.containerList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.containerList::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 10px;
+}
+
 .btnClose {
   display: flex;
   align-items: center;

@@ -3,7 +3,7 @@ import styles from "./NotificationsBell.module.css";
 import imagen from "../../utils/images/bellIcon.svg";
 
 
-const NotificationsBell = ({ numNotifications, showModal }) => {
+const NotificationsBell = ({ numNotifications=10, showModal }) => {
     const pointerRef = useRef(null);
     const [isAnimating, setIsAnimating] = useState(false);
 
