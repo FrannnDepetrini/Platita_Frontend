@@ -8,15 +8,19 @@ import useAuth from "../../services/contexts/AuthProvider";
 import { ModalContext } from "../../services/ModalContext";
 import ModalRecoverPass from "../ModalRecoverPass/ModalRecoverPass";
 import Aside from "../Aside/Aside";
+import ModalNotification from "../ModalNotification/ModalNotification";
 
 const Layout = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isAsideVisible, setIsAsideVisible] = useState(false);
+  const [isNotificationModalVisible, setIsNotificationModalVisible] = useState(false);
   const { user, isAuthenticated } = useAuth();
 
   const handleOpenLogin = () => setIsLoginModalOpen(true);
   const handleCloseLogin = () => setIsLoginModalOpen(false);
-  console.log(isLoginModalOpen);
+  const handleOpenNotification = () => setIsNotificationModalVisible(true);
+  const handleCloseNotification = () => setIsNotificationModalVisible(false);
+  // console.log(isLoginModalOpen);
 
   const categoriesRef = useRef(null);
   const { showModal, isSuccess, hideRecoverModal } = useContext(ModalContext);
@@ -34,6 +38,7 @@ const Layout = () => {
           handleLogin={ handleOpenLogin }
           userRole={user.role}
           setIsAsideVisible={ setIsAsideVisible }
+          setIsNotificationModalVisible={ handleOpenNotification}
           isUserLogged={ isAuthenticated }
         />
       </header>
@@ -44,8 +49,13 @@ const Layout = () => {
         <Footer />
       </footer>
       <ModalLogin isOpen={isLoginModalOpen} onClose={handleCloseLogin} />
+
       {showModal && (
         <ModalRecoverPass bool={isSuccess} hide={hideRecoverModal} />
+      )}
+
+      {isNotificationModalVisible && (
+        <ModalNotification isOpen={isNotificationModalVisible} onClose={handleCloseNotification}/>
       )}
     </div>
   );

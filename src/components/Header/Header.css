@@ -108,3 +108,9 @@
 .session_container button:hover {
   background-color: #2a6f42;
 }
+
+.session_buttons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}

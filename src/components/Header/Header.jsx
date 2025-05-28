@@ -1,15 +1,16 @@
 import "./Header.css";
 import Logo from "../../utils/images/PlatitaLogo.png";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import NotificationsBell from "../NotificationsBell/NotificationsBell";
 
 const Header = ({
   categorySection,
   handleLogin,
   userRole,
   setIsAsideVisible,
-  isUserLogged
+  isUserLogged,
+  setIsNotificationModalVisible
 }) => {
   const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
@@ -89,11 +90,12 @@ const Header = ({
         {!isUserLogged ? (
           <button onClick={onLogin}>Iniciar sesion</button>
         ) : (
-          <>
+          <div className="session_buttons">
+            <NotificationsBell showModal={setIsNotificationModalVisible}/>
             <button onClick={() => setIsAsideVisible(true)}>
               Fulano Detal
             </button>
-          </>
+          </div>
         )}
       </div>
     </div>
