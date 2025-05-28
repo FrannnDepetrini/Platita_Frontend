@@ -21,10 +21,8 @@ expirationLimit.setDate(today.getDate() + 14);
 var expirationFormatted = expirationLimit.toISOString().split("T")[0];
 
 const EmployerCreateJob = () => {
-  const [title, setTitle] = useState("");
   const [province, setProvince] = useState("");
   const [city, setCity] = useState("");
-  const [description, setDescription] = useState("");
   const [category, setCategory] = useState("initial");
   const [expirationDate, setExpirationDate] = useState(defaultFormatted);
   const [wantExpirationDate, setWantExpirationDate] = useState(false);
@@ -76,12 +74,11 @@ const EmployerCreateJob = () => {
   };
 
   const handleCreateJob = () => {
-    alert("goadw");
     const job = {
-      title,
+      title: data["title"],
       province,
       city,
-      description,
+      description: data["description"],
       category,
       expirationDate,
     };

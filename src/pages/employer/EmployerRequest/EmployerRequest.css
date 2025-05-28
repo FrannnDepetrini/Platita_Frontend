@@ -1,20 +1,22 @@
 @import url(../../../utils/colors/colors.css);
 
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 .employer-request {
   display: flex;
   flex-direction: column;
-  align-content: center;
-  align-items: center;
   height: 100%;
+  margin: 10px 0 0 90px;
 }
 
 .employer-request .erbreadcrumb {
-  margin-left: 90px;
-  align-self: flex-start;
   font-size: 0.875rem;
   font-weight: 600;
   color: black;
-  margin-bottom: 0.5rem;
 }
 
 .erbreadcrumb-link {
@@ -34,4 +36,9 @@
 .erbreadcrumb-link.active {
   color: #000;
   pointer-events: none; /* no clickeable */
+}
+
+.listAndButton_container {
+  display: flex;
+  gap: 60px;
 }

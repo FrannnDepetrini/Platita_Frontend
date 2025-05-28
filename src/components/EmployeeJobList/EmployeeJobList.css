@@ -30,20 +30,18 @@
   width: 15%;
 }
 
-/* NUEVO WRAPPER que contiene el scroll y el fade fijo */
 .escroll-job-wrapper {
   position: relative;
-  height: 390px;
+  height: 300px;
   overflow: hidden;
 }
 
-/* CONTENEDOR SCROLLEABLE (interior) */
 .escroll-job {
   overflow-y: auto;
   height: 100%;
+  padding-bottom: 10px;
 }
 
-/* Scrollbar personalizado */
 .escroll-job::-webkit-scrollbar {
   width: 8px;
   background-color: #fdfbf6;
@@ -55,7 +53,6 @@
   border-radius: 16px;
 }
 
-/* Contenido que se scrollea */
 .ejob-scroll-box {
   display: flex;
   gap: 8px;
@@ -63,13 +60,12 @@
   align-items: flex-start;
 }
 
-/* Filtro degradado que se mantiene fijo al fondo */
 .fade-bottom {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 8px;
-  height: 10px; /* Antes 40px, ahora un poco más sutil */
+  height: 10px;
   background: linear-gradient(to top, white, transparent);
   pointer-events: none;
   z-index: 2;
@@ -96,7 +92,6 @@
   font-size: 20px;
   font-weight: 500;
   cursor: default;
-  /* margin-right: 5px; */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -175,7 +170,7 @@
 .search-box {
   display: flex;
   align-items: center;
-  border: 1px solid #ccc;
+
   border-radius: 6px;
   padding: 5px 10px;
   background-color: #ebe8d8;

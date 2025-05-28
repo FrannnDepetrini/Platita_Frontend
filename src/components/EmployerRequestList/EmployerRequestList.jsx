@@ -7,13 +7,16 @@ import "./EmployerRequestList.css";
 const EmployerRequestList = () => {
   const [jobs, setJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [loading, setLoading] = useState("true");
 
   // Fetch de solicitudes reales desde API
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch("inserte-api");
-       /*, {
+        const response = await fetch(
+          "https://magicloops.dev/api/loop/dea8a378-20bb-45ea-8cf8-111ee33d69c8/run?input=Hello+World"
+        );
+        /*, {
         headers: {
           Authorization: `API_KEY`,
           "Content-Type": "application/json",
@@ -22,22 +25,9 @@ const EmployerRequestList = () => {
         if (!response.ok) throw new Error("Error al obtener solicitudes");
         const data = await response.json();
         setJobs(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error cargando trabajos:", error);
-        // Fallback temporal con datos falsos si falla la API
-        setJobs([
-          {
-            id: "1",
-            jobTitle: "Fallback: Levantar un tapial",
-            description: "Descripción de prueba",
-            city: "Rosario",
-            location: "Santa fe 50",
-            applications: 100,
-            averagePrice: 9000,
-            userName: "Fallback User",
-            category: "Construction",
-          },
-        ]);
       }
     };
 
@@ -76,15 +66,23 @@ const EmployerRequestList = () => {
         <div className="erscroll-job-wrapper">
           <div className="erscroll-job">
             <div className="erjob-scroll-box">
-              {filteredJobs.map((job) => (
-                <CardJobRequest key={job.id} jobInfo={job} cardType={true} />
-              ))}
+              {loading ? (
+                <div className="loader"></div>
+              ) : (
+                <>
+                  {filteredJobs.map((job) => (
+                    <CardJobRequest
+                      key={job.id}
+                      jobInfo={job}
+                      cardType={true}
+                    />
+                  ))}
+                </>
+              )}
             </div>
           </div>
+          <div className="fade-bottom"></div>
         </div>
-      </div>
-      <div className="erjob-button-wrapper">
-        <button className="ercustom-button">Crear un nuevo trabajo</button>
       </div>
     </div>
   );
