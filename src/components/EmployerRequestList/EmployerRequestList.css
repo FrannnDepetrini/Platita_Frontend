@@ -2,47 +2,37 @@
 
 * {
   box-sizing: border-box;
- 
   font-family: var(--Inter);
 }
 
-
 .erjob-layout {
   display: flex;
-  width: 100%;
-  max-width: 1680px;
-  margin: 10px auto;
-  margin-top: -40px;
-  padding: 40px;
-  max-width: 1800px;
-  gap: 5%; /* Separación entre las dos mitades */
-  box-sizing: border-box;
 }
 
 .erjob-list-wrapper {
   background: white;
   padding: 20px;
   border-radius: 20px;
-  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.3);
-  width: 45%;
-    height: 55vh; 
+  box-shadow: var(--shadowDark);
+  width: 550px;
+  height: 65vh;
   display: flex;
   flex-direction: column;
 }
 
-
 .erjob-bar {
   border: none;
   height: 1px;
-  background-color: #fcab10;
+  background-color: var(--principalYellow);
   margin-top: 15px;
   margin-bottom: 30px;
   width: 47%;
 }
 
 .erscroll-job-wrapper {
-  flex:1;
-    overflow: hidden;
+  flex: 1;
+  overflow: hidden;
+  position: relative;
 }
 
 .erscroll-job {
@@ -52,7 +42,7 @@
 
 .erscroll-job::-webkit-scrollbar {
   width: 8px;
-  background-color: #fdfbf6;
+  background-color: white;
   border-radius: 16px;
 }
 
@@ -63,9 +53,10 @@
 
 .erjob-scroll-box {
   display: flex;
-  gap: 8px;
+  gap: 12px;
   flex-direction: column;
   align-items: flex-start;
+  padding-bottom: 10px;
 }
 
 .erjob-list-header {
@@ -82,8 +73,6 @@
   border: none;
   font-size: 20px;
   font-weight: 500;
-  cursor: default;
-  /* margin-right: 5px; */
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -101,7 +90,6 @@
 .ersearch-label {
   font-size: 23px;
   font-weight: 600;
-  color: #000;
 }
 
 .ersearch-box {
@@ -109,7 +97,7 @@
   align-items: center;
   border-radius: 10px;
   padding: 10px 10px;
-  background-color: #ebe8d8;
+  background-color: var(--beige);
   width: 100%;
   max-width: 300px;
 }
@@ -129,11 +117,11 @@
 }
 
 .ercustom-button {
-  background-color: #FCAB10;
+  background-color: var(--principalYellow);
   border: none;
   border-radius: 10px;
   color: white;
-  padding:25px 45px;
+  padding: 15px;
   font-size: 1.2rem;
   font-weight: 650;
   cursor: pointer;
@@ -141,7 +129,26 @@
 }
 
 .ercustom-button:hover {
-  background-color: #e09b0d; /* un tono un poco más oscuro para hover */
+  background-color: var(--hoverYellow);
+}
+
+.loader {
+  align-self: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--principalYellow);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (max-width: 768px) {
@@ -185,47 +192,46 @@
   }
 
   @media (max-width: 1024px) {
-  .erjob-layout {
-    flex-direction: column;
-    align-items: center;
+    .erjob-layout {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .erjob-list-wrapper,
+    .erjob-button-wrapper {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .ercustom-button {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1rem;
+    }
+
+    .erscroll-job-wrapper {
+      max-height: 400px; /* altura máxima en pantallas chicas */
+    }
   }
 
-  .erjob-list-wrapper,
-  .erjob-button-wrapper {
-    width: 100%;
-    max-width: 600px;
-  }
+  @media (max-width: 480px) {
+    .ersearch-box {
+      flex-direction: row;
+      padding: 8px;
+    }
 
-  .ercustom-button {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    font-size: 1.1rem;
-  }
+    .ersearch-label {
+      font-size: 20px;
+    }
 
-  .erscroll-job-wrapper {
-    max-height: 400px; /* altura máxima en pantallas chicas */
-  }
-}
+    .ercustom-button {
+      font-size: 1rem;
+      padding: 16px;
+    }
 
-@media (max-width: 480px) {
-  .ersearch-box {
-    flex-direction: row;
-    padding: 8px;
+    .erjob-scroll-box {
+      gap: 6px;
+    }
   }
-
-  .ersearch-label {
-    font-size: 20px;
-  }
-
-  .ercustom-button {
-    font-size: 1rem;
-    padding: 16px;
-  }
-
-  .erjob-scroll-box {
-    gap: 6px;
-  }
-}
-
 }
