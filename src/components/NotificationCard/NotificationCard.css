@@ -70,6 +70,11 @@
   cursor: pointer;
 }
 
+.botonClean:hover > .iconoTrash {
+  color: red;
+  transition: color 0.2s ease;
+}
+
 .notificationContent {
   margin: auto auto auto 10px;
   justify-content: space-between;
