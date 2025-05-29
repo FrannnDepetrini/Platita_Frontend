@@ -30,7 +30,6 @@ const Reputation = ({ role, reputationData }) => {
 
     if (parseInt(totalAverage.toString()[2]) >= 5) {
       totalAverage = parseFloat(totalAverage.toString().split(".")[0] + ".5");
-      console.log(parseFloat(totalAverage).toFixed(1));
     } else {
       totalAverage = parseInt(totalAverage);
     }
@@ -72,7 +71,6 @@ const Reputation = ({ role, reputationData }) => {
     width: `${averages[1]}%`,
   };
 
-  console.log(averages);
   return (
     <div className={styles.reputationContainer}>
       <div className={styles.averageReputationContainer}>

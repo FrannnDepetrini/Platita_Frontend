@@ -56,6 +56,19 @@ const useVerificate = () => {
     };
   };
 
+  const validatePhoneNumber = (phoneNumber) => {
+    const hasMinLength = phoneNumber.length >= 9;
+
+    if (!hasMinLength) {
+      return { isValid: false, message: "Minimo 9 digitos" };
+    }
+
+    return {
+      isValid: true,
+      message: "",
+    };
+  };
+
   const validatePassword = (password) => {
     const hasMinLength = password.length >= 8;
     const hasNumber = /\d/.test(password);
@@ -133,6 +146,9 @@ const useVerificate = () => {
         break;
       case "description":
         validationResult = validateDescription(value);
+        break;
+      case "phoneNumber":
+        validationResult = validatePhoneNumber(value);
         break;
       default:
         validationResult = validateJobTitle(value);

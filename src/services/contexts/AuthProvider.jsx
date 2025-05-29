@@ -5,8 +5,8 @@ import { authService } from "../authservices/AuthServices";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState({role:"Client"}); // <--- Esto hay que pasarlo a null despues para que con el servicio se cambie solo
-  const [isAuthenticated, setIsAuthenticated] = useState(true);
+  const [user, setUser] = useState({ role: "Client" }); // <--- Esto hay que pasarlo a null despues para que con el servicio se cambie solo
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
 
   const register = async (userData) => {
     try {
-      const newUser = await authService.register(userData);
+      await authService.register(userData);
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };

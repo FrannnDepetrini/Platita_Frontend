@@ -5,7 +5,7 @@ import platitaLogo from "../../utils/images/PlatitaLogo.png";
 import googleLogo from "../../utils/images/GoogleLogo.png";
 import Loader from "../Loader/Loader";
 import useVerificate from "../../customHooks/UseVerificate";
-import { data } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const ModalLogin = ({ isOpen, onClose }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -13,12 +13,16 @@ const ModalLogin = ({ isOpen, onClose }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [restoreEmail, setRestoreEmail] = useState("");
-  const [dataLogin, setDataLogin] = useState([{
-    email: "",
-    password: "",
-  }]);
-  const [loaderStatus, setLoaderStatus] = useState('idle');
+  const [dataLogin, setDataLogin] = useState([
+    {
+      email: "",
+      password: "",
+    },
+  ]);
+  const [loaderStatus, setLoaderStatus] = useState("idle");
   const { errors, validateField } = useVerificate();
+
+  const navigate = useNavigate();
 
   const mockApi = (email) => {
     return new Promise((resolve) => {
@@ -26,69 +30,71 @@ const ModalLogin = ({ isOpen, onClose }) => {
         resolve(true);
       }, 2500);
     });
-  }
+  };
 
   const handleSendLink = async () => {
-    setLoaderStatus('loading');
+    setLoaderStatus("loading");
 
     try {
       // Simulando una llamada a la API
       const response = await mockApi(restoreEmail);
 
       if (response) {
-        setLoaderStatus('success');
+        setLoaderStatus("success");
         setTimeout(() => {
           setIsFlipped(false);
-          setLoaderStatus('idle');
+          setLoaderStatus("idle");
           setRestoreEmail("");
         }, 3000);
       }
-
     } catch (error) {
-      setLoaderStatus('error');
+      setLoaderStatus("error");
       setTimeout(() => {
-        setLoaderStatus('idle');
+        setLoaderStatus("idle");
       }, 2000);
     }
   };
 
   const handleLogin = async () => {
-    setLoaderStatus('loading');
+    setLoaderStatus("loading");
 
     try {
       const response = await mockApi(dataLogin.email);
 
       if (response) {
-        setLoaderStatus('success');
+        setLoaderStatus("success");
         onClose();
         setTimeout(() => {
-          setLoaderStatus('idle');
+          setLoaderStatus("idle");
           setDataLogin({
             email: "",
             password: "",
           });
         }, 3000);
       }
-
     } catch (error) {
       setTimeout(() => {
-        setLoaderStatus('idle');
+        setLoaderStatus("idle");
       }, 2000);
     }
-  }
+  };
+
+  const handleRegister = () => {
+    navigate("/register");
+    handleClose();
+  };
 
   const handleClose = () => {
     setIsFlipped(false);
-        setRestoreEmail("");
-        setDataLogin({
-          email: "",
-          password: "",
-        }); 
-        setTimeout(() => {
-          onClose()
-        }, 400);
-  }
-
+    setRestoreEmail("");
+    setDataLogin({
+      email: "",
+      password: "",
+    });
+    setTimeout(() => {
+      onClose();
+    }, 400);
+  };
 
   useEffect(() => {
     setIsFlipped(false);
@@ -99,14 +105,13 @@ const ModalLogin = ({ isOpen, onClose }) => {
       setModalVisible(false);
       setTimeout(() => setOverlayVisible(false), 300);
     }
-
   }, [isOpen]);
 
   useEffect(() => {
     const handleEsc = (e) => {
       if (e.key === "Escape") {
         handleClose();
-      };
+      }
     };
 
     if (isOpen) {
@@ -122,7 +127,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
     setRestoreEmail(e.target.value);
     const { name, value } = e.target;
     validateField(name, value);
-  }
+  };
 
   const handleLoginChange = (e) => {
     const { name, value } = e.target;
@@ -132,7 +137,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
     }));
 
     validateField(name, value);
-  }
+  };
 
   const handleFlippped = () => {
     setIsFlipped(!isFlipped);
@@ -149,15 +154,16 @@ const ModalLogin = ({ isOpen, onClose }) => {
   };
 
   return (
-
     <div
       className={`modal-overlay ${overlayVisible && "overlayVisible"}`}
       onClick={() => handleClose()}
     >
-      <div className={`card ${isFlipped ? "flipped" : ""}`} >
-
+      <div className={`card ${isFlipped ? "flipped" : ""}`}>
         <div
-          className={`face modal-login-box ${modalVisible ? "modalVisible" : ""}`} onClick={(e) => e.stopPropagation()}
+          className={`face modal-login-box ${
+            modalVisible ? "modalVisible" : ""
+          }`}
+          onClick={(e) => e.stopPropagation()}
         >
           <img src={platitaLogo} alt="logo" className="logo-image" />
           <h2 className="modal-title">Inicia Sesión</h2>
@@ -172,8 +178,18 @@ const ModalLogin = ({ isOpen, onClose }) => {
           <form className="login-form">
             <div className="input-group">
               <label className="email">Email</label>
-              <input type="email" placeholder="platita@gmail.com" value={dataLogin.email} name="email" onChange={handleLoginChange} />
-              {errors.email && dataLogin.email.length > 0 ? <span className="error-message">{errors.email}</span> : ""}
+              <input
+                type="email"
+                placeholder="platita@gmail.com"
+                value={dataLogin.email}
+                name="email"
+                onChange={handleLoginChange}
+              />
+              {errors.email && dataLogin.email.length > 0 ? (
+                <span className="error-message">{errors.email}</span>
+              ) : (
+                ""
+              )}
             </div>
 
             <div className="input-group">
@@ -195,48 +211,90 @@ const ModalLogin = ({ isOpen, onClose }) => {
               </div>
             </div>
 
-            <button className="button-login" onClick={() => handleLogin()} disabled={!dataLogin.email || !dataLogin.password || loaderStatus !== 'idle'}>
-              {loaderStatus === "idle" ? "Iniciar Sesión" : <div className="container_spinner"><span className="simple_loader"></span></div>} 
+            <button
+              className="button-login"
+              onClick={() => handleLogin()}
+              disabled={
+                !dataLogin.email ||
+                !dataLogin.password ||
+                loaderStatus !== "idle"
+              }
+            >
+              {loaderStatus === "idle" ? (
+                "Iniciar Sesión"
+              ) : (
+                <div className="container_spinner">
+                  <span className="simple_loader"></span>
+                </div>
+              )}
             </button>
 
             <p className="register-text">
               ¿No tienes una cuenta aún?{" "}
-              <span className="highlight">Registrate</span>
+              <span onClick={handleRegister} className="highlight">
+                Registrate
+              </span>
             </p>
             <p className="register-text">
               ¿Olvidaste tu contraseña?{" "}
-              <span className="highlight" onClick={handleFlippped}>Recuperala</span>
+              <span className="highlight" onClick={handleFlippped}>
+                Recuperala
+              </span>
             </p>
           </form>
         </div>
-        <div className="face modal-login-box restoreFace" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="face modal-login-box restoreFace"
+          onClick={(e) => e.stopPropagation()}
+        >
           <img src={platitaLogo} alt="logo" className="logo-image" />
           <h2 className="modal-title">Recuperar contraseña</h2>
-          <p className="text-modal">Te enviaremos un link de recuperacion a tu email</p>
+          <p className="text-modal">
+            Te enviaremos un link de recuperacion a tu email
+          </p>
 
           <div className="separador-login"></div>
 
-
           <div className="login-form">
-            {loaderStatus !== 'idle' ? (
+            {loaderStatus !== "idle" ? (
               <div className="container_loader">
                 <Loader status={loaderStatus} />
               </div>
             ) : (
               <div className="input-group">
                 <label className="email">Email</label>
-                <input type="email" placeholder="platita@gmail.com" onChange={handleEmailChange} value={restoreEmail} name="email" />
-                {errors.email && restoreEmail.length > 0 ? <span className="error-message">{errors.email}</span> : ""}
+                <input
+                  type="email"
+                  placeholder="platita@gmail.com"
+                  onChange={handleEmailChange}
+                  value={restoreEmail}
+                  name="email"
+                />
+                {errors.email && restoreEmail.length > 0 ? (
+                  <span className="error-message">{errors.email}</span>
+                ) : (
+                  ""
+                )}
               </div>
-            )
-            }
+            )}
 
             <div className="button-group">
-              <button className="button-login" onClick={() => {
-                handleSendLink();
-
-              }} disabled={!restoreEmail || loaderStatus !== 'idle'}>Enviar link</button>
-              <button className="button-cancel" onClick={handleFlippped} disabled={loaderStatus === 'loading'}>Cancelar</button>
+              <button
+                className="button-login"
+                onClick={() => {
+                  handleSendLink();
+                }}
+                disabled={!restoreEmail || loaderStatus !== "idle"}
+              >
+                Enviar link
+              </button>
+              <button
+                className="button-cancel"
+                onClick={handleFlippped}
+                disabled={loaderStatus === "loading"}
+              >
+                Cancelar
+              </button>
             </div>
           </div>
         </div>
