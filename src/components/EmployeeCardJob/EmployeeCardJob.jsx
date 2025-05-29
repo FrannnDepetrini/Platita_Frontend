@@ -1,15 +1,11 @@
 import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 
-
 import "./EmployeeCardJob.css";
 
 export default function EmployeeCardJob({ jobInfo }) {
   const maxLength = 140;
   const wordLimit = 20;
   const ellipsis = "...";
-
-  const text = jobInfo.description;
-  console.log(text);
 
   const CategoryIcon = UseCategoryIcon(jobInfo.category);
 

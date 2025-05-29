@@ -104,9 +104,14 @@
   transition: all 0.3s ease;
 }
 
-.button-container button:hover {
+.buttonSubmit:hover {
   background-color: #44af69c2;
   cursor: pointer;
+}
+
+.buttonSubmit:disabled {
+  background-color: var(--hoverGreen);
+  cursor: not-allowed;
 }
 
 .error-message {

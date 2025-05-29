@@ -44,7 +44,6 @@ const UserProfile = () => {
         const data = await response.json();
 
         const provincesData = data.provincias;
-        console.log(provinces);
         const listProvinces = provincesData.map((pr) => pr.nombre);
         setProvinces(listProvinces);
       } catch (err) {

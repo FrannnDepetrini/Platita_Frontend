@@ -1,9 +1,10 @@
 // src/routes/AppRoutes.jsx
 import { Routes, Route } from "react-router-dom";
+import Protected from "../components/Protected/Protected";
 
 // Guest
 import Layout from "../components/Layout/Layout";
-import Login from "../pages/guest/Login/Login";
+
 // import Categories from "../components/categories/Categories/Categories";
 import Home from "../pages/guest/Home/Home";
 import Register from "../pages/guest/Register/Register";
@@ -16,14 +17,10 @@ import EmployeeHistorial from "../pages/employee/EmployeeHistorial/EmployeeHisto
 import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
 
 // Employer
-import EmployerHome from "../pages/employer/EmployerHome/EmployerHome";
-import EmployerJobDetails from "../pages/employer/EmployerJobDetails/EmployerJobDetails";
 import EmployerRequest from "../pages/employer/EmployerRequest/EmployerRequest";
 import EmployerHistorial from "../pages/employer/EmployerHistorial/EmployerHistorial";
 
 // Admin
-import AdminHome from "../pages/admin/AdminHome/AdminHome";
-import Welcome from "../pages/guest/Welcome/Welcome";
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
 import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
@@ -33,32 +30,78 @@ export default function AppRoutes() {
     <Routes>
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/register" element={<Register />} />
-
         <Route path="/recover-password" element={<RecoverPassword />} />
-
         <Route index element={<Home />} />
-        {/* <Route path="/categories" element={<Categories />} /> */}
         {/* Empleado  */}
-        <Route path="/employee/home" element={<EmployeeHome />} />
-        <Route path="/employee/job/:id" element={<EmployeeJobDetails />} />
-        <Route path="/employee/postulations" element={<Postulations />} />
-        <Route path="/employee/rating" element={<EmployeeRating />} />
-        <Route path="/employee/historial" element={<EmployeeHistorial />} />
+        <Route
+          path="/employee/home"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <EmployeeHome />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/job/:id"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <EmployeeJobDetails />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/postulations"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <Postulations />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/rating"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <EmployeeRating />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/historial"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <EmployeeHistorial />
+            </Protected>
+          }
+        />
 
-        <Route path="/myProfile" element={<UserProfile />} />
+        <Route
+          path="/myProfile"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <UserProfile />
+            </Protected>
+          }
+        />
         {/*Empleador*/}
-        <Route path="/employer/createJob" element={<EmployerCreateJob />} />
-        <Route path="/employer/request" element={<EmployerRequest />} />
-        <Route path="/employer/historial" element={<EmployerHistorial />} />
-      </Route>
 
-      {/*<Route path="/employer/home" element={<EmployerHome />} />*/}
-      {/*<Route path="/employer/job/:id" element={<EmployerJobDetails />} />*/}
-      {/* Admin */}
-      {/*<Route path="/admin/home" element={<AdminHome />} />*/}
-    
+        <Route
+          path="/employer/createJob"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <EmployerCreateJob />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employer/request"
+          element={
+            <Protected acceptedRoles={["Admin, Client"]}>
+              <EmployerRequest />
+            </Protected>
+          }
+        />
+      </Route>
     </Routes>
   );
 }

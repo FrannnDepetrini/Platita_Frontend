@@ -13,14 +13,14 @@ import ModalNotification from "../ModalNotification/ModalNotification";
 const Layout = () => {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isAsideVisible, setIsAsideVisible] = useState(false);
-  const [isNotificationModalVisible, setIsNotificationModalVisible] = useState(false);
+  const [isNotificationModalVisible, setIsNotificationModalVisible] =
+    useState(false);
   const { user, isAuthenticated } = useAuth();
 
   const handleOpenLogin = () => setIsLoginModalOpen(true);
   const handleCloseLogin = () => setIsLoginModalOpen(false);
   const handleOpenNotification = () => setIsNotificationModalVisible(true);
   const handleCloseNotification = () => setIsNotificationModalVisible(false);
-  // console.log(isLoginModalOpen);
 
   const categoriesRef = useRef(null);
   const { showModal, isSuccess, hideRecoverModal } = useContext(ModalContext);
@@ -35,11 +35,11 @@ const Layout = () => {
       <header className="header_container">
         <Header
           categorySection={categoriesRef}
-          handleLogin={ handleOpenLogin }
+          handleLogin={handleOpenLogin}
           userRole={user.role}
-          setIsAsideVisible={ setIsAsideVisible }
-          setIsNotificationModalVisible={ handleOpenNotification}
-          isUserLogged={ isAuthenticated }
+          setIsAsideVisible={setIsAsideVisible}
+          setIsNotificationModalVisible={handleOpenNotification}
+          isUserLogged={isAuthenticated}
         />
       </header>
       <main className="main_container">
@@ -55,7 +55,10 @@ const Layout = () => {
       )}
 
       {isNotificationModalVisible && (
-        <ModalNotification isOpen={isNotificationModalVisible} onClose={handleCloseNotification}/>
+        <ModalNotification
+          isOpen={isNotificationModalVisible}
+          onClose={handleCloseNotification}
+        />
       )}
     </div>
   );

@@ -38,7 +38,6 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     setIsThemeDrDwVisible(!isThemeDrDwVisible);
   };
 
-  console.log(isAsideVisible);
   return (
     <>
       <div
@@ -100,9 +99,11 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
               })}
             >
               <h3>Cambiar a: </h3>
-              <div className={classNames(styles.toggle_container, {
-                [styles.dark]: theme == "Oscuro",
-              })}>
+              <div
+                className={classNames(styles.toggle_container, {
+                  [styles.dark]: theme == "Oscuro",
+                })}
+              >
                 <div
                   className={classNames(styles.toggle_circle, {
                     [styles.tgCircle_moved]: theme == "Oscuro",
