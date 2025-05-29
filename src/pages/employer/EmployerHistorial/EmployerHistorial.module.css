@@ -62,7 +62,7 @@
   font-weight: 400;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: normal;
 }
 
 .td_empleado h4:hover {
@@ -106,4 +106,36 @@ tr:last-child {
 
 tfoot td {
   padding: 20px;
+}
+
+.job_title {
+    font-weight: normal;
+}
+
+.job_date {
+    font-weight: normal;
+}
+
+.state_finalizado {
+    color: var(--principalRed);
+    background-color: var(--transparentRed);
+    border-radius: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.state_asignado {
+    color: var(--principalYellow);
+    background-color: var(--transparentYellow);
+    border-radius: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.state_disponible {
+    color: var(--principalGreen);
+    background-color: var(--transparentGreen);
+    border-radius: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
 }

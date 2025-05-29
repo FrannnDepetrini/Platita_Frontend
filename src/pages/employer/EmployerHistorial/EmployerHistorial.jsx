@@ -11,7 +11,7 @@ export default function EmployeeHistorial() {
   const fetchData = async () => {
     try {
       const response = await fetch(
-        "https://magicloops.dev/api/loop/37a05862-b884-4529-9746-e40fc2109420/run?count=4"
+        "https://magicloops.dev/api/loop/ae1b4e54-65cb-4250-89cd-7124ab305d57/run?input=Hello+World"
       );
       if (!response.ok) throw new Error("Sucedio un error inesperado");
       const data = await response.json();
@@ -37,26 +37,46 @@ export default function EmployeeHistorial() {
     } else {
       return jobs.map((job) => {
         const CategoryIcon = UseCategoryIcon(job.category);
+        // Define un objeto para mapear los estados a clases de color
+        const stateClass = {
+          finalizado: styles.state_finalizado,
+          asignado: styles.state_asignado,
+          disponible: styles.state_disponible,
+        };
+
         return (
           <tr key={job.id}>
-            <td>{job.title} </td>
+            <td>
+                <div className={styles.job_title}>
+                    {job.title}
+                </div>
+            </td>
             {/* Ese onClick debera enviarte al perfil de ese usuario */}
             <td onClick={null} className={styles.td_empleado}>
-              <h4>{job.employer}</h4>
+              <h4>{job.employee}</h4>
             </td>
             <td>
               <CategoryIcon className={styles.category_icon} />
             </td>
             <td>
-                
+              <div
+            className={`${styles.job_state} ${
+              stateClass[job.state?.toLowerCase()] || ""
+            }`}
+            style={{ fontWeight: "normal" }}
+              >
+            {job.state}
+              </div>
             </td>
             <td>
-                <div>{job.date}</div>
+              <div className={styles.job_date}>
+                {job.date}
+              </div>
             </td>
             <td>
               <FaTrashAlt
-                onClick={() => handleDeleteJob(job.id)}
-                className={styles.delete_icon}
+            onClick={() => handleDeleteJob(job.id)}
+            className={styles.delete_icon}
               />
             </td>
           </tr>
