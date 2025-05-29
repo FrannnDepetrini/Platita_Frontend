@@ -18,6 +18,7 @@ import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
 
 // Employer
 import EmployerRequest from "../pages/employer/EmployerRequest/EmployerRequest";
+import EmployerHistorial from "../pages/employer/EmployerHistorial/EmployerHistorial";
 
 // Admin
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
@@ -83,6 +84,7 @@ export default function AppRoutes() {
           }
         />
         {/*Empleador*/}
+
         <Route
           path="/employer/createJob"
           element={

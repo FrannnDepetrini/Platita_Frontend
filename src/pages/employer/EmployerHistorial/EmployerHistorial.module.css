@@ -1,0 +1,141 @@
+.title_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 1200px;
+    margin: 0 auto 0 auto;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+
+.grey_title {
+    color: var(--gray);
+}
+
+.expired {
+  color: var(--gray);
+  font-style: italic;
+}
+
+.star {
+  font-size: 20px;
+  color: var(--principalYellow);
+}
+.job_container {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+  margin-top: 20px;
+}
+
+.table_container {
+  padding-bottom: 50px;
+}
+
+.table_job {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.2);
+  width: 1200px;
+  border-collapse: collapse;
+  font-weight: bold;
+}
+
+.category_icon {
+  color: var(--principalRed);
+  width: 30px;
+  height: 30px;
+}
+
+.delete_icon {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  transition: all 0.2s ease-in-out;
+}
+
+.delete_icon:hover {
+  color: var(--principalRed);
+}
+
+.td_empleado h4 {
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-weight: normal;
+}
+
+.td_empleado h4:hover {
+  color: var(--principalYellow);
+}
+
+.dots::after {
+  content: "";
+  display: inline-block;
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+
+td {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--lightGray);
+}
+
+th {
+  padding: 15px;
+}
+
+tr:last-child {
+  border-bottom: 1px solid var(--lightGray);
+}
+
+tfoot td {
+  padding: 20px;
+}
+
+.job_title {
+    font-weight: normal;
+}
+
+.job_date {
+    font-weight: normal;
+}
+
+.state_finalizado {
+    color: var(--principalRed);
+    background-color: var(--transparentRed);
+    border-radius: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.state_asignado {
+    color: var(--principalYellow);
+    background-color: var(--transparentYellow);
+    border-radius: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.state_disponible {
+    color: var(--principalGreen);
+    background-color: var(--transparentGreen);
+    border-radius: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
