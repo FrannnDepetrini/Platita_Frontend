@@ -3,6 +3,7 @@ import Logo from "../../utils/images/PlatitaLogo.png";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import NotificationsBell from "../NotificationsBell/NotificationsBell";
+import useAuth from "../../services/contexts/AuthProvider";
 
 const Header = ({
   categorySection,
@@ -14,6 +15,7 @@ const Header = ({
 }) => {
   const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
+  const {user} = useAuth();
 
   //Dato que se reemplazara con el authContext
   // const userLogged = true;
@@ -102,7 +104,7 @@ const Header = ({
           <div className="session_buttons">
             <NotificationsBell showModal={setIsNotificationModalVisible}/>
             <button onClick={() => setIsAsideVisible(true)}>
-              Fulano Detal
+              {user.name}
             </button>
           </div>
         )}

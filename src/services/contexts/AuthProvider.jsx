@@ -1,11 +1,12 @@
 import { createContext, useContext, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { authService } from "../authservices/AuthServices";
+import { jwtDecode } from "jwt-decode";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState({ role: "Client" }); // <--- Esto hay que pasarlo a null despues para que con el servicio se cambie solo
+  const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -14,9 +15,31 @@ export function AuthProvider({ children }) {
       try {
         const token = localStorage.getItem("token");
         if (token) {
-          const userData = await authService.getCurrentUser();
-          setUser(userData);
+          // const userData = await authService.getCurrentUser();
+          const userData = jwtDecode(token);
+
+          const role = userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+
+          const payload = {
+            id: userData.sub,
+            email: userData.email,
+            name: userData.given_name,
+            role: role,
+            hasJobs: userData.hasJobs === "True",
+          };
+          
+          setUser(payload);
           setIsAuthenticated(true);
+        }else {
+          const payload = {
+            id: null,
+            email: null,
+            name: null,
+            role: "Client",
+            hasJobs: false,
+          }
+          setUser(payload);
+          setIsAuthenticated(false);
         }
       } catch (error) {
         logout();
@@ -25,14 +48,17 @@ export function AuthProvider({ children }) {
       }
     };
     checkAuth();
-  }, []);
+  }, [isAuthenticated]);
 
-  const login = async (email, password) => {
+  const login = async (userData) => {
     try {
-      const user = await authService.login(email, password);
-      setUser(user);
-      setIsAuthenticated(true);
-      return { success: true };
+      const response = await authService.login(userData);
+      
+      if(response.success){
+        setIsAuthenticated(true);
+        return { success: true };
+      }
+
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -49,7 +75,13 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     authService.logout();
-    setUser(null);
+    setUser({
+            id: null,
+            email: null,
+            name: null,
+            role: "Guest",
+            hasJobs: false,
+          });
     setIsAuthenticated(false);
   };
 

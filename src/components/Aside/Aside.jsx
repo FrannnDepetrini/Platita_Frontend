@@ -3,6 +3,7 @@ import { FaChevronDown, CiLight, CiDark } from "../../utils/icons/icons";
 import styles from "./Aside.module.css";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../services/contexts/AuthProvider";
 
 const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
   //Dato que se reemplazara con el llamado a la api
@@ -17,6 +18,8 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
       setTheme("Claro");
     }
   };
+
+  const { logout, user } = useAuth();
 
   const handleNavigateTo = (url) => {
     setIsOverlayVisible(false);
@@ -38,6 +41,12 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     setIsThemeDrDwVisible(!isThemeDrDwVisible);
   };
 
+  const handleLogout = () => {
+    logout();
+    handleCloseAside();
+    navigate("/");
+  }
+
   return (
     <>
       <div
@@ -54,7 +63,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
         <div className={styles.user_container}>
           <div className={styles.image_container}></div>
           <div className={styles.name_container}>
-            <h2 className={styles.fullName}>Fulano Detal</h2>
+            <h2 className={styles.fullName}>{user.name}</h2>
             <div
               onClick={() => handleNavigateTo("/myProfile")}
               className={styles.profile_button}
@@ -115,7 +124,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
             </div>
           </div>
           <h3
-            onClick={() => {}}
+            onClick={handleLogout}
             className={classNames(styles.menu_option, styles.logout)}
           >
             Cerrar sesion

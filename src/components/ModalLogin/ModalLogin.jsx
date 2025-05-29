@@ -6,6 +6,7 @@ import googleLogo from "../../utils/images/GoogleLogo.png";
 import Loader from "../Loader/Loader";
 import useVerificate from "../../customHooks/UseVerificate";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../services/contexts/AuthProvider";
 
 const ModalLogin = ({ isOpen, onClose }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -13,14 +14,15 @@ const ModalLogin = ({ isOpen, onClose }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [restoreEmail, setRestoreEmail] = useState("");
-  const [dataLogin, setDataLogin] = useState([
+  const [dataLogin, setDataLogin] = useState(
     {
       email: "",
       password: "",
-    },
-  ]);
+    });
   const [loaderStatus, setLoaderStatus] = useState("idle");
   const { errors, validateField } = useVerificate();
+  const {login} = useAuth();
+  const [errorLogin, setErrorLogin] = useState("")
 
   const navigate = useNavigate();
 
@@ -55,28 +57,30 @@ const ModalLogin = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setLoaderStatus("loading");
 
-    try {
-      const response = await mockApi(dataLogin.email);
+    
+    const response = await login(dataLogin);
 
-      if (response) {
-        setLoaderStatus("success");
-        onClose();
-        setTimeout(() => {
-          setLoaderStatus("idle");
-          setDataLogin({
-            email: "",
-            password: "",
-          });
-        }, 3000);
-      }
-    } catch (error) {
+    if (response.success) {
+      setLoaderStatus("success");
+      onClose();
       setTimeout(() => {
         setLoaderStatus("idle");
-      }, 2000);
+        setDataLogin({
+          email: "",
+          password: "",
+        });
+      }, 3000);
+      setErrorLogin("");
+    }else{
+      // setLoaderStatus('idle');
+      setErrorLogin(response.error || "Error en las credenciales");
     }
+
+    
   };
 
   const handleRegister = () => {
@@ -175,6 +179,8 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
           <div className="separador-login"></div>
 
+          <span>{errorLogin || ""}</span>
+
           <form className="login-form">
             <div className="input-group">
               <label className="email">Email</label>
@@ -213,7 +219,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
             <button
               className="button-login"
-              onClick={() => handleLogin()}
+              onClick={handleLogin}
               disabled={
                 !dataLogin.email ||
                 !dataLogin.password ||

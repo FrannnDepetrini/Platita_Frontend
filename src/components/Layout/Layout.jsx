@@ -36,7 +36,7 @@ const Layout = () => {
         <Header
           categorySection={categoriesRef}
           handleLogin={handleOpenLogin}
-          userRole={user.role}
+          userRole={user?.role}
           setIsAsideVisible={setIsAsideVisible}
           setIsNotificationModalVisible={handleOpenNotification}
           isUserLogged={isAuthenticated}
