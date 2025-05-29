@@ -82,8 +82,6 @@ const EmployerCreateJob = () => {
       category,
       expirationDate,
     };
-
-    console.log(job);
   };
 
   const CategoryIcon = UseCategoryIcon(category);

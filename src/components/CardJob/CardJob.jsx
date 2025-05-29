@@ -7,9 +7,6 @@ export default function CardJob({ jobInfo, cardType = false }) {
   const wordLimit = 20;
   const ellipsis = "...";
 
-  const text = jobInfo.description;
-  console.log(text);
-
   const CategoryIcon = UseCategoryIcon(jobInfo.category);
 
   const getTruncatedContent = () => {

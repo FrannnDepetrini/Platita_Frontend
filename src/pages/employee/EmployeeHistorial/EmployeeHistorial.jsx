@@ -57,7 +57,6 @@ export default function EmployeeHistorial() {
 
   const handleDeleteJob = (id) => {
     setJobs(jobs.filter((job) => job.id !== id));
-    console.log("elimine");
   };
 
   const jobsMapped = () => {
