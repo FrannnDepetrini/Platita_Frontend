@@ -2,9 +2,9 @@ import { Navigate } from "react-router-dom";
 import useAuth from "../../services/contexts/AuthProvider";
 
 export default function Protected({ children, acceptedRoles }) {
-  const { userRole } = useAuth();
+  const { user } = useAuth();
 
-  if (!acceptedRoles.includes(userRole)) {
+  if (!acceptedRoles.includes(user.role)) {
     return <Navigate to="/" replace />;
   }
 

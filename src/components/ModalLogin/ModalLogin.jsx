@@ -21,7 +21,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
     });
   const [loaderStatus, setLoaderStatus] = useState("idle");
   const { errors, validateField } = useVerificate();
-  const {login} = useAuth();
+  const { login } = useAuth();
   const [errorLogin, setErrorLogin] = useState("")
 
   const navigate = useNavigate();
@@ -61,7 +61,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
     e.preventDefault();
     setLoaderStatus("loading");
 
-    
+
     const response = await login(dataLogin);
 
     if (response.success) {
@@ -75,12 +75,11 @@ const ModalLogin = ({ isOpen, onClose }) => {
         });
       }, 3000);
       setErrorLogin("");
-    }else{
-      // setLoaderStatus('idle');
+      navigate("/employee/home", { replace: true });
+    } else {
       setErrorLogin(response.error || "Error en las credenciales");
+      setLoaderStatus('idle');
     }
-
-    
   };
 
   const handleRegister = () => {
@@ -97,7 +96,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
     });
     setTimeout(() => {
       onClose();
-    }, 400);
+    }, 200);
   };
 
   useEffect(() => {
@@ -141,6 +140,8 @@ const ModalLogin = ({ isOpen, onClose }) => {
     }));
 
     validateField(name, value);
+
+    setErrorLogin("");
   };
 
   const handleFlippped = () => {
@@ -164,9 +165,8 @@ const ModalLogin = ({ isOpen, onClose }) => {
     >
       <div className={`card ${isFlipped ? "flipped" : ""}`}>
         <div
-          className={`face modal-login-box ${
-            modalVisible ? "modalVisible" : ""
-          }`}
+          className={`face modal-login-box ${modalVisible ? "modalVisible" : ""
+            }`}
           onClick={(e) => e.stopPropagation()}
         >
           <img src={platitaLogo} alt="logo" className="logo-image" />
@@ -179,41 +179,41 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
           <div className="separador-login"></div>
 
-          <span>{errorLogin || ""}</span>
+          <span className="error_login">{errorLogin || ""}</span>
 
           <form className="login-form">
-            <div className="input-group">
-              <label className="email">Email</label>
-              <input
-                type="email"
-                placeholder="platita@gmail.com"
-                value={dataLogin.email}
-                name="email"
-                onChange={handleLoginChange}
-              />
-              {errors.email && dataLogin.email.length > 0 ? (
-                <span className="error-message">{errors.email}</span>
-              ) : (
-                ""
-              )}
-            </div>
-
-            <div className="input-group">
-              <label className="password">Contraseña</label>
-              <div className="password-wrapper">
+            <div className="container-inputs">
+              <div className="input-group">
+                <label className="email">Email</label>
                 <input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="●●●●●●●●●"
-                  value={dataLogin.password}
+                  type="email"
+                  placeholder="platita@gmail.com"
+                  value={dataLogin.email}
+                  name="email"
                   onChange={handleLoginChange}
+                  className={(errors.email && dataLogin.email.length > 0) || errorLogin ? "error" : ""}
                 />
-                <span
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="toggle-password"
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
+                <span className="error-message">{errors.email && dataLogin.email.length > 0 ? errors.email : ''}</span>
+              </div>
+
+              <div className="input-group">
+                <label className="password">Contraseña</label>
+                <div className="password-wrapper">
+                  <input
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="●●●●●●●●●"
+                    value={dataLogin.password}
+                    onChange={handleLoginChange}
+                    className={errorLogin ? "error": ""}
+                  />
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="toggle-password"
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
               </div>
             </div>
 
@@ -223,7 +223,8 @@ const ModalLogin = ({ isOpen, onClose }) => {
               disabled={
                 !dataLogin.email ||
                 !dataLogin.password ||
-                loaderStatus !== "idle"
+                loaderStatus !== "idle" ||
+                errors.email
               }
             >
               {loaderStatus === "idle" ? (

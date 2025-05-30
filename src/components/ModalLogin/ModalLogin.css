@@ -88,8 +88,22 @@
   width: 100%;
   background-color: #fbbd08;
   border: none;
-  margin: 20px 0;
+  margin: 20px 0 10px 0;
   display: block;
+}
+
+.container-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.error_login {
+  display: block;
+  color: var(--principalRed);
+  font-size: 1rem;
+  height: 1rem;
+  margin-bottom: 10px;
 }
 
 /* formulario inicio de sesion */
@@ -117,14 +131,29 @@
   /* font-weight: 600; */
   padding: 12px;
   border-radius: 5px;
-  border: none;
+  border: #ffffff00 0.5px solid;
   box-shadow: var(--shadow);
   font-size: 1rem;
   outline: none;
+  transition: all 0.2s ease;
 }
 
 .input-group input::placeholder {
   font-weight: 600;
+}
+
+.input-group input:focus {
+  border: #aaaaaa9c 0.5px solid;
+}
+
+.input-group input.error {
+  border: 0.5px solid var(--principalRed);
+}
+
+.error-message {
+  color: var(--principalRed);
+  font-size: 0.9rem;
+  height: 0.9rem;
 }
 
 /* estilo contrsena */
@@ -183,7 +212,7 @@
 }
 
 .register-text:last-child {
-  margin-bottom: 0;
+  margin-top: 0;
 }
 
 /* estilado palabra registrate */
@@ -249,6 +278,7 @@
 
 .button-login:disabled {
   cursor: not-allowed;
+  background-color: #346646;
 }
 
 .container_loader {

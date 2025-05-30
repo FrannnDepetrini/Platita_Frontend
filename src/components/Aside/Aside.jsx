@@ -63,7 +63,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
         <div className={styles.user_container}>
           <div className={styles.image_container}></div>
           <div className={styles.name_container}>
-            <h2 className={styles.fullName}>{user.name}</h2>
+            <h2 className={styles.fullName}>{user?.name}</h2>
             <div
               onClick={() => handleNavigateTo("/myProfile")}
               className={styles.profile_button}

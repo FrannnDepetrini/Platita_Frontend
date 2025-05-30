@@ -2,51 +2,48 @@ import { createContext, useContext, useEffect, useState } from "react";
 // import { useNavigate } from "react-router-dom";
 import { authService } from "../authservices/AuthServices";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState({
+    role: "Guest",
+  });
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  
+  const checkAuth = () => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const userData = jwtDecode(token);
+
+        const role = userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+
+        const payload = {
+          id: userData.sub,
+          email: userData.email,
+          name: userData.given_name,
+          role: role,
+          hasJobs: userData.hasJobs === "True",
+        };
+        
+        setUser(payload);
+        setIsAuthenticated(true);
+        navigate("/employee/home", {replace: true});
+      }else {
+        setUser({
+          role: "Guest",
+        });
+        setIsAuthenticated(false);
+      }
+  };
 
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (token) {
-          // const userData = await authService.getCurrentUser();
-          const userData = jwtDecode(token);
+    checkAuth();
+  }, []);
 
-          const role = userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-
-          const payload = {
-            id: userData.sub,
-            email: userData.email,
-            name: userData.given_name,
-            role: role,
-            hasJobs: userData.hasJobs === "True",
-          };
-          
-          setUser(payload);
-          setIsAuthenticated(true);
-        }else {
-          const payload = {
-            id: null,
-            email: null,
-            name: null,
-            role: "Client",
-            hasJobs: false,
-          }
-          setUser(payload);
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
-        logout();
-      } finally {
-        setLoading(false);
-      }
-    };
+  useEffect(() => {
     checkAuth();
   }, [isAuthenticated]);
 
@@ -88,7 +85,6 @@ export function AuthProvider({ children }) {
   const value = {
     user,
     isAuthenticated,
-    loading,
     login,
     register,
     logout,
@@ -96,7 +92,7 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
 }

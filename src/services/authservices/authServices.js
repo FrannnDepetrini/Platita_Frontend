@@ -8,7 +8,7 @@ export const authService = {
       return { success: true };
     } catch (error) {
       throw new Error(
-        error.response?.data?.message || "Error al iniciar sesion"
+        error.response?.data?.message || "Email o contraseña incorrectos"
       );
     }
   },

@@ -26,9 +26,9 @@ const Header = ({
   };
 
   const handleNavigateHome = () => {
-    if (userRole == "Guest") {
+    if (user.role == "Guest") {
       navigate("/");
-    } else if (userRole == "Client") {
+    } else if (user.role == "Client") {
       navigate("/employee/home");
       setActiveIndex("employee/home");
     }
@@ -52,7 +52,7 @@ const Header = ({
           <img onClick={handleNavigateHome} className="logo" src={Logo}></img>
         </div>
         <div className="nav_container">
-          {userRole == "Guest" ? (
+          {user.role == "Guest" ? (
             <>
               <h1
                 onClick={() => handleNavigateTo()}

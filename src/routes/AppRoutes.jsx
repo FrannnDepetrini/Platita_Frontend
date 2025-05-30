@@ -36,7 +36,7 @@ export default function AppRoutes() {
         <Route
           path="/employee/home"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <EmployeeHome />
             </Protected>
           }
@@ -44,7 +44,7 @@ export default function AppRoutes() {
         <Route
           path="/employee/job/:id"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <EmployeeJobDetails />
             </Protected>
           }
@@ -52,7 +52,7 @@ export default function AppRoutes() {
         <Route
           path="/employee/postulations"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <Postulations />
             </Protected>
           }
@@ -60,7 +60,7 @@ export default function AppRoutes() {
         <Route
           path="/employee/rating"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <EmployeeRating />
             </Protected>
           }
@@ -68,7 +68,7 @@ export default function AppRoutes() {
         <Route
           path="/employee/historial"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <EmployeeHistorial />
             </Protected>
           }
@@ -77,7 +77,7 @@ export default function AppRoutes() {
         <Route
           path="/myProfile"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <UserProfile />
             </Protected>
           }
@@ -86,7 +86,7 @@ export default function AppRoutes() {
         <Route
           path="/employer/createJob"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <EmployerCreateJob />
             </Protected>
           }
@@ -94,7 +94,7 @@ export default function AppRoutes() {
         <Route
           path="/employer/request"
           element={
-            <Protected acceptedRoles={["Admin, Client"]}>
+            <Protected acceptedRoles={["Admin", "Client"]}>
               <EmployerRequest />
             </Protected>
           }
