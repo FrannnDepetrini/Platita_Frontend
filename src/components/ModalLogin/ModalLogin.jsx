@@ -6,6 +6,7 @@ import googleLogo from "../../utils/images/GoogleLogo.png";
 import Loader from "../Loader/Loader";
 import useVerificate from "../../customHooks/UseVerificate";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../services/contexts/AuthProvider";
 
 const ModalLogin = ({ isOpen, onClose }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -13,14 +14,15 @@ const ModalLogin = ({ isOpen, onClose }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [restoreEmail, setRestoreEmail] = useState("");
-  const [dataLogin, setDataLogin] = useState([
+  const [dataLogin, setDataLogin] = useState(
     {
       email: "",
       password: "",
-    },
-  ]);
+    });
   const [loaderStatus, setLoaderStatus] = useState("idle");
   const { errors, validateField } = useVerificate();
+  const { login } = useAuth();
+  const [errorLogin, setErrorLogin] = useState("")
 
   const navigate = useNavigate();
 
@@ -55,27 +57,28 @@ const ModalLogin = ({ isOpen, onClose }) => {
     }
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setLoaderStatus("loading");
 
-    try {
-      const response = await mockApi(dataLogin.email);
 
-      if (response) {
-        setLoaderStatus("success");
-        onClose();
-        setTimeout(() => {
-          setLoaderStatus("idle");
-          setDataLogin({
-            email: "",
-            password: "",
-          });
-        }, 3000);
-      }
-    } catch (error) {
+    const response = await login(dataLogin);
+
+    if (response.success) {
+      setLoaderStatus("success");
+      onClose();
       setTimeout(() => {
         setLoaderStatus("idle");
-      }, 2000);
+        setDataLogin({
+          email: "",
+          password: "",
+        });
+      }, 3000);
+      setErrorLogin("");
+      navigate("/employee/home", { replace: true });
+    } else {
+      setErrorLogin(response.error || "Error en las credenciales");
+      setLoaderStatus('idle');
     }
   };
 
@@ -93,7 +96,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
     });
     setTimeout(() => {
       onClose();
-    }, 400);
+    }, 200);
   };
 
   useEffect(() => {
@@ -137,6 +140,8 @@ const ModalLogin = ({ isOpen, onClose }) => {
     }));
 
     validateField(name, value);
+
+    setErrorLogin("");
   };
 
   const handleFlippped = () => {
@@ -160,64 +165,61 @@ const ModalLogin = ({ isOpen, onClose }) => {
     >
       <div className={`card ${isFlipped ? "flipped" : ""}`}>
         <div
-          className={`face modal-login-box ${
-            modalVisible ? "modalVisible" : ""
-          }`}
+          className={`face modal-login-box ${modalVisible ? "modalVisible" : ""
+            }`}
           onClick={(e) => e.stopPropagation()}
         >
           <img src={platitaLogo} alt="logo" className="logo-image" />
           <h2 className="modal-title">Inicia Sesión</h2>
 
-          <button className="google-button">
-            <img src={googleLogo} alt="Logo Google" className="google-logo" />
-            Continuar con Google
-          </button>
-
           <div className="separador-login"></div>
 
-          <form className="login-form">
-            <div className="input-group">
-              <label className="email">Email</label>
-              <input
-                type="email"
-                placeholder="platita@gmail.com"
-                value={dataLogin.email}
-                name="email"
-                onChange={handleLoginChange}
-              />
-              {errors.email && dataLogin.email.length > 0 ? (
-                <span className="error-message">{errors.email}</span>
-              ) : (
-                ""
-              )}
-            </div>
+          <span className="error_login">{errorLogin || ""}</span>
 
-            <div className="input-group">
-              <label className="password">Contraseña</label>
-              <div className="password-wrapper">
+          <form className="login-form">
+            <div className="container-inputs">
+              <div className="input-group">
+                <label className="email">Email</label>
                 <input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  placeholder="●●●●●●●●●"
-                  value={dataLogin.password}
+                  type="email"
+                  placeholder="platita@gmail.com"
+                  value={dataLogin.email}
+                  name="email"
                   onChange={handleLoginChange}
+                  className={(errors.email && dataLogin.email.length > 0) || errorLogin ? "error" : ""}
                 />
-                <span
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="toggle-password"
-                >
-                  {showPassword ? <FaEyeSlash /> : <FaEye />}
-                </span>
+                <span className="error-message">{errors.email && dataLogin.email.length > 0 ? errors.email : ''}</span>
+              </div>
+
+              <div className="input-group">
+                <label className="password">Contraseña</label>
+                <div className="password-wrapper">
+                  <input
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="●●●●●●●●●"
+                    value={dataLogin.password}
+                    onChange={handleLoginChange}
+                    className={errorLogin ? "error": ""}
+                  />
+                  <span
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="toggle-password"
+                  >
+                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                  </span>
+                </div>
               </div>
             </div>
 
             <button
               className="button-login"
-              onClick={() => handleLogin()}
+              onClick={handleLogin}
               disabled={
                 !dataLogin.email ||
                 !dataLogin.password ||
-                loaderStatus !== "idle"
+                loaderStatus !== "idle" ||
+                errors.email
               }
             >
               {loaderStatus === "idle" ? (
@@ -269,12 +271,9 @@ const ModalLogin = ({ isOpen, onClose }) => {
                   onChange={handleEmailChange}
                   value={restoreEmail}
                   name="email"
+                  className={errors.email && restoreEmail.length > 0 ? "error" : ""}
                 />
-                {errors.email && restoreEmail.length > 0 ? (
-                  <span className="error-message">{errors.email}</span>
-                ) : (
-                  ""
-                )}
+              <span className="error-message">{errors.email && restoreEmail.length > 0 ? errors.email : ""}</span>
               </div>
             )}
 
@@ -284,7 +283,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
                 onClick={() => {
                   handleSendLink();
                 }}
-                disabled={!restoreEmail || loaderStatus !== "idle"}
+                disabled={!restoreEmail || loaderStatus !== "idle" || errors.email}
               >
                 Enviar link
               </button>
