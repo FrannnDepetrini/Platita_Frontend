@@ -276,12 +276,9 @@ const ModalLogin = ({ isOpen, onClose }) => {
                   onChange={handleEmailChange}
                   value={restoreEmail}
                   name="email"
+                  className={errors.email && restoreEmail.length > 0 ? "error" : ""}
                 />
-                {errors.email && restoreEmail.length > 0 ? (
-                  <span className="error-message">{errors.email}</span>
-                ) : (
-                  ""
-                )}
+              <span className="error-message">{errors.email && restoreEmail.length > 0 ? errors.email : ""}</span>
               </div>
             )}
 
@@ -291,7 +288,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
                 onClick={() => {
                   handleSendLink();
                 }}
-                disabled={!restoreEmail || loaderStatus !== "idle"}
+                disabled={!restoreEmail || loaderStatus !== "idle" || errors.email}
               >
                 Enviar link
               </button>
