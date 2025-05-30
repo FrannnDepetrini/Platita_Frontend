@@ -172,11 +172,6 @@ const ModalLogin = ({ isOpen, onClose }) => {
           <img src={platitaLogo} alt="logo" className="logo-image" />
           <h2 className="modal-title">Inicia Sesión</h2>
 
-          <button className="google-button">
-            <img src={googleLogo} alt="Logo Google" className="google-logo" />
-            Continuar con Google
-          </button>
-
           <div className="separador-login"></div>
 
           <span className="error_login">{errorLogin || ""}</span>
