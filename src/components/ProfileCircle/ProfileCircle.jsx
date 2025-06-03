@@ -4,7 +4,7 @@ import { FaUser } from "../../utils/icons/icons";
 import CropperModal from "../CropperModal/CropperModal";
 import cn from "classnames";
 
-export default function ProfileCircle({value, name, onChange}) {
+export default function ProfileCircle({value, name, onChange, isDisabled = false}) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [croppedImage, setCroppedImage] = useState(null);
     const [imageSrc, setImageSrc] = useState("");
@@ -78,6 +78,7 @@ export default function ProfileCircle({value, name, onChange}) {
                     })}
                     onClick={handleButtonClick}
                     aria-label={isPlus ? "Agregar foto de perfil" : "Cambiar foto de perfil"}
+                    disabled={isDisabled}
                 >
                     <span className={styles.horizontal}></span>
                     <span className={styles.vertical}></span>

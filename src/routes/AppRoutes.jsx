@@ -24,13 +24,20 @@ import EmployerHistorial from "../pages/employer/EmployerHistorial/EmployerHisto
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
 import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 export default function AppRoutes() {
   return (
     <Routes>
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={
+          <QueryClientProvider client={queryClient}>
+            <Register />
+          </QueryClientProvider>
+          } />
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route index element={<Home />} />
         {/* Empleado  */}
@@ -79,7 +86,9 @@ export default function AppRoutes() {
           path="/myProfile"
           element={
             <Protected acceptedRoles={["Admin", "Client"]}>
-              <UserProfile />
+              <QueryClientProvider client={queryClient}>
+                <UserProfile />
+              </QueryClientProvider>
             </Protected>
           }
         />

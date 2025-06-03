@@ -6,8 +6,10 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "../../services/contexts/AuthProvider";
 
 const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
+  const { logout, user } = useAuth();
+  
   //Dato que se reemplazara con el llamado a la api
-  const [hasPostedJob, setHasPostedJob] = useState(true);
+  const [hasPostedJob, setHasPostedJob] = useState(user?.hasPostedJob || false);
   //Dato que se reemplazara con el themeContext
   const [theme, setTheme] = useState("Claro");
   const handleToggleTheme = (e) => {
@@ -19,7 +21,6 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     }
   };
 
-  const { logout, user } = useAuth();
 
   const handleNavigateTo = (url) => {
     setIsOverlayVisible(false);
@@ -31,14 +32,15 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
   const [isThemeDrDwVisible, setIsThemeDrDwVisible] = useState(false);
 
   const navigate = useNavigate();
+  
+  const handleIsThemeDrDwVisible = () => {
+    setIsThemeDrDwVisible(!isThemeDrDwVisible);
+  };
 
   const handleCloseAside = () => {
     setIsOverlayVisible(false);
     setIsAsideVisible(false);
-  };
-
-  const handleIsThemeDrDwVisible = () => {
-    setIsThemeDrDwVisible(!isThemeDrDwVisible);
+    setIsThemeDrDwVisible(false);
   };
 
   const handleLogout = () => {

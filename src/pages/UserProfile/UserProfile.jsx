@@ -1,19 +1,54 @@
 import styles from "./UserProfile.module.css";
-import { FaEdit, FaUser, FaCheck, FaPlus } from "../../utils/icons/icons";
+import { FaEdit, FaCheck, FaPlus } from "../../utils/icons/icons";
 import { useEffect, useState } from "react";
 import Reputation from "../../components/Reputation/Reputation";
 import classNames from "classnames";
+import SearchInput from "../../components/SearchInput/SearchInput";
+import ProfileCircle from "../../components/ProfileCircle/ProfileCircle";
+import useAuth from "../../services/contexts/AuthProvider";
 
 const UserProfile = () => {
-  const [name, setName] = useState("Fulano");
-  const [lastName, setLastName] = useState("Detal");
-  const [email, setEmail] = useState("fulano@gmail.com");
-  const [phoneNumber, setPhoneNumber] = useState("(0000) 999999");
-  const [province, setProvince] = useState("Santa Fe");
-  const [city, setCity] = useState("Rosario");
-  const [provinces, setProvinces] = useState([]);
+  const { user } = useAuth();
+
+  const [formData, setFormData] = useState({
+    name: user.name.split(" ")[0],
+    lastName: user.name.split(" ")[1],
+    email: user.email,
+    phoneNumber: user.phoneNumber || "",
+    province: user.province || "",
+    city: user.city || "",
+    photo: ""
+  });
 
   const [areInputsEditable, setAreInputsEditable] = useState(true);
+  const [originalData, setOriginalData] = useState({});
+  const [phoneDisplay, setPhoneDisplay] = useState("");
+  useEffect(() => {
+    const initialData = {
+      name: user.name.split(" ")[0],
+      lastName: user.name.split(" ")[1],
+      email: user.email,
+      phoneNumber: user.phoneNumber || "",
+      province: user.province || "",
+      city: user.city || "",
+      photo: ""
+    };
+
+    setFormData(initialData);
+    setOriginalData(initialData);
+  }, [user]);
+
+  useEffect(() => {
+    if (formData.phoneNumber.length < 5 && phoneDisplay.includes("(")) {
+      setPhoneDisplay(formData.phoneNumber);
+    } else if (formData.phoneNumber && formData.phoneNumber.length >= 4) {
+      const areaCode = formData.phoneNumber.slice(0, 4);
+      const rest = formData.phoneNumber.slice(4);
+      setPhoneDisplay(`(${areaCode}) ${rest}`);
+    } else {
+      setPhoneDisplay(formData.phoneNumber);
+    }
+  }, [formData.phoneNumber]);
 
   const reputationData1 = {
     5: 200,
@@ -31,32 +66,54 @@ const UserProfile = () => {
     1: 8,
   };
 
-  useEffect(() => {
-    const getProvinces = async () => {
-      try {
-        const response = await fetch(
-          "https://apis.datos.gob.ar/georef/api/provincias"
-        );
+  const handleChange = (name, value) => {
 
-        if (!response.ok) {
-          throw new Error("Error", response);
-        }
-        const data = await response.json();
+    switch (name){
+      case "phoneNumber":
+        const rawValue = value.replace(/\D/g, "").slice(0, 11);
+        setFormData(prevData => ({ ...prevData, phoneNumber: rawValue }));
+        break;
 
-        const provincesData = data.provincias;
-        const listProvinces = provincesData.map((pr) => pr.nombre);
-        setProvinces(listProvinces);
-      } catch (err) {
-        console.error(err);
-      }
-    };
-    getProvinces();
-  }, []);
+      default:
+        setFormData(prevData => ({
+          ...prevData,
+          [name]: value
+        }));
+    }
+  };
 
-  const provincesMapped = () => {
-    return provinces.map((pr) => {
-      return <option value={pr}></option>;
-    });
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    handleChange(name, value);
+  };
+
+  const handleCustomChange = (e) => {
+    const { name, value } = e.target;
+    handleChange(name, value);
+  };
+
+  const handleEdit = () => {
+    if (!areInputsEditable) {
+      
+      setOriginalData({ ...formData });
+    }
+    setAreInputsEditable(!areInputsEditable);
+  };
+
+  const handleConfirm = () => {
+    console.log("Cambios realizados", formData);
+    
+    // Aquí harías la llamada a la API
+    // await updateUserProfile(formData);
+    
+    setAreInputsEditable(true);
+    setOriginalData({ ...formData });
+  };
+
+  const handleCancel = () => {
+    // Restaurar todos los datos a los originales
+    setFormData({ ...originalData });
+    setAreInputsEditable(true);
   };
 
   return (
@@ -75,8 +132,8 @@ const UserProfile = () => {
                 name="name"
                 disabled={areInputsEditable}
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                value={formData.name}
+                onChange={handleInputChange}
               />
             </div>
             <div>
@@ -85,52 +142,44 @@ const UserProfile = () => {
                 name="lastName"
                 disabled={areInputsEditable}
                 type="text"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
+                value={formData.lastName}
+                onChange={handleInputChange}
               />
             </div>
 
             <div>
-              <label htmlFor="name">Email</label>
+              <label htmlFor="email">Email</label>
               <input
+                name="email"
                 disabled={areInputsEditable}
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={handleInputChange}
               />
             </div>
             <div>
-              <label htmlFor="name">Numero de telefono</label>
+              <label htmlFor="phoneNumber">Numero de telefono</label>
               <input
+                name="phoneNumber"
                 disabled={areInputsEditable}
                 type="tel"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
+                value={phoneDisplay}
+                onChange={handleInputChange}
+                maxLength={11}
               />
             </div>
-            <div>
-              <datalist id="provinces">{provincesMapped()}</datalist>
-              <label htmlFor="name">Provincia</label>
-              <input
-                list="provinces"
-                disabled={areInputsEditable}
-                type="text"
-                value={province}
-                onChange={(e) => setProvince(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="name">Ciudad</label>
-              <input
-                disabled={areInputsEditable}
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
-              />
-            </div>
+
+            <SearchInput 
+              onChange={handleCustomChange} 
+              province={formData.province} 
+              city={formData.city} 
+              isDisabled={areInputsEditable}
+            />
+
           </div>
           <div className={styles.buttons_container}>
             <div
-              onClick={() => setAreInputsEditable(!areInputsEditable)}
+              onClick={handleEdit}
               className={classNames(styles.button_container, styles.edit, {
                 [styles.pressed]: !areInputsEditable,
               })}
@@ -141,11 +190,12 @@ const UserProfile = () => {
               className={classNames(styles.button_container, styles.check, {
                 [styles.pressed]: !areInputsEditable,
               })}
+              onClick={handleConfirm}
             >
               <FaCheck className={styles.check_icon} />
             </div>
             <div
-              onClick={() => setAreInputsEditable(!areInputsEditable)}
+              onClick={handleCancel}
               className={classNames(styles.button_container, styles.cancel, {
                 [styles.pressed]: !areInputsEditable,
               })}
@@ -155,18 +205,22 @@ const UserProfile = () => {
           </div>
         </div>
         <div className={styles.imageAndReputation}>
-          <div className={styles.imageContainer}>
-            <FaUser className={styles.user_image}></FaUser>
-          </div>
+          <ProfileCircle 
+            value={formData.photo} 
+            name="photo" 
+            onChange={handleCustomChange} 
+            isDisabled={areInputsEditable}
+          />
+
           <div className={styles.reputationContainer}>
             <Reputation
               reputationData={reputationData1}
               role={"Empleador"}
-            ></Reputation>
+            />
             <Reputation
               reputationData={reputationData2}
               role={"Empleado"}
-            ></Reputation>
+            />
           </div>
         </div>
       </div>

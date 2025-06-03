@@ -16,7 +16,6 @@ const Header = ({
   const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
   const {user} = useAuth();
-
   //Dato que se reemplazara con el authContext
   // const userLogged = true;
 
@@ -104,7 +103,7 @@ const Header = ({
           <div className="session_buttons">
             <NotificationsBell showModal={setIsNotificationModalVisible}/>
             <button onClick={() => setIsAsideVisible(true)}>
-              {user.name}
+              {user.name.split(' ')[0]}
             </button>
           </div>
         )}
