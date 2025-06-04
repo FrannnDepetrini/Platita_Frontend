@@ -20,6 +20,9 @@ import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
 import EmployerRequest from "../pages/employer/EmployerRequest/EmployerRequest";
 import EmployerHistorial from "../pages/employer/EmployerHistorial/EmployerHistorial";
 
+// Moderator
+import ModeratorHome from "../pages/moderator/ModeratorHome/ModeratorHome";
+
 // Admin
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
@@ -101,6 +104,13 @@ export default function AppRoutes() {
             </Protected>
           }
         />
+        {/*Moderador*/}
+          <Route 
+          path="/moderator/home"
+          element={
+            <ModeratorHome />
+          }
+          />
       </Route>
     </Routes>
   );
