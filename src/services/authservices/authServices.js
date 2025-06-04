@@ -24,6 +24,11 @@ export const authService = {
 
   logout: () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("id");
+    localStorage.removeItem("email");
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    localStorage.removeItem("hasJobs");
   },
 
   getCurrentUser: async () => {
