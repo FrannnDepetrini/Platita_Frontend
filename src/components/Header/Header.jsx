@@ -8,14 +8,13 @@ import useAuth from "../../services/contexts/AuthProvider";
 const Header = ({
   categorySection,
   handleLogin,
-  userRole,
   setIsAsideVisible,
-  isUserLogged,
-  setIsNotificationModalVisible
+  setIsNotificationModalVisible,
 }) => {
   const [activeIndex, setActiveIndex] = useState("employee/home");
   const navigate = useNavigate();
-  const {user} = useAuth();
+  const { user, isAuthenticated } = useAuth();
+
   //Dato que se reemplazara con el authContext
   // const userLogged = true;
 
@@ -97,7 +96,7 @@ const Header = ({
         </div>
       </div>
       <div className="session_container">
-        {!isUserLogged ? (
+        {!isAuthenticated ? (
           <button onClick={onLogin}>Iniciar sesion</button>
         ) : (
           <div className="session_buttons">
