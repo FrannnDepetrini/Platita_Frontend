@@ -1,119 +1,152 @@
-import styles from './SearchInput.module.css';
-import { useState, useMemo, useEffect } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
+import { useState, useEffect, useRef, useMemo, useCallback } from "react";
+import styles from "./SearchInput.module.css";
 
-// Funciones de fetch con mejor manejo de errores
-const fetchProvinces = async () => {
-    const res = await fetch('https://apis.datos.gob.ar/georef/api/provincias?campos=nombre');
-    if (!res.ok) throw new Error('Error al cargar provincias');
-    const data = await res.json();
-    return data.provincias.map(p => p.nombre);
-};
-
-const fetchCities = async ({ queryKey }) => {
-    const [_, province] = queryKey;
-    if (!province) return [];
-
-    const res = await fetch(
-        `https://apis.datos.gob.ar/georef/api/municipios?provincia=${encodeURIComponent(province)}&max=1000&campos=nombre`
-    );
-    if (!res.ok) throw new Error('Error al cargar ciudades');
-    const data = await res.json();
-    return data.municipios.map(m => m.nombre);
-};
-
-export default function SearchInput({ onChange , province= "", city= "", isDisabled = false}) {
-    const [provinceInput, setProvinceInput] = useState(province? province : "");
-    const [cityInput, setCityInput] = useState(city? city : "");
-    const [provinciaSeleccionada, setProvinciaSeleccionada] = useState(province? province : "");
-
-    const queryClient = useQueryClient();
-
-    const {
-        data: provincias = [],
-        isLoading: loadingProvinces,
-        error: errorProvincias
-    } = useQuery('province', fetchProvinces, {
-        staleTime: 24 * 60 * 60 * 1000,
-        retry: 2,
-    });
-
-    const {
-        data: ciudades = [],
-        isLoading: loadingCitys,
-        error: errorCiudades
-    } = useQuery(['city', provinciaSeleccionada], fetchCities, {
-        enabled: !!provinciaSeleccionada,
-        staleTime: 60 * 60 * 1000,
-    });
+export default function SearchInput({ onChange, province = "", city = "", isDisabled = false }) {
+    const [provincias, setProvincias] = useState([]);
+    const [ciudades, setCiudades] = useState([]);
+    const [provinciaInput, setProvinciaInput] = useState(province);
+    const [ciudadInput, setCiudadInput] = useState(city);
+    const [provinciaSeleccionada, setProvinciaSeleccionada] = useState(province); 
+    const [loading, setLoading] = useState(false);
+    const prevProvinciaRef = useRef("");
 
     useEffect(() => {
-        return() => {
-            queryClient.removeQueries('provincias')
-            queryClient.removeQueries('ciudades')
+        setProvinciaInput(province);
+        setProvinciaSeleccionada(province);
+    }, [province]);
+
+    useEffect(() => {
+        setCiudadInput(city);
+    }, [city]);
+
+    useEffect(() => {
+        setLoading(true);
+        const cache_p = localStorage.getItem("provincias");
+
+        if (cache_p) {
+            setProvincias(JSON.parse(cache_p));
+            setLoading(false);
+            return;
+        }
+
+        fetch("https://apis.datos.gob.ar/georef/api/provincias?campos=nombre")
+            .then((res) => res.json())
+            .then((data) => {
+                const nombresProvincias = data.provincias.map((p) => p.nombre);
+                localStorage.setItem("provincias", JSON.stringify(nombresProvincias));
+                setProvincias(nombresProvincias);
+            })
+            .catch(console.error)
+            .finally(() => setLoading(false));
+
+        return () => {
+            localStorage.removeItem("provincias");
+            localStorage.removeItem("ciudades");
+        }
+    }, []);
+
+    useEffect(() => {
+        if (!provinciaSeleccionada) {
+            setCiudades([]);
+            return;
+        }
+
+        const abortController = new AbortController();
+
+        const fetchCiudades = async () => {
+            setLoading(true);
+            try {
+                const res = await fetch(
+                    `https://apis.datos.gob.ar/georef/api/municipios?provincia=${encodeURIComponent(provinciaSeleccionada)}&max=500&campos=nombre`,
+                    { signal: abortController.signal }
+                );
+                const data = await res.json();
+                const nombresCiudades = data.municipios.map((m) => m.nombre);
+                localStorage.setItem(`ciudades`, JSON.stringify(nombresCiudades));
+                setCiudades(nombresCiudades);
+                prevProvinciaRef.current = provinciaSeleccionada;
+                
+            } catch (err) {
+                if (err.name !== "AbortError") console.error(err);
+            } finally {
+                setLoading(false);
+            }
         };
-    }, [queryClient])
 
-    const filterProvincias = useMemo(() => (
+        fetchCiudades();
+        return () => abortController.abort();
+    }, [provinciaSeleccionada]);
+
+    const provinciasFiltradas = useMemo(() => (
         provincias
-            .filter(prov => prov.toLowerCase().includes(provinceInput.toLowerCase()))
-            .slice(0, 3)
-    ), [provincias, provinceInput]);
+            .filter(prov => prov.toLowerCase().includes(provinciaInput.toLowerCase()))
+            .slice(0, 5)
+    ), [provincias, provinciaInput]);
 
-    const filterCitys = useMemo(() => (
+    const ciudadesFiltradas = useMemo(() => (
         ciudades
-            .filter(ciudad => ciudad.toLowerCase().includes(cityInput.toLowerCase()))
-            .slice(0, 3)
-    ), [ciudades, cityInput]);
+            .filter(ciudad => ciudad.toLowerCase().includes(ciudadInput.toLowerCase()))
+            .slice(0, 5)
+    ), [ciudades, ciudadInput]);
 
     const handleProvinciaChange = (e) => {
         const newValue = e.target.value;
-        setProvinceInput(newValue);
+        setProvinciaInput(newValue);
+
+        if (newValue.length <= 2) {
+            setProvinciaSeleccionada("");
+            setCiudadInput("");
+            onChange({ target: { name: "province", value: "" } });
+            onChange({ target: { name: "city", value: "" } });
+            return;
+        }
 
         if (provincias.includes(newValue)) {
             setProvinciaSeleccionada(newValue);
-            onChange({ target: { name: 'province', value: newValue } });
+            setCiudadInput("");
+            onChange({ target: { name: "province", value: newValue } });
+            onChange({ target: { name: "city", value: "" } });
         } else {
             setProvinciaSeleccionada("");
+            onChange({ target: { name: "province", value: newValue } });
         }
     };
 
     const handleProvinciaBlur = () => {
-        if (!provincias.includes(provinceInput)) {
-            setProvinceInput("");
-            onChange({ target: { name: 'province', value: '' } });
+        if (!provincias.includes(provinciaInput)) {
+            const provinciaEncontrada = provincias.find(p => 
+                p.toLowerCase().includes(provinciaInput.toLowerCase())
+            );
+            
+            if (provinciaEncontrada && provinciaInput.length > 2) {
+                setProvinciaInput(provinciaEncontrada);
+                setProvinciaSeleccionada(provinciaEncontrada);
+                onChange({ target: { name: "province", value: provinciaEncontrada } });
+            }
         }
     };
 
-    const handleCiudadChange = (e) => {
+    const handleCiudadChange = useCallback((e) => {
         const newValue = e.target.value;
-        setCityInput(newValue);
-        onChange({ target: { name: 'city', value: newValue } });
-    };
-
-    const error = errorProvincias || errorCiudades;
+        setCiudadInput(newValue);
+        onChange({ target: { name: "city", value: newValue } });
+    }, [onChange]);
 
     return (
         <div className={styles.container_inputs}>
-            {error && (
-                <div className={styles.error}>
-                    Error al cargar los datos: {error.message}
-                </div>
-            )}
-
             <div className={styles.c_input1}>
                 <input
                     className={styles.input_field}
                     list="provinciasList"
-                    value={provinceInput}
+                    value={provinciaInput}
                     onChange={handleProvinciaChange}
                     onBlur={handleProvinciaBlur}
-                    placeholder={loadingProvinces ? "Cargando provincias..." : "Provincia"}
-                    disabled={loadingProvinces || isDisabled}
+                    placeholder={loading ? "Cargando..." : "Provincia"}
+                    disabled={isDisabled}
                 />
                 <datalist id="provinciasList">
-                    {filterProvincias.map((provincia, index) => (
-                        <option key={`pov-${index}`} value={provincia} />
+                    {provinciasFiltradas.map((provincia, index) => (
+                        <option key={index} value={provincia} />
                     ))}
                 </datalist>
             </div>
@@ -126,17 +159,14 @@ export default function SearchInput({ onChange , province= "", city= "", isDisab
                 <input
                     className={styles.input_field}
                     list="ciudadesList"
-                    value={cityInput}
+                    value={ciudadInput}
                     onChange={handleCiudadChange}
-                    disabled={!provinciaSeleccionada || loadingCitys || isDisabled}
-                    placeholder={
-                        !provinciaSeleccionada ? "Seleccione provincia primero" :
-                            loadingCitys ? "Cargando ciudades..." : "Ciudad"
-                    }
+                    disabled={!provinciaSeleccionada || isDisabled}
+                    placeholder={loading ? "Cargando..." : "Ciudad"}
                 />
                 <datalist id="ciudadesList">
-                    {filterCitys.map((ciudad, index) => (
-                        <option key={`city-${index}`} value={ciudad} />
+                    {ciudadesFiltradas.map((ciudad, index) => (
+                        <option key={index} value={ciudad} />
                     ))}
                 </datalist>
             </div>
