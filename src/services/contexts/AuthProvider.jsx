@@ -6,56 +6,102 @@ import { useNavigate } from "react-router-dom";
 
 const AuthContext = createContext();
 
+const initialState = {
+  id: localStorage.getItem("id") || "",
+  email: localStorage.getItem("email") || "",
+  name: localStorage.getItem("name") || "",
+  role: localStorage.getItem("role") || "Guest",
+  hasJobs: localStorage.getItem("hasJobs") || false,
+  token: localStorage.getItem("token") || "",
+};
+
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState({
-    role: "Guest",
-  });
+  const [user, setUser] = useState(initialState);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const navigate = useNavigate();
-  
-  const checkAuth = () => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        const userData = jwtDecode(token);
 
-        const role = userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+  const paleUli = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const userData = jwtDecode(token);
 
-        const payload = {
-          id: userData.sub,
-          email: userData.email,
-          name: userData.given_name,
-          role: role,
-          hasJobs: userData.hasJobs === "True",
-        };
-        
-        setUser(payload);
-        setIsAuthenticated(true);
-        navigate("/employee/home", {replace: true});
-      }else {
-        setUser({
-          role: "Guest",
-        });
-        setIsAuthenticated(false);
+      const role =
+        userData[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ];
+
+      setIsAuthenticated(true);
+
+      switch (role) {
+        case "Client":
+          navigate("/employee/home", { replace: true });
+          break;
+        case "Moderator":
+          navigate("/moderator/job/detail", { replace: true });
       }
+    }
+  };
+
+  const checkAuth = () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const userData = jwtDecode(token);
+
+      const role =
+        userData[
+          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+        ];
+      console.log(role);
+
+      localStorage.setItem("id", userData.sub);
+      localStorage.setItem("email", userData.email);
+      localStorage.setItem("name", userData.given_name);
+      localStorage.setItem("role", role);
+      localStorage.setItem("hasJobs", userData.hasJobs);
+      localStorage.setItem("token", token);
+      const payload = {
+        id: userData.sub,
+        email: userData.email,
+        name: userData.given_name,
+        role: role,
+        hasJobs: userData.hasJobs === "True",
+        token,
+      };
+
+      setUser(payload);
+      setIsAuthenticated(true);
+      switch (role) {
+        case "Client":
+          navigate("/employee/home", { replace: true });
+          break;
+        case "Moderator":
+          navigate("/moderator/job/detail", { replace: true });
+      }
+    } else {
+      setUser({ role: "Guest" });
+      setIsAuthenticated(false);
+    }
   };
 
   useEffect(() => {
-    checkAuth();
+    if (window.location.pathname === "/") {
+      paleUli();
+    }
   }, []);
 
-  useEffect(() => {
-    checkAuth();
-  }, [isAuthenticated]);
+  // useEffect(() => {
+  //   checkAuth();
+  // }, [isAuthenticated]);
 
   const login = async (userData) => {
     try {
       const response = await authService.login(userData);
-      
-      if(response.success){
+
+      if (response.success) {
         setIsAuthenticated(true);
+        checkAuth();
         return { success: true };
       }
-
     } catch (error) {
       return { success: false, error: error.message };
     }
@@ -72,13 +118,8 @@ export function AuthProvider({ children }) {
 
   const logout = () => {
     authService.logout();
-    setUser({
-            id: null,
-            email: null,
-            name: null,
-            role: "Guest",
-            hasJobs: false,
-          });
+    setUser(initialState);
+    // setUser({ role: "Guest" });
     setIsAuthenticated(false);
   };
 
@@ -90,11 +131,7 @@ export function AuthProvider({ children }) {
     logout,
   };
 
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
 export default function useAuth() {
