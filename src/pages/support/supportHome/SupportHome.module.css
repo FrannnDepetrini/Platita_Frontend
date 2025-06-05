@@ -1,0 +1,43 @@
+@import url(../../../utils/colors/colors.css);
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.employer-request {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 10px 0 0 90px;
+}
+
+.employer-request .erbreadcrumb {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: black;
+}
+
+.erbreadcrumb-link {
+  text-decoration: none;
+  color: #999;
+  transition: color 0.2s ease;
+}
+
+.erbreadcrumb-link:hover {
+  color: #000;
+}
+
+.erbreadcrumb-separator {
+  color: #ccc;
+}
+
+.erbreadcrumb-link.active {
+  color: #000;
+  pointer-events: none;
+}
+.listAndButton_container {
+  display: flex;
+  gap: 60px;
+}
