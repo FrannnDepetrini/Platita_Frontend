@@ -32,6 +32,7 @@ import  HistoryComplains  from "../pages/support/historial/HistoryComplains";
 //NotFound / allowed
 import NotFound from "../pages/not_found/NotFound";
 import NotAllowed from "../pages/not_allowed/NotAllowed";
+import GuestProtect from "./GuestProtect/GuestProtect";
 
 export default function AppRoutes() {
   return (
@@ -40,7 +41,11 @@ export default function AppRoutes() {
       <Route path="/not-allowed" element={<NotAllowed/>}/>
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={
+          <GuestProtect>
+            <Register />
+          </GuestProtect>
+          } />
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route index element={<Home />} />
         {/* Empleado  */}
@@ -114,7 +119,9 @@ export default function AppRoutes() {
         <Route
           path="/support/historial_complains"
           element={
-            <HistoryComplains/>
+            <Protected acceptedRoles={["Support"]}>
+              <HistoryComplains/>
+            </Protected>
           }
           />
       </Route>
