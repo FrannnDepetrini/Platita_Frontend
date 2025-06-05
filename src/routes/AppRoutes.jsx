@@ -24,6 +24,7 @@ import EmployerHistorial from "../pages/employer/EmployerHistorial/EmployerHisto
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
 import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
+import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJobDetail";
 
 export default function AppRoutes() {
   return (
@@ -98,6 +99,15 @@ export default function AppRoutes() {
           element={
             <Protected acceptedRoles={["Admin", "Client"]}>
               <EmployerRequest />
+            </Protected>
+          }
+        />
+        {/*Moderador*/}
+        <Route
+          path="/moderator/job/detail/:id"
+          element={
+            <Protected acceptedRoles={["Admin", "Client"]}>
+              <ModeratorJobDetail />
             </Protected>
           }
         />

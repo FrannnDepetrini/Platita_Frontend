@@ -37,5 +37,4 @@ export { FiDownload } from "react-icons/fi";
 export { IoIosArrowDown } from "react-icons/io";
 export { BsFillBriefcaseFill } from "react-icons/bs";
 export { IoIosInformationCircleOutline } from "react-icons/io";
-
-
+export { GoAlertFill } from "react-icons/go";
