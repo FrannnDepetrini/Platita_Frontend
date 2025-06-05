@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import "./EmployeeJobDetails.css";
-import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
+import UseCategoryIcon from "../../../customhooks/useCategoryIcon";
 import { MdLocationOn } from "react-icons/md";
 import { IoCalendarOutline, IoLink } from "react-icons/io5";
 import { BsCashStack } from "react-icons/bs";

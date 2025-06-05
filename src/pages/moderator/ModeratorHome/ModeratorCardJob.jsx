@@ -34,23 +34,23 @@ export default function ModeratorCardJob({ moderatorJob, cardType = false }) {
   };
 
   return (
-    <div className={`parent ${cardType && "client"}`}>
-      <div className="topCard">
-        <div className="titleSection">
+    <div className={`${styles.parentCard} ${cardType ? styles.clientCard : ""}`}>
+      <div className={styles.topCardContainer}>
+        <div className={styles.cardTitleSection}>
           <h2>{moderatorJob.jobTitle}</h2>
-          <CategoryIcon className="job-icon" />
+          <CategoryIcon className={styles.jobCardIcon} />
         </div>
       </div>
-      <div className="middleCard">
+      <div className={styles.middleCardContainer}>
         <p>{getTruncatedContent()}</p>
       </div>
-      <div className="bottomCard">
-        <div className="infoJobSection">
+      <div className={styles.bottomCardContainer}>
+        <div className={styles.infoJobCardSection}>
             <div className={styles.userName_data}>
                 <span className={styles.userName}>{moderatorJob.userName}</span>
                 <div className={styles.user_avatar}></div>
             </div>
-          <div className="divider"></div>
+          <div className={styles.jobCard_Divider}></div>
             <div className={styles.reports_container}>
                 <span className={styles.report_title}>Reportes: </span>
                 <span className={styles.report_count}>{moderatorJob.reports}</span>

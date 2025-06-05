@@ -1,6 +1,6 @@
 import "./Postulations.css";
 import { FaTrashAlt } from "../../../utils/icons/icons";
-import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
+import UseCategoryIcon from "../../../customhooks/useCategoryIcon";
 import { useEffect, useState } from "react";
 
 export default function Postulations() {

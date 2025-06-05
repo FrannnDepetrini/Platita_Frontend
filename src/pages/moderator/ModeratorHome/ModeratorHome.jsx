@@ -35,10 +35,19 @@ const moderatorInitialJobs = [
         id: "4",
         jobTitle: "Revocar una pared",
         description: "Necesito a alguien con conocimientos de albañileria para revocar una pared en mi casa",
-        userName: "Juan Perez",
+        userName: "Antonio Diaz",
         profilePicture: "4",
         reports: 7,
         category: "Construction",
+    },
+    {
+        id: "5",
+        jobTitle: "Cuidar a un niño",
+        description: "Busco a alguien con experiencia en cuidado de niños para cuidar a mi hijo de 5 años",
+        userName: "Brenda Gonzalez",
+        profilePicture: "5",
+        reports: 2,
+        category: "Babysitter",
     },
 ];
 
@@ -57,8 +66,17 @@ const ModeratorHome = ({ handleOpenLogin }) => {
         case "reports":
         sortedJobs.sort((a, b) => b.reports - a.reports);
         break;
+
+        case "name":
+            sortedJobs.sort((a, b) => a.userName.localeCompare(b.userName));
+            break;
+
+        case "category":
+            sortedJobs.sort((a, b) => a.category.localeCompare(b.category));
+            break;
+
         default:
-        break;
+            break;
         }
 
     return sortedJobs;
@@ -75,43 +93,48 @@ const ModeratorHome = ({ handleOpenLogin }) => {
         job.description.toLowerCase().includes(term) ||
         job.city.toLowerCase().includes(term)
     );
-  }, [moderatorJobs, searchTerm]);
+}, [moderatorJobs, searchTerm]);
 
     const jobsMapped = () =>
         filteredJobs.map((moderatorJob, index) => (
             <ModeratorCardJob key={index} handleOpenLogin={handleOpenLogin} moderatorJobInfo={moderatorJob} />
         ));
 
-    return (
-        <div className={styles.jobList_wrapper}>
-      <div className={styles.jobList_searcher}>
-        <span className={styles.search_label}>Trabajos</span>
-          <div className={styles.dropdown_container}>
-            <button className={styles.sortJobs_label} onClick={toggleMenu}>
-              Ordenar
-              <IoIosArrowDown
-                className={`${styles.sortJobs_icon} ${menuOpen ? styles.open : ""}`}
-              />
-            </button>
-            <ul className={`${styles.dropdownJobs_menu} ${menuOpen ? styles.openJobs : styles.closedJobs}`}>
-              <li onClick={() => handleSort("reports")}>Por reportes</li>
-            </ul>
-          </div>
-      </div>
+return (
+        <>
+            <h1 className={styles.top_titleText}>Inicio</h1>
+            <div className={styles.jobList_wrapper}>
+                <div className={styles.jobList_searcher}>
+                    <span className={styles.jobSearch_label}>Trabajos</span>
+                    <div className={styles.jobDropdown_container}>
+                        <button className={styles.sortJobs_label} onClick={toggleMenu}>
+                            Ordenar
+                            <IoIosArrowDown
+                                className={`${styles.sortJobs_icon} ${menuOpen ? styles.iconOpen : ""}`}
+                            />
+                        </button>
+                        <ul className={`${styles.dropdownJobs_menu} ${menuOpen ? styles.open : styles.closed}`}>
+                            <li onClick={() => handleSort("reports")}>Por reportes</li>
+                            <li onClick={() => handleSort("name")}>Por nombre</li>
+                            <li onClick={() => handleSort("category")}>Por categoria</li>
+                        </ul>
+                    </div>
+            </div>
 
-      <hr className={styles.ejob_bar} />
+        <hr className={styles.job_bar_divider} />
 
-      <div className={styles.escroll_job_wrapper}>
-        <div className={styles.escroll_job}>
-          <div className={styles.ejob_scroll_box}>
-            {filteredJobs.map((job, index) => (
-              <ModeratorCardJob key={index} moderatorJob={job} cardType={true} />
-            ))}
-          </div>
+        <div className={styles.scroll_job_wrapper}>
+            <div className={styles.scroll_job}>
+            <div className={styles.job_scroll_box}>
+                {filteredJobs.map((job, index) => (
+                <ModeratorCardJob key={index} moderatorJob={job} cardType={true} />
+                ))}
+            </div>
+            </div>
+            <div className={styles.bottom_fade}></div>
         </div>
-        <div className={styles.fade_bottom}></div>
-      </div>
-    </div>
+        </div>
+    </>
     );
 };
 
