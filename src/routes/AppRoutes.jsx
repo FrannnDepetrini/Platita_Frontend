@@ -108,9 +108,11 @@ export default function AppRoutes() {
           <Route 
           path="/moderator/home"
           element={
-            <ModeratorHome />
+            <Protected acceptedRoles={["Admin", "Client"]}>
+              <ModeratorHome />
+            </Protected>
           }
-          />
+        />
       </Route>
     </Routes>
   );
