@@ -145,7 +145,7 @@ th {
   overflow-y: auto;
   max-height: 400px;
   scroll-behavior: smooth;
-  /* scrollbar-gutter: stable; */
+  scrollbar-gutter: stable;
 }
 
 .table_complaints thead,

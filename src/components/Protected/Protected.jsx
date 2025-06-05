@@ -5,7 +5,7 @@ export default function Protected({ children, acceptedRoles }) {
   const { user } = useAuth();
 
   if (!acceptedRoles.includes(user.role)) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={"/not-allowed"} replace/>;
   }
 
   return children;
