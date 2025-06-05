@@ -30,6 +30,12 @@
   transition: all 0.2s ease-in-out;
 }
 
+.whatsapp_icon {
+  font-size: 25px;
+  color: #25d366;
+  cursor: pointer;
+}
+
 .delete_icon:hover {
   color: var(--principalRed);
 }
