@@ -1,0 +1,160 @@
+@import url("../../../utils/colors/colors.css");
+
+.title_container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 1200px;
+  margin: 0 auto 0 8%;
+  margin-bottom: 40px;
+}
+
+.grey_title {
+  color: var(--gray);
+}
+
+.state_pending {
+  background-color: rgba(248, 51, 60, 0.23);
+  color: rgba(248, 51, 60, 1);
+  border-radius: 20px;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+.state_resolved {
+  background-color: rgba(68, 175, 105, 0.23);
+  color: rgba(68, 175, 105, 1);
+  border-radius: 20px;
+  font-weight: 600;
+  padding: 6px 12px;
+}
+
+.historial_container {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+}
+
+.table_container {
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+  background: white;
+  width: 1200px;
+  box-shadow: var(--shadow);
+  padding: 10px;
+}
+
+.table_complaints {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table_complaints thead {
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 1;
+}
+
+.table_complaints tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table_complaints tbody::-webkit-scrollbar {
+  width: 8px;
+}
+.table_complaints tbody::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 4px;
+}
+
+th,
+td {
+  text-align: center;
+  padding: 15px 18px;
+}
+
+.delete_button {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: transparent;
+}
+
+.delete_button:hover > .icon {
+  color: var(--principalRed);
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  transition: all 0.2s ease-in-out;
+}
+
+.dots::after {
+  content: "";
+  display: inline-block;
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+
+td {
+  text-align: center;
+  font-size: 16px;
+  padding: 18px;
+}
+
+th {
+  padding: 15px;
+  font-size: 20px;
+}
+
+.row_table {
+  transition: all 0.125s ease-in-out;
+}
+
+.row_table:hover {
+  cursor: pointer;
+  background-color: rgb(230, 230, 230);
+}
+
+.table_complaints tbody {
+  display: block;
+  overflow-y: auto;
+  max-height: 400px;
+  scroll-behavior: smooth;
+  /* scrollbar-gutter: stable; */
+}
+
+.table_complaints thead,
+.table_complaints tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.createat {
+  font-weight: 600;
+}

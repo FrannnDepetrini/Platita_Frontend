@@ -25,6 +25,10 @@ import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
 import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
 
+
+//Support
+import  HistoryComplains  from "../pages/support/historial/HistoryComplains";
+
 export default function AppRoutes() {
   return (
     <Routes>
@@ -101,6 +105,12 @@ export default function AppRoutes() {
             </Protected>
           }
         />
+        <Route
+          path="/support/historial_complains"
+          element={
+            <HistoryComplains/>
+          }
+          />
       </Route>
     </Routes>
   );
