@@ -24,6 +24,8 @@ import EmployerHistorial from "../pages/employer/EmployerHistorial/EmployerHisto
 import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 import UserProfile from "../pages/userProfile/UserProfile";
 import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
+import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJobDetail";
+import SupportHome from "../pages/support/supportHome/SupportHome";
 
 
 //Support
@@ -124,6 +126,25 @@ export default function AppRoutes() {
             </Protected>
           }
           />
+        {/*Moderador*/}
+        <Route
+          path="/moderator/job/detail/:id"
+          element={
+            <Protected acceptedRoles={["Admin", "Client"]}>
+              <ModeratorJobDetail />
+            </Protected>
+          }
+        />
+
+        {/*Soporte*/}
+        <Route
+          path="/support/home"
+          element={
+            <Protected acceptedRoles={["Admin", "Client"]}>
+              <SupportHome />
+            </Protected>
+          }
+        />
       </Route>
     </Routes>
   );

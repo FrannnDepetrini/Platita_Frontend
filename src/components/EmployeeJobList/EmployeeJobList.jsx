@@ -1,5 +1,5 @@
 import React, { useMemo, useState, useCallback } from "react";
-import { IoMdArrowDropdown } from "react-icons/io";
+import { IoMdArrowDropdown } from "../../utils/icons/icons";
 import { FiSearch } from "react-icons/fi"; // Ícono de lupa
 import CardJob from "../CardJob/CardJob";
 import "./EmployeeJobList.css";

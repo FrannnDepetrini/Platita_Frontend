@@ -1,0 +1,81 @@
+@import url("../../utils/colors/colors.css");
+
+.cardjob_request {
+  cursor: pointer;
+  background-color: var(--beige);
+  border: 1px solid var(--beige);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 400px;
+  padding: 15px;
+  font-size: 0.95rem;
+  box-sizing: border-box;
+}
+
+.image_container {
+  width: 40px;
+  height: 40px;
+  background-color: var(--principalYellow);
+  border-radius: 50%;
+}
+
+.cardjob_request:hover {
+  border: 1px solid black;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.request_title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.request_title h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.rjob_icon {
+  height: 2.2rem;
+  width: 2.2rem;
+  color: var(--principalRed);
+  fill: var(--principalRed);
+  transition: transform 0.3s ease;
+}
+
+.request_applications {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.request_price {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* RESPONSIVE */
+@media (max-width: 480px) {
+  .cardjob_request {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  .request_title h2 {
+    font-size: 1.1rem;
+  }
+
+  .request_applications,
+  .request_price {
+    font-size: 0.95rem;
+  }
+
+  .rjob_icon {
+    height: 1.8rem;
+    width: 1.8rem;
+  }
+}
