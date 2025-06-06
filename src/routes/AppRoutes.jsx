@@ -8,6 +8,8 @@ import Layout from "../components/Layout/Layout";
 // import Categories from "../components/categories/Categories/Categories";
 import Home from "../pages/guest/Home/Home";
 import Register from "../pages/guest/Register/Register";
+import UserProfile from "../pages/userProfile/UserProfile";
+import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
 
 // Employee
 import EmployeeHome from "../pages/employee/EmployeeHome/EmployeeHome";
@@ -19,15 +21,14 @@ import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
 // Employer
 import EmployerRequest from "../pages/employer/EmployerRequest/EmployerRequest";
 import EmployerHistorial from "../pages/employer/EmployerHistorial/EmployerHistorial";
+import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
+import EmployerJobDetails from "../pages/employer/EmployerJobDetails/EmployerJobDetails";
 
 // Moderator
 import ModeratorHome from "../pages/moderator/ModeratorHome/ModeratorHome";
+import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJobDetail";
 
 // Admin
-import RecoverPassword from "../pages/guest/RecoverPassword/RecoverPassword";
-import UserProfile from "../pages/userProfile/UserProfile";
-import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreateJob";
-import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJobDetail";
 import SupportHome from "../pages/support/supportHome/SupportHome";
 
 export default function AppRoutes() {
@@ -106,13 +107,23 @@ export default function AppRoutes() {
             </Protected>
           }
         />
+
+        <Route 
+          path="/employer/jobDetails/:id"
+          element={
+            <EmployerJobDetails/>
+          }
+        />
+
         {/*Moderador*/}
-          <Route 
+        <Route
           path="/moderator/home"
           element={
             <Protected acceptedRoles={["Admin", "Client"]}>
               <ModeratorHome />
             </Protected>
+          }
+        />
         <Route
           path="/moderator/job/detail/:id"
           element={

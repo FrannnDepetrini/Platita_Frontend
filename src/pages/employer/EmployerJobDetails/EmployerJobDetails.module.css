@@ -1,0 +1,251 @@
+@import url("../../../utils/colors/colors.css");
+
+.jobDetailPage_container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 90px;
+  gap: 20px;
+}
+
+.jobDetails_container {
+  display: flex;
+  gap: 18px;
+}
+.breadCrumbs {
+  font-weight: 600;
+  color: var(--gray);
+}
+.spanBreadCrumbs {
+  color: black;
+}
+.jobDetails {
+  background-color: white;
+  box-shadow: var(--shadowDark);
+  width: 60%;
+  padding: 30px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.titleAndUser_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.titleAndCategory {
+  gap: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.jobTitle {
+  font-size: 30px;
+}
+.categoryIcon {
+  color: var(--principalRed);
+  font-size: 35px;
+}
+
+.line {
+  padding-top: 10px;
+  width: 350px;
+  border-bottom: 2px solid var(--principalYellow);
+}
+
+.imageContainer {
+  background-color: var(--principalYellow);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.h1Description {
+  font-size: 20px;
+  font-weight: 650;
+  padding-bottom: 5px;
+}
+
+.loader {
+  align-self: center;
+  width: 50px;
+  height: 50px;
+  border: 4px solid var(--principalYellow);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.number_postulations {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+  font-weight: 650;
+  padding-bottom: 5px;
+}
+
+.container_button button {
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 14px;
+  background-color: var(--transparentRed);
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.container_button button:hover {
+  transform: scale(0.95);
+  background-color: var(--hoverRed);
+}
+
+.icon {
+  color: var(--principalRed);
+}
+
+.tableContainer {
+  width: 100%;
+  max-width: 1000px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.headerRow {
+  background-color: #f8f9fa;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.headerRow th:last-child {
+  text-align: left;
+}
+
+.headerCell {
+  padding: 16px 20px;
+  font-weight: 600;
+  font-size: 18px;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  background-color: #f8f9fa;
+}
+
+.bodyRow {
+  border-bottom: 1px solid #f3f4f6;
+  transition: background-color 0.2s ease;
+}
+
+.bodyRow:hover {
+  background-color: #f9fafb;
+}
+
+.bodyRow:last-child {
+  border-bottom: none;
+}
+
+.bodyCell {
+  padding: 16px 20px;
+  font-size: 16px;
+  color: #111827;
+  vertical-align: middle;
+  font-weight: 600;
+}
+
+.budget {
+  color: var(--principalGreen);
+  font-weight: 600;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+}
+
+.button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 70px;
+}
+
+.rejectButton {
+  background-color: var(--transparentRed);
+  color: #dc2626;
+}
+
+.rejectButton:disabled {
+  cursor: not-allowed;
+}
+
+.rejectButton:hover {
+  background-color: #fca5a5;
+  transform: translateY(-1px);
+}
+
+.acceptButton {
+  background-color: var(--transparentGreen);
+  color: #059669;
+}
+
+.acceptButton:disabled {
+  cursor: not-allowed;
+}
+
+.acceptButton:hover {
+  background-color: #86efac;
+  transform: translateY(-1px);
+}
+
+.noPostulations {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  text-align: center;
+  background: white;
+}
+
+.noPostulationsIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.noPostulationsTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 8px 0;
+}
+
+.noPostulationsMessage {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 400px;
+  line-height: 1.5;
+}
