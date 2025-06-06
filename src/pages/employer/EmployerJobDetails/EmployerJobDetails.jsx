@@ -12,7 +12,10 @@ export default function EmployerJobDetails() {
   const [postulations, setPostulations] = useState([])
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({
+    pricipalMessage: "",
+    subMessage: ""
+  });
   const [action, setAction] = useState("");
   const [selectedPostulationId, setSelectedPostulationId] = useState(null);
 
@@ -73,11 +76,27 @@ export default function EmployerJobDetails() {
     setIsModalVisible(true);
 
     if (actionType === "DeleteJob") {
-      setMessage("¿Estás seguro de borrar el trabajo?");
+      if(postulations.length > 0){
+        setMessage(prev => ({
+        pricipalMessage: "¿Estás seguro de borrar el trabajo?",
+        subMessage: "Realizar esta accion le aplicaria una sancion"
+      }))
+      } else {
+        setMessage(prev => ({
+          pricipalMessage: "¿Estás seguro de borrar el trabajo?",
+          subMessage: ""
+        }))
+      }
     } else if (actionType === "Reject") {
-      setMessage("¿Estás seguro de eliminar la postulación?");
+      setMessage(prev => ({
+        pricipalMessage: "¿Estás seguro de eliminar la postulación?",
+        subMessage: ""
+    }));
     } else if (actionType === "Accept") {
-      setMessage("¿Estás seguro de aceptar la postulación?");
+      setMessage(prev => ({
+        pricipalMessage:"¿Estás seguro de aceptar la postulación?",
+        subMessage: ""
+      }));
     }
   };
 
@@ -214,7 +233,8 @@ export default function EmployerJobDetails() {
       )}
 
       <ModalConfirm
-        message={message}
+        message={message.pricipalMessage}
+        subMessage={message.subMessage}
         isModalVisible={isModalVisible}
         handleCancel={handleCancel}
         handleConfirm={getConfirmHandler()}
