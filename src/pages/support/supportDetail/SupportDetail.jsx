@@ -2,8 +2,6 @@ import { useParams } from "react-router-dom";
 import styles from "./SupportDetail.module.css";
 import { MdLocationOn } from "react-icons/md";
 import { IoCalendarOutline, IoLink } from "react-icons/io5";
-import { BsCashStack } from "react-icons/bs";
-import { FaRegBookmark } from "react-icons/fa6";
 import ModalPostulation from "../../../components/ModalPostulation/ModalPostulation";
 import { useState } from "react";
 
@@ -11,48 +9,33 @@ import { useState } from "react";
 const supportDetailComplains = [
     {
         id: "1",
-        jobTitle: "Levantar un tapial",
-        description: "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
         userName: "Fulano Detal",
-        profilePicture: "1",
-        reports: 0,
-        category: "Construction",
+        description: "Entre a la aplicacion y tuve un problema con mi lista de trabajos publicados.",
+        date: "04/05/2025",
     },
     {
         id: "2",
-        jobTitle: "Arreglar un caño",
-        description: "Necesito a alguien con conocimientos de plomeria para arreglar un caño de mi casa",
-        userName: "Joaquin Tanlongo",
-        profilePicture: "2",
-        reports: 5,
-        category: "Plumbing",
+        userName: "Juan Gomez",
+        description: "Intenté actualizar mi perfil y los cambios no se guardaron.",
+        date: "23/05/2025",
     },
     {
         id: "3",
-        jobTitle: "Arreglar cables",
-        description: "Necesito a alguien con conocimientos de electricista para arreglar cables pelados en mi negocio",
-        userName: "Francisco Depetrini",
-        profilePicture: "3",
-        reports: 10,
-        category: "Electricity",
+        userName: "Pedro Sanchez",
+        description: "No puedo subir un nuevo trabajo, el botón no hace nada.",
+        date: "15/04/2025",
     },
     {
         id: "4",
-        jobTitle: "Revocar una pared",
-        description: "Necesito a alguien con conocimientos de albañileria para revocar una pared en mi casa",
-        userName: "Antonio Diaz",
-        profilePicture: "4",
-        reports: 7,
-        category: "Construction",
+        userName: "Mario Lopez",
+        description: "La aplicación no carga mis notificaciones, se queda en blanco.",
+        date: "19/03/2025",
     },
     {
         id: "5",
-        jobTitle: "Cuidar a un niño",
-        description: "Busco a alguien con experiencia en cuidado de niños para cuidar a mi hijo de 5 años",
-        userName: "Brenda Gonzalez",
-        profilePicture: "5",
-        reports: 2,
-        category: "Babysitter",
+        userName: "David Martinez",
+        description: "Quise filtrar los trabajos por categoría, pero siempre me muestra los mismos resultados.",
+        date: "20/01/2025",
     },
 ];
 
@@ -69,56 +52,44 @@ export default function SupportDetail() {
   return (
     <div>
       {showModal && <ModalPostulation onClose={() => setShowModal(false)}/>}
-      <div className="title-text">
+      <div className={styles.complain_title}>
         <h1>
-          <span className="grey-text">Inicio </span>
+          <span className={styles.grey_text}>Inicio </span>
           <strong>/ Detalle del trabajo</strong>
         </h1>
       </div>
 
-    <div className="align-cards">
-      <div className="job-container-box">
-        <div className="job-header">
+    <div className={styles.complain_align_cards}>
+      <div className={styles.complain_container_box}>
+        <div className={styles.complain_header}>
+            <h2>{complain.userName}</h2>
+            <div className={styles.user_picture}></div>
         </div>
 
-        <div className="box-separator">
+        <div className={styles.box_separator}>
           <hr color="#fbbd08" />
         </div>
 
-        <div className="job-description">
-          <h3 className="description-title">Descripción</h3>
+        <div className={styles.complain_description}>
+          <h3 className={styles.description_title}>Descripción</h3>
           <p>{complain.description}</p>
-        </div>
-
-        <div className="job-details">
-        </div>
-      </div>
-
-      <div className="sidebar-container">
-        <div className="user-container">
-          <div className="user-info">
-            <h2>{complain.userName}</h2>
-          </div>
-          <div className="user-picture">
-
-          </div>
         </div>
       </div>
     </div>
 
-      <div className="job-information">
-        <div className="fecha-container">
-          <IoCalendarOutline className="icon-fecha"/>
+      <div className={styles.complain_information}>
+        <div className={styles.fecha_container}>
+          <IoCalendarOutline className={styles.icon_fecha} />
           <h4>Fecha</h4>
           <p>{complain.date}</p>
         </div>
-        <div className="ubicacion-container">
-          <MdLocationOn className="icon-ubicacion"/>
-          <h4>Ubicacion</h4>
-        </div>
-        <div className="salario-container">
-          <BsCashStack className="icon-dinero"/>
-          <h4>Salario Promedio</h4>
+        <div className={styles.button_container}>
+            <button className={styles.whatsapp_button}>
+                whatsapp
+            </button>
+            <button className={styles.resolve_button}>
+                Resolver
+            </button>
         </div>
       </div>
     </div>

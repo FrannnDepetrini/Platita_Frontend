@@ -1,0 +1,138 @@
+.complain_title {
+    font-size: 8px;
+    text-align: left;
+    font-weight: bold;
+    margin-left: 90px;
+}
+
+.grey_text {
+    color: grey;
+}
+
+.complain_align_cards {
+    display: flex;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 10px;
+    margin-right: 80px;
+}
+
+.complain_container_box {
+    bottom: 650px;
+    background-color: white;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 20px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    margin-top: 10px;
+    margin-left: 80px;
+}
+
+.user_picture {
+    width: 40px;
+    height: 40px;
+    background-color: var(--principalYellow);
+    border-radius: 50%;
+}
+
+.complain_header {
+    display: flex;
+    gap: 20px;
+}
+
+.complain_header h2 {
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.box_separator {
+    width: 100%;
+    max-width: 280px;
+    border: none;
+    margin: 10px 0;
+    display: block;
+}
+
+.complain_description {
+    margin-top: 20px;
+}
+
+.description_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.complain_information {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 488px;
+    margin-left: 80px;
+    margin-right: 80px;
+}
+
+.fecha_container {
+    color: black;
+    background-color: #ffcccc;
+    max-width: 100px;
+    text-align: left;
+    height: auto;
+    border-radius: 7px;
+    gap: 6px;
+    padding: 12px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.icon_fecha {
+    color: var(--principalRed);
+    font-size: 24px;
+}
+
+.fecha_container h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.fecha_container p {
+    font-size: 14px;
+    margin: 0;
+}
+
+.button_container {
+    display: flex;
+    gap: 10px;
+}
+
+.whatsapp_button {
+    padding: 15px;
+    background-color: white;
+    border: none;
+    box-shadow: var(--shadow);
+    color: var(--principalGreen);
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.resolve_button {
+    padding: 15px;
+    background-color: var(--principalYellow);
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+}
+
+.resolve_button:hover {
+    background-color: var(--transparentYellow);
+    color: var(--principalYellow);
+    transition: 0.5s;
+}
