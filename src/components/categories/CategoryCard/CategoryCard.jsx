@@ -1,6 +1,6 @@
 import React from "react";
 import "./CategoryCard.css";
-import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
+import UseCategoryIcon from "../../../customhooks/useCategoryIcon";
 
 const CategoryCard = ({ name, category }) => {
   const CategoryIcon = UseCategoryIcon(category);

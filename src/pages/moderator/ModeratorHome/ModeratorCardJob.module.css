@@ -1,0 +1,162 @@
+.parentCard {
+    display: grid;
+    grid-template-rows: 40px 1fr 40px;
+    cursor: pointer;
+    box-shadow: var(--shadowDark);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--beige);
+    background-color: var(--beige);
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    height: 180px;
+}
+
+.clientCard {
+    transform: scale(0.95);
+    width: 80%;
+}
+
+.parentCard:hover {
+    border: 1px solid black;
+}
+
+.parentCard:hover .jobCardIcon {
+    transform: rotate(10deg);
+}
+
+.topCardContainer {
+    grid-area: 1 / 1 /2 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cardTitleSection {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.cardTitleSection h2 {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.middleCardContainer {
+    grid-area: 2 / 1 /3 /4;
+    display: flex;
+    align-items: center;
+    word-break: break-word;
+}
+
+.middleCardContainer p {
+    margin: 0px 20px 0px 0px;
+    font-weight: 400;
+    margin-left: 10px;
+}
+
+.bottomCardContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  padding-top: 12px;
+  width: 100%;
+  min-height: 40px;
+}
+
+
+.topCardContainer .middleCardContainer .bottomCardContainer {
+    background-color: transparent;
+}
+
+.jobCardIcon {
+    height: 1.50rem;
+    width: 1.50rem;
+    color: var(--principalRed);
+    fill: var(--principalRed);
+    transition: transform 0.3s ease;
+}
+
+.infoJobCardSection {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-weight: 800;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.userName_data {
+    padding: 4px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.userName {
+    font-size: 18px;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.user_avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--principalYellow);
+    margin-left: 8px;
+}
+
+.jobCard_Divider {
+  width: 2px;
+  height: 32px;
+  background-color: black;
+}
+
+
+.reports_container {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 6px;
+    margin-left: 20px;
+}
+
+.report_title {
+    font-size: 18px;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.reports_container .report_count {
+    font-size: 18px;
+    font-weight: 500;
+    margin: 0;
+}
+
+.userName_data, .reports_container {
+    display: flex;
+    align-items: center;
+    line-height: 1.2;
+}
+
+.userName, .report_title, .report_count {
+    margin: 0;
+    padding: 0;
+}
+
+.bottomCardContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    width: 100%;
+    gap: 12px;
+}
