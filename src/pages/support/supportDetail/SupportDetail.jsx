@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import styles from "./SupportDetail.module.css";
 import { MdLocationOn } from "react-icons/md";
 import { IoCalendarOutline, IoLink } from "react-icons/io5";
-import ModalPostulation from "../../../components/ModalPostulation/ModalPostulation";
+import ModalResolve from "./ModalResolve";
 import { useState } from "react";
 
 // Eliminar cuando este la api
@@ -41,7 +41,8 @@ const supportDetailComplains = [
 
 export default function SupportDetail() {
   const { id } = useParams();
-  const [showModal, setShowModal] = useState(false);
+  const [showResolveModal, setShowResolveModal] = useState(false);
+  const [isResolved, setIsResolved] = useState(false); // ✅ nuevo estado
 
   const complain = supportDetailComplains.find((j) => j.id === id);
 
@@ -49,9 +50,15 @@ export default function SupportDetail() {
     return <div>Trabajo no encontrado</div>;
   }
 
+  const handleResolve = () => {
+    setIsResolved(true);
+    setShowResolveModal(false);
+  };
+
   return (
     <div>
-      {showModal && <ModalPostulation onClose={() => setShowModal(false)}/>}
+      {showResolveModal && <ModalResolve onClose={() => setShowResolveModal(false)} onResolve={handleResolve} />}
+      
       <div className={styles.complain_title}>
         <h1>
           <span className={styles.grey_text}>Inicio </span>
@@ -59,23 +66,23 @@ export default function SupportDetail() {
         </h1>
       </div>
 
-    <div className={styles.complain_align_cards}>
-      <div className={styles.complain_container_box}>
-        <div className={styles.complain_header}>
-            <h2>{complain.userName}</h2>
-            <div className={styles.user_picture}></div>
-        </div>
+      <div className={styles.complain_align_cards}>
+        <div className={styles.complain_container_box}>
+          <div className={styles.complain_header}>
+              <h2>{complain.userName}</h2>
+              <div className={styles.user_picture}></div>
+          </div>
 
-        <div className={styles.box_separator}>
-          <hr color="#fbbd08" />
-        </div>
+          <div className={styles.box_separator}>
+            <hr color="#fbbd08" />
+          </div>
 
-        <div className={styles.complain_description}>
-          <h3 className={styles.description_title}>Descripción</h3>
-          <p>{complain.description}</p>
+          <div className={styles.complain_description}>
+            <h3 className={styles.description_title}>Descripción</h3>
+            <p>{complain.description}</p>
+          </div>
         </div>
       </div>
-    </div>
 
       <div className={styles.complain_information}>
         <div className={styles.fecha_container}>
@@ -83,13 +90,23 @@ export default function SupportDetail() {
           <h4>Fecha</h4>
           <p>{complain.date}</p>
         </div>
+
+        {/* ✅ Mostrar botones si no está resuelta, o cartel si ya está resuelta */}
         <div className={styles.button_container}>
-            <button className={styles.whatsapp_button}>
-                whatsapp
-            </button>
-            <button className={styles.resolve_button}>
-                Resolver
-            </button>
+          {!isResolved ? (
+            <>
+              <button className={styles.whatsapp_button}>
+                  whatsapp
+              </button>
+              <button className={styles.resolve_button} onClick={() => setShowResolveModal(true)}>
+                  Resolver
+              </button>
+            </>
+          ) : (
+            <div className={styles.resolved_container}>
+                <p className={styles.resolved_text}>Queja resuelta ✅</p>
+            </div>
+          )}
         </div>
       </div>
     </div>

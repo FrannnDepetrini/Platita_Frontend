@@ -1,0 +1,125 @@
+@keyframes slideDown {
+    from {
+        transform: translateY(-500px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInOverlay {
+    form {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modalContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    animation: fadeInOverlay 0.7s ease-out;
+}
+
+.modalContent {
+    background-color: var(--background);
+    padding: 30px;
+    width: 100%;
+    max-width: 600px;
+    border-radius: 20px;
+    text-align: left;
+    box-shadow: var(--shadow);
+    position: relative;
+    animation: slideDown 0.7s ease-out;
+}
+
+.closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    border: none;
+    background-color: var(--background);
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.modalHeader h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.modalDivider {
+    width: 100%;
+    max-width: 200px;
+    border: none;
+    margin: 10px 0;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.modalBody {
+    display: flex;
+    gap: 50px;
+    align-items: flex-start;
+    font-size: 20px;
+}
+
+.modalBody p {
+    font-size: 17px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.buttonContainer {
+    margin-top: 20px;
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin-left: 170px;
+}
+
+.cancel_button {
+    background-color: var(--principalRed);
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.cancel_button:hover {
+    background-color: var(--transparentRed);
+    color: var(--principalRed);
+    transition: 0.5s ease-in-out;
+}
+
+.resolve_button {
+    background-color: var(--principalGreen);
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.resolve_button:hover {
+    background-color: var(--transparentGreen);
+    color: var(--principalGreen);
+    transition: 0.5s ease-in-out;
+}

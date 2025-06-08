@@ -136,3 +136,19 @@
     color: var(--principalYellow);
     transition: 0.5s;
 }
+
+.resolved_container {
+    background-color: #e6ffe6; /* fondo verde claro */
+    border: 1px solid var(--principalGreen);
+    padding: 15px;
+    border-radius: 10px;
+    text-align: center;
+    animation: fadeInOverlay 0.5s ease-in-out;
+
+}
+
+.resolved_text {
+    color: var(--principalGreen);
+    font-weight: bold;
+    font-size: 18px;
+}
