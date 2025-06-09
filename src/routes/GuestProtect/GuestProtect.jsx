@@ -1,4 +1,4 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../services/contexts/AuthProvider"
 import { useEffect } from "react";
 
@@ -10,7 +10,7 @@ export default function GuestProtect ({ children }) {
     useEffect(() => {
         if(isAuthenticated){
             navigate(-1, {replace:true});
-            return null;
+            return 0;
         }
     },[navigate, isAuthenticated])
     
