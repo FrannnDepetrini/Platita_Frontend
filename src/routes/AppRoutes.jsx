@@ -30,12 +30,27 @@ import EmployerCreateJob from "../pages/employer/EmployerCreateJob/EmployerCreat
 import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJobDetail";
 import SupportHome from "../pages/support/supportHome/SupportHome";
 
+
+//Support
+import  HistoryComplains  from "../pages/support/historial/HistoryComplains";
+
+//NotFound / allowed
+import NotFound from "../pages/not_found/NotFound";
+import NotAllowed from "../pages/not_allowed/NotAllowed";
+import GuestProtect from "./GuestProtect/GuestProtect";
+
 export default function AppRoutes() {
   return (
     <Routes>
+      <Route path="*" element={<NotFound/>}/>
+      <Route path="/not-allowed" element={<NotAllowed/>}/>
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-        <Route path="/register" element={<Register />} />
+        <Route path="/register" element={
+          <GuestProtect>
+            <Register />
+          </GuestProtect>
+          } />
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route index element={<Home />} />
         {/* Empleado  */}
@@ -106,6 +121,14 @@ export default function AppRoutes() {
             </Protected>
           }
         />
+        <Route
+          path="/support/historial_complains"
+          element={
+            <Protected acceptedRoles={["Support"]}>
+              <HistoryComplains/>
+            </Protected>
+          }
+          />
         {/*Moderador*/}
           <Route 
           path="/moderator/home"
