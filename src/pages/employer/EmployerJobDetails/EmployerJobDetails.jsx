@@ -17,7 +17,11 @@ export default function EmployerJobDetails() {
     subMessage: ""
   });
   const [action, setAction] = useState("");
-  const [selectedPostulationId, setSelectedPostulationId] = useState(null);
+  const [selectedPostulationId, setSelectedPostulationId] = useState("");
+  
+  // Estado para saber si ya se aceptó a alguien
+  const [jobAccepted, setJobAccepted] = useState(false); // Aca se tomaria el status del trabajo si esta taken pasando el bool a true
+  const [acceptedEmployee, setAcceptedEmployee] = useState(null); // Aca asignamos el empleado o tomamos el unico que se trae cuando ya habia sido aceptado
 
   const navigate = useNavigate();
   const CategoryIcon = info.category && UseCategoryIcon(info.category);
@@ -76,11 +80,13 @@ export default function EmployerJobDetails() {
     setIsModalVisible(true);
 
     if (actionType === "DeleteJob") {
-      if(postulations.length > 0){
+      if(jobAccepted || postulations.length > 0){
         setMessage(prev => ({
-        pricipalMessage: "¿Estás seguro de borrar el trabajo?",
-        subMessage: "Realizar esta accion le aplicaria una sancion"
-      }))
+          pricipalMessage: "¿Estás seguro de borrar el trabajo?",
+          subMessage: jobAccepted 
+            ? "Realizar esta acción te aplicará una sanción por cancelar un trabajo ya aceptado"
+            : "Realizar esta acción te aplicará una sanción"
+        }))
       } else {
         setMessage(prev => ({
           pricipalMessage: "¿Estás seguro de borrar el trabajo?",
@@ -91,18 +97,18 @@ export default function EmployerJobDetails() {
       setMessage(prev => ({
         pricipalMessage: "¿Estás seguro de eliminar la postulación?",
         subMessage: ""
-    }));
+      }));
     } else if (actionType === "Accept") {
       setMessage(prev => ({
         pricipalMessage:"¿Estás seguro de aceptar la postulación?",
-        subMessage: ""
+        subMessage: "Esta acción eliminará todas las demás postulaciones"
       }));
     }
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setSelectedPostulationId(null);
+    setSelectedPostulationId("");
   };
 
   const handleConfirmDelete = () => {
@@ -111,6 +117,7 @@ export default function EmployerJobDetails() {
   };
 
   const handleConfirmReject = () => {
+    setSelectedPostulationId("");
     setIsModalVisible(false);
     if (selectedPostulationId) {
       setPostulations(prev => prev.filter(p => p.id !== selectedPostulationId));
@@ -121,7 +128,13 @@ export default function EmployerJobDetails() {
   const handleConfirmAccept = () => {
     setIsModalVisible(false);
     if (selectedPostulationId) {
-      setPostulations(prev => prev.filter(p => p.id == selectedPostulationId))
+      const acceptedEmployeeData = postulations.find(p => p.id === selectedPostulationId);
+      
+      setPostulations([acceptedEmployeeData]);
+      
+      setJobAccepted(true);
+      setAcceptedEmployee(acceptedEmployeeData);
+      
       console.log(`Postulación ${selectedPostulationId} aceptada`);
     }
   };
@@ -167,7 +180,13 @@ export default function EmployerJobDetails() {
                 <p>{info.description}</p>
               </div>
               <div className={styles.number_postulations}>
-                +{info.postulations} Postulaciones
+                {jobAccepted ? (
+                  <span style={{color: 'green'}}>
+                    ✅ Trabajo aceptado - {acceptedEmployee?.name}
+                  </span>
+                ) : (
+                  <span>+{info.postulations} Postulaciones</span>
+                )}
               </div>
             </div>
             <div className={styles.container_button}>
@@ -192,27 +211,43 @@ export default function EmployerJobDetails() {
                 <tbody>
                   {postulations.map((postulation) => (
                     <tr key={postulation.id} className={styles.bodyRow}>
-                      <td className={styles.bodyCell}>{postulation.name}</td>
+                      <td className={styles.bodyCell}>
+                        {jobAccepted && postulation.id === acceptedEmployee?.id ? (
+                          <span style={{fontWeight: 'bold', color: 'green'}}>
+                            ✅ {postulation.name}
+                          </span>
+                        ) : (
+                          postulation.name
+                        )}
+                      </td>
                       <td className={`${styles.bodyCell} ${styles.budget}`}>
                         {postulation.budget.toLocaleString()}$
                       </td>
                       <td className={styles.bodyCell}>{postulation.date}</td>
                       <td className={styles.bodyCell}>
                         <div className={styles.actions}>
-                          <button
-                            className={`${styles.button} ${styles.rejectButton}`}
-                            onClick={() => handleAction("Reject", postulation.id)}
-                            disabled={selectedPostulationId}
-                          >
-                            Rechazar
-                          </button>
-                          <button
-                            className={`${styles.button} ${styles.acceptButton}`}
-                            onClick={() => handleAction("Accept", postulation.id)}
-                            disabled={selectedPostulationId}
-                          >
-                            Aceptar
-                          </button>
+                          {!jobAccepted ? (
+                            <>
+                              <button
+                                className={`${styles.button} ${styles.rejectButton}`}
+                                onClick={() => handleAction("Reject", postulation.id)}
+                                disabled={selectedPostulationId}
+                              >
+                                Rechazar
+                              </button>
+                              <button
+                                className={`${styles.button} ${styles.acceptButton}`}
+                                onClick={() => handleAction("Accept", postulation.id)}
+                                disabled={selectedPostulationId}
+                              >
+                                Aceptar
+                              </button>
+                            </>
+                          ) : (
+                            <span style={{color: 'green', fontWeight: 'bold'}}>
+                              Contratado
+                            </span>
+                          )}
                         </div>
                       </td>
                     </tr>

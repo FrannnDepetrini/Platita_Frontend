@@ -105,12 +105,16 @@
 }
 
 .container_button button:hover {
-  transform: scale(0.95);
   background-color: var(--hoverRed);
+}
+
+.container_button button:hover > .icon {
+  color: white;
 }
 
 .icon {
   color: var(--principalRed);
+  transition: all 0.3s ease;
 }
 
 .tableContainer {
