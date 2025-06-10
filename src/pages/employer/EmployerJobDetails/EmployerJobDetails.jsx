@@ -91,7 +91,7 @@ export default function EmployerJobDetails() {
 
   const handleConfirmCancel = () => {
     setIsModalVisible(false);
-    setInfo({ ...info, status: "nogod" });
+    setInfo({ ...info, status: "Deleted" });
   };
 
   const handleAction = (actionType, postulationId = null) => {
@@ -137,8 +137,7 @@ export default function EmployerJobDetails() {
   };
 
   const handleConfirmRestore = () => {
-    console.log("si dp");
-    setInfo({ ...infoJob, status: "god" });
+    setInfo({ ...infoJob, status: "Available" });
     setPostulations(employees);
     setIsModalVisible(false);
     setJobAccepted(false);
@@ -237,7 +236,7 @@ export default function EmployerJobDetails() {
               </div>
             </div>
             <div className={styles.container_button}>
-              {info.status == "god" ? (
+              {info.status == "Available" ? (
                 <button
                   disabled={jobAccepted}
                   onClick={() => handleAction("DeleteJob")}
