@@ -127,8 +127,9 @@ export default function AppRoutes() {
         <Route 
           path="/support/detail/:id"
           element={
-
-              <SupportDetail />
+              <Protected acceptedRoles={["Admin", "Client"]}>
+                <SupportDetail />
+              </Protected>
           }
         />
       </Route>
