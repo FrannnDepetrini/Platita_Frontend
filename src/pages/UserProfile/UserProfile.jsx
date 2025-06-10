@@ -22,7 +22,25 @@ const UserProfile = () => {
 
   const [areInputsEditable, setAreInputsEditable] = useState(true);
   const [originalData, setOriginalData] = useState({});
-  const [phoneDisplay, setPhoneDisplay] = useState("");
+
+  const formatPhoneNumber = (phoneNumber) => {
+    if (!phoneNumber) return "";
+    
+    if (phoneNumber.length >= 10) {
+      const areaCode = phoneNumber.slice(0, 4);
+      const rest = phoneNumber.slice(4);
+      return `(${areaCode}) ${rest}`;
+    }
+
+    else if (phoneNumber.length >= 5) {
+      const areaCode = phoneNumber.slice(0, 4);
+      const rest = phoneNumber.slice(4);
+      return `(${areaCode}) ${rest}`;
+    }
+
+    return phoneNumber;
+  };
+
   useEffect(() => {
     const initialData = {
       name: user.name.split(" ")[0],
@@ -37,18 +55,6 @@ const UserProfile = () => {
     setFormData(initialData);
     setOriginalData(initialData);
   }, [user]);
-
-  useEffect(() => {
-    if (formData.phoneNumber.length < 5 && phoneDisplay.includes("(")) {
-      setPhoneDisplay(formData.phoneNumber);
-    } else if (formData.phoneNumber && formData.phoneNumber.length >= 4) {
-      const areaCode = formData.phoneNumber.slice(0, 4);
-      const rest = formData.phoneNumber.slice(4);
-      setPhoneDisplay(`(${areaCode}) ${rest}`);
-    } else {
-      setPhoneDisplay(formData.phoneNumber);
-    }
-  }, [formData.phoneNumber]);
 
   const reputationData1 = {
     5: 200,
@@ -67,7 +73,6 @@ const UserProfile = () => {
   };
 
   const handleChange = (name, value) => {
-
     switch (name){
       case "phoneNumber":
         const rawValue = value.replace(/\D/g, "").slice(0, 11);
@@ -94,7 +99,6 @@ const UserProfile = () => {
 
   const handleEdit = () => {
     if (!areInputsEditable) {
-      
       setOriginalData({ ...formData });
     }
     setAreInputsEditable(!areInputsEditable);
@@ -111,7 +115,6 @@ const UserProfile = () => {
   };
 
   const handleCancel = () => {
-    // Restaurar todos los datos a los originales
     setFormData({ ...originalData });
     setAreInputsEditable(true);
   };
@@ -163,9 +166,10 @@ const UserProfile = () => {
                 name="phoneNumber"
                 disabled={areInputsEditable}
                 type="tel"
-                value={phoneDisplay}
+                value={formatPhoneNumber(formData.phoneNumber)}
                 onChange={handleInputChange}
-                maxLength={11}
+                maxLength={14} 
+                placeholder="(0123) 4567890"
               />
             </div>
 
