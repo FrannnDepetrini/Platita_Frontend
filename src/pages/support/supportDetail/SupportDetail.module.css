@@ -152,3 +152,16 @@
     font-weight: bold;
     font-size: 18px;
 }
+
+.complain_not_found {
+    bottom: 650px;
+    background-color: white;
+    padding: 30px;
+    width: 100%;
+    max-width: 800px;
+    border-radius: 20px;
+    text-align: center;
+    margin-top: 150px;
+    margin-left: 350px;
+    font-weight: bold;
+}

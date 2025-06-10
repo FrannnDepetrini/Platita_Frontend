@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import styles from "./SupportDetail.module.css";
-import { MdLocationOn } from "react-icons/md";
-import { IoCalendarOutline, IoLink } from "react-icons/io5";
+import { IoCalendarOutline } from "react-icons/io5";
 import ModalResolve from "./ModalResolve";
 import { useState } from "react";
 
@@ -42,13 +41,13 @@ const supportDetailComplains = [
 export default function SupportDetail() {
   const { id } = useParams();
   const [showResolveModal, setShowResolveModal] = useState(false);
-  const [isResolved, setIsResolved] = useState(false); // ✅ nuevo estado
+  const [isResolved, setIsResolved] = useState(false);
 
   const complain = supportDetailComplains.find((j) => j.id === id);
 
   if (!complain) {
-    return <div>Trabajo no encontrado</div>;
-  }
+    return <div className={styles.complain_not_found}>Trabajo no encontrado</div>;
+  } // modificar cuando este la api
 
   const handleResolve = () => {
     setIsResolved(true);
@@ -91,7 +90,7 @@ export default function SupportDetail() {
           <p>{complain.date}</p>
         </div>
 
-        {/* ✅ Mostrar botones si no está resuelta, o cartel si ya está resuelta */}
+        {/* Si esta resuelto no muestra los botones */}
         <div className={styles.button_container}>
           {!isResolved ? (
             <>
@@ -104,7 +103,7 @@ export default function SupportDetail() {
             </>
           ) : (
             <div className={styles.resolved_container}>
-                <p className={styles.resolved_text}>Queja resuelta ✅</p>
+                <p className={styles.resolved_text}>Queja resuelta</p>
             </div>
           )}
         </div>
