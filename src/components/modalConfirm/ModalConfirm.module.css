@@ -33,6 +33,10 @@
   transition: none;
 }
 
+.modalConfirm_container h2 {
+  text-align: center;
+}
+
 .buttons {
   display: flex;
   gap: 20px;
