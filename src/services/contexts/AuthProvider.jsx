@@ -17,12 +17,11 @@ const initialState = {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(initialState);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState((initialState.token ? true : false));
   const navigate = useNavigate();
 
-  const paleUli = () => {
-    const token = localStorage.getItem("token");
-    if (token) {
+  const paleUli = (token) => {
+
       const userData = jwtDecode(token);
 
       const role =
@@ -30,15 +29,13 @@ export function AuthProvider({ children }) {
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ];
 
-      setIsAuthenticated(true);
-
       switch (role) {
         case "Client":
           navigate("/employee/home", { replace: true });
           break;
         case "Moderator":
           navigate("/moderator/job/detail", { replace: true });
-      }
+
     }
   };
 
@@ -84,8 +81,12 @@ export function AuthProvider({ children }) {
   };
 
   useEffect(() => {
-    if (window.location.pathname === "/") {
-      paleUli();
+    const token = initialState.token;
+
+    if(token){
+      if (window.location.pathname === "/") {
+        paleUli(token);
+      }
     }
   }, []);
 
