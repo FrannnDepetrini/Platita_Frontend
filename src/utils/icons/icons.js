@@ -39,3 +39,4 @@ export { BsFillBriefcaseFill } from "react-icons/bs";
 export { IoIosInformationCircleOutline } from "react-icons/io";
 export { GoAlertFill } from "react-icons/go";
 export { IoLogoWhatsapp } from "react-icons/io";
+export { IoMdArrowDropdown } from "react-icons/io";

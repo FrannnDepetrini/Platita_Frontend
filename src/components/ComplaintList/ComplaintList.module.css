@@ -1,0 +1,247 @@
+@import url(../../utils/colors/colors.css);
+
+* {
+  box-sizing: border-box;
+  font-family: var(--Inter);
+}
+
+.erjob_layout {
+  display: flex;
+}
+
+.erjob_list_wrapper {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: var(--shadowDark);
+  width: 600px;
+  height: 63vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.erjob_bar {
+  border: none;
+  height: 1px;
+  background-color: var(--principalYellow);
+  margin-top: 15px;
+  margin-bottom: 30px;
+  width: 47%;
+}
+
+.erscroll_job_wrapper {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+.erscroll_job {
+  overflow-y: auto;
+  height: 100%;
+}
+.erscroll_job::-webkit-scrollbar {
+  width: 8px;
+  background-color: white;
+  border-radius: 16px;
+}
+.erscroll_job::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 16px;
+}
+
+.erjob_scroll_box {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-bottom: 10px;
+}
+
+.erjob_list_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+.ersort_label {
+  background: none;
+  border: none;
+  font-size: 20px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.erjob_searcher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+}
+
+.ersearch_label {
+  font-size: 23px;
+  font-weight: 600;
+}
+
+.ersearch_box {
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px 10px;
+  background-color: var(--beige);
+  width: 100%;
+  max-width: 300px;
+}
+.ersearch_icon {
+  margin-right: 8px;
+  color: #888;
+  font-size: 1.2em;
+}
+.ersearch_nput {
+  border: none;
+  outline: none;
+  flex: 1;
+  font-size: 1em;
+  background-color: transparent;
+}
+
+.ercustom_button {
+  background-color: var(--principalYellow);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 650;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.ercustom_button:hover {
+  background-color: var(--hoverYellow);
+}
+
+.loader {
+  align-self: center;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--principalYellow);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.titleAndSort_container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.fade_bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 8px;
+  height: 10px;
+  background: linear-gradient(to top, white, transparent);
+  pointer-events: none;
+  z-index: 2;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .erjob_list_wrapper {
+    padding: 15px;
+    width: 90%;
+  }
+
+  .erjob_list_title {
+    font-size: 20px;
+  }
+
+  .ersearch_box {
+    max-width: 100%;
+  }
+
+  .erjob_list_header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .dropdown_container {
+    margin-top: 10px;
+  }
+
+  .ersort_label {
+    font-size: 18px;
+  }
+
+  .ersort_icon {
+    font-size: 1.8rem;
+  }
+
+  .erjob_bar {
+    width: 100%;
+  }
+
+  .erscroll_job_wrapper {
+    height: 300px;
+  }
+
+  @media (max-width: 1024px) {
+    .erjob_layout {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .erjob_list_wrapper,
+    .erjob_button_wrapper {
+      width: 100%;
+      max-width: 600px;
+    }
+
+    .ercustom_button {
+      width: 100%;
+      text-align: center;
+      padding: 20px;
+      font-size: 1.1rem;
+    }
+
+    .erscroll_job_wrapper {
+      max-height: 400px; /* altura máxima en pantallas chicas */
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ersearch_box {
+      flex-direction: row;
+      padding: 8px;
+    }
+
+    .ersearch_label {
+      font-size: 20px;
+    }
+
+    .ercustom_button {
+      font-size: 1rem;
+      padding: 16px;
+    }
+
+    .erjob_scroll_box {
+      gap: 6px;
+    }
+  }
+}
