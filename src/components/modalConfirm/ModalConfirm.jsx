@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ModalConfirm.module.css";
 import classNames from "classnames";
 
@@ -7,31 +7,58 @@ const ModalConfirm = ({
   isModalVisible,
   handleCancel,
   handleConfirm,
+  textButtonOne = "Cancelar",
+  textButtonTwo = "Continuar"
 }) => {
+  const [closing, setClosing] = useState(false);
+
+  const startClose = () => {
+    setClosing(true);
+  };
+
+  useEffect(() => {
+    if (isModalVisible) setClosing(false);
+  }, [isModalVisible]);
+
+  useEffect(() => {
+    if (closing) {
+      const timer = setTimeout(() => {
+        handleCancel();
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, [closing, handleCancel]);
+
+  if (!isModalVisible && !closing) return null;
+
   return (
     <div
-      onClick={handleCancel}
+      onClick={startClose}
       className={classNames(styles.overlay, {
-        [styles.overlay_visible]: isModalVisible,
+        [styles.overlay_visible]: isModalVisible && !closing,
+        [styles.fadeOutOverlay]: closing,
       })}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={classNames(styles.modalConfirm_container)}
+        className={classNames(
+          styles.modalConfirm_container,
+          closing ? styles.slideUp : styles.slideDown
+        )}
       >
         <h1>{message}</h1>
         <div className={styles.buttons}>
           <button
             className={classNames(styles.modalButton, styles.buttonCancel)}
-            onClick={handleCancel}
+            onClick={startClose}
           >
-            Cancelar
+            {textButtonOne}
           </button>
           <button
             className={classNames(styles.modalButton, styles.buttonContinue)}
             onClick={handleConfirm}
           >
-            Continuar
+            {textButtonTwo}
           </button>
         </div>
       </div>

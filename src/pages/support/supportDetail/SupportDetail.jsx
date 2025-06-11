@@ -1,41 +1,47 @@
 import { useParams } from "react-router-dom";
 import styles from "./SupportDetail.module.css";
 import { IoCalendarOutline } from "react-icons/io5";
-import ModalResolve from "./ModalResolve";
 import { useState } from "react";
+import ModalConfirm from "../../../components/modalConfirm/modalConfirm";
+import { IoLogoWhatsapp } from "react-icons/io5";
 
-// Eliminar cuando este la api
+// Eliminar cuando este la API
 const supportDetailComplains = [
-    {
-        id: "1",
-        userName: "Fulano Detal",
-        description: "Entre a la aplicacion y tuve un problema con mi lista de trabajos publicados.",
-        date: "04/05/2025",
-    },
-    {
-        id: "2",
-        userName: "Juan Gomez",
-        description: "Intenté actualizar mi perfil y los cambios no se guardaron.",
-        date: "23/05/2025",
-    },
-    {
-        id: "3",
-        userName: "Pedro Sanchez",
-        description: "No puedo subir un nuevo trabajo, el botón no hace nada.",
-        date: "15/04/2025",
-    },
-    {
-        id: "4",
-        userName: "Mario Lopez",
-        description: "La aplicación no carga mis notificaciones, se queda en blanco.",
-        date: "19/03/2025",
-    },
-    {
-        id: "5",
-        userName: "David Martinez",
-        description: "Quise filtrar los trabajos por categoría, pero siempre me muestra los mismos resultados.",
-        date: "20/01/2025",
-    },
+  {
+    id: "1",
+    userName: "Fulano Detal",
+    description:
+      "Entre a la aplicacion y tuve un problema con mi lista de trabajos publicados.",
+    date: "04/05/2025",
+  },
+  {
+    id: "2",
+    userName: "Juan Gomez",
+    description:
+      "Intenté actualizar mi perfil y los cambios no se guardaron.",
+    date: "23/05/2025",
+  },
+  {
+    id: "3",
+    userName: "Pedro Sanchez",
+    description:
+      "No puedo subir un nuevo trabajo, el botón no hace nada.",
+    date: "15/04/2025",
+  },
+  {
+    id: "4",
+    userName: "Mario Lopez",
+    description:
+      "La aplicación no carga mis notificaciones, se queda en blanco.",
+    date: "19/03/2025",
+  },
+  {
+    id: "5",
+    userName: "David Martinez",
+    description:
+      "Quise filtrar los trabajos por categoría, pero siempre me muestra los mismos resultados.",
+    date: "20/01/2025",
+  },
 ];
 
 export default function SupportDetail() {
@@ -46,8 +52,10 @@ export default function SupportDetail() {
   const complain = supportDetailComplains.find((j) => j.id === id);
 
   if (!complain) {
-    return <div className={styles.complain_not_found}>Trabajo no encontrado</div>;
-  } // modificar cuando este la api
+    return (
+      <div className={styles.complain_not_found}>Trabajo no encontrado</div>
+    );
+  }
 
   const handleResolve = () => {
     setIsResolved(true);
@@ -56,8 +64,15 @@ export default function SupportDetail() {
 
   return (
     <div>
-      {showResolveModal && <ModalResolve onClose={() => setShowResolveModal(false)} onResolve={handleResolve} />}
-      
+      <ModalConfirm
+        isModalVisible={showResolveModal}
+        handleCancel={() => setShowResolveModal(false)}
+        handleConfirm={handleResolve}
+        message="¿Estás seguro de que querés marcar esta queja como resuelta?"
+        textButtonOne="Cancelar"
+        textButtonTwo="Resolver"
+      />
+
       <div className={styles.complain_title}>
         <h1>
           <span className={styles.grey_text}>Inicio </span>
@@ -68,8 +83,8 @@ export default function SupportDetail() {
       <div className={styles.complain_align_cards}>
         <div className={styles.complain_container_box}>
           <div className={styles.complain_header}>
-              <h2>{complain.userName}</h2>
-              <div className={styles.user_picture}></div>
+            <h2>{complain.userName}</h2>
+            <div className={styles.user_picture}></div>
           </div>
 
           <div className={styles.box_separator}>
@@ -90,20 +105,20 @@ export default function SupportDetail() {
           <p>{complain.date}</p>
         </div>
 
-        {/* Si esta resuelto no muestra los botones */}
         <div className={styles.button_container}>
           {!isResolved ? (
             <>
-              <button className={styles.whatsapp_button}>
-                  whatsapp
-              </button>
-              <button className={styles.resolve_button} onClick={() => setShowResolveModal(true)}>
-                  Resolver
+              <button className={styles.whatsapp_button}>{<IoLogoWhatsapp/>} Whatsapp</button>
+              <button
+                className={styles.resolve_button}
+                onClick={() => setShowResolveModal(true)}
+              >
+                Resolver
               </button>
             </>
           ) : (
             <div className={styles.resolved_container}>
-                <p className={styles.resolved_text}>Queja resuelta</p>
+              <p className={styles.resolved_text}>Queja resuelta</p>
             </div>
           )}
         </div>

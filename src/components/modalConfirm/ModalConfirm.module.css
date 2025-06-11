@@ -7,16 +7,24 @@
   background-color: rgba(0, 0, 0, 0.4);
   opacity: 0;
   display: flex;
+  justify-content: center;
+  align-items: center;
   pointer-events: none;
   z-index: 2;
+  transition: opacity 0.7s ease;
 }
 
 .overlay_visible {
   pointer-events: auto;
   opacity: 1;
+  animation: fadeInOverlay 0.7s ease-out forwards;
 }
+
+.fadeOutOverlay {
+  animation: fadeOutOverlay 0.7s ease-out forwards;
+}
+
 .modalConfirm_container {
-  position: fixed;
   z-index: 3;
   width: 400px;
   height: 180px;
@@ -27,10 +35,16 @@
   gap: 20px;
   align-items: center;
   border-radius: 10px;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  transition: none;
+  position: relative;
+  text-align: center;
+}
+
+.slideDown {
+  animation: slideDown 0.7s ease-out forwards;
+}
+
+.slideUp {
+  animation: slideUp 0.7s ease-out forwards;
 }
 
 .buttons {
@@ -50,16 +64,71 @@
 
 .buttonCancel {
   background-color: var(--principalRed);
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .buttonCancel:hover {
-  background-color: var(--hoverRed);
+  background-color: var(--transparentRed);
+  color: var(--principalRed);
+  transition: 0.5s ease-in-out;
 }
 
 .buttonContinue {
   background-color: var(--principalGreen);
+  border: none;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
 .buttonContinue:hover {
-  background-color: var(--hoverGreen);
+  background-color: var(--transparentGreen);
+  color: var(--principalGreen);
+  transition: 0.5s ease-in-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-500px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-500px);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOutOverlay {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
