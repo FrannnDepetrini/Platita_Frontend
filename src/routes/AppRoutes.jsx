@@ -31,27 +31,30 @@ import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJ
 // Admin
 import SupportHome from "../pages/support/supportHome/SupportHome";
 
-
 //Support
-import  HistoryComplains  from "../pages/support/historial/HistoryComplains";
+import HistoryComplains from "../pages/support/historial/HistoryComplains";
 
 //NotFound / allowed
 import NotFound from "../pages/not_found/NotFound";
 import NotAllowed from "../pages/not_allowed/NotAllowed";
 import GuestProtect from "./GuestProtect/GuestProtect";
+import SysAdminHome from "../pages/admin/sysAdminHome/SysAdminHome";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path="*" element={<NotFound/>}/>
-      <Route path="/not-allowed" element={<NotAllowed/>}/>
+      <Route path="*" element={<NotFound />} />
+      <Route path="/not-allowed" element={<NotAllowed />} />
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-        <Route path="/register" element={
-          <GuestProtect>
-            <Register />
-          </GuestProtect>
-          } />
+        <Route
+          path="/register"
+          element={
+            <GuestProtect>
+              <Register />
+            </GuestProtect>
+          }
+        />
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route index element={<Home />} />
         {/* Empleado  */}
@@ -123,26 +126,23 @@ export default function AppRoutes() {
           }
         />
 
-
-        <Route 
+        <Route
           path="/employer/jobDetails/:id"
           element={
             <Protected acceptedRoles={["Admin", "Client"]}>
-              <EmployerJobDetails/>
+              <EmployerJobDetails />
             </Protected>
-            
           }
         />
-
 
         <Route
           path="/support/historial_complains"
           element={
             <Protected acceptedRoles={["Support"]}>
-              <HistoryComplains/>
+              <HistoryComplains />
             </Protected>
           }
-          />
+        />
 
         {/*Moderador*/}
         <Route
@@ -168,6 +168,15 @@ export default function AppRoutes() {
           element={
             <Protected acceptedRoles={["Admin", "Client"]}>
               <SupportHome />
+            </Protected>
+          }
+        />
+        {/*SysAdmin*/}
+        <Route
+          path="/sysadmin/home"
+          element={
+            <Protected acceptedRoles={["Admin", "Client"]}>
+              <SysAdminHome />
             </Protected>
           }
         />
