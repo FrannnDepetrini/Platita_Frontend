@@ -104,6 +104,18 @@
   transition: all 0.2s ease;
 }
 
+.container_button button:disabled {
+  cursor: not-allowed;
+}
+
+.container_button button:disabled:hover {
+  background-color: var(--transparentRed);
+}
+
+.container_button button:disabled:hover > .icon {
+  color: var(--principalRed);
+}
+
 .container_button button:hover {
   background-color: var(--hoverRed);
 }
@@ -115,6 +127,21 @@
 .icon {
   color: var(--principalRed);
   transition: all 0.3s ease;
+}
+
+.delete_icon {
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease-in-out;
+}
+.delete_icon:hover {
+  color: var(--principalRed);
+}
+
+.buttonRestore {
+  background-color: var(--principalYellow) !important;
+  cursor: pointer !important;
+  color: white !important;
 }
 
 .tableContainer {
