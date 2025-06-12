@@ -1,4 +1,4 @@
-import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
+import UseCategoryIcon from "../../../customhooks/useCategoryIcon";
 import {
   IoIosStar,
   IoIosStarHalf,

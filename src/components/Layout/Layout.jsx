@@ -1,9 +1,9 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./Layout.css";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import ModalLogin from "../ModalLogin/ModalLogin";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../services/contexts/AuthProvider";
 import { ModalContext } from "../../services/ModalContext";
 import ModalRecoverPass from "../ModalRecoverPass/ModalRecoverPass";
@@ -21,6 +21,16 @@ const Layout = () => {
   const handleCloseLogin = () => setIsLoginModalOpen(false);
   const handleOpenNotification = () => setIsNotificationModalVisible(true);
   const handleCloseNotification = () => setIsNotificationModalVisible(false);
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.notAllowed) {
+      setTimeout(() => { handleOpenLogin() }, 300);
+      window.history.replaceState({}, '');
+    }
+  }, [location])
+
 
   const categoriesRef = useRef(null);
   const { showModal, isSuccess, hideRecoverModal } = useContext(ModalContext);
