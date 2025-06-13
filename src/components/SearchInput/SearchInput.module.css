@@ -34,14 +34,14 @@
 }
 
 .input_field:disabled {
-  color: #9ca3af;
+  color: black;
   cursor: not-allowed;
 }
 
-.c_input1 .input_field:disabled {
+/* .c_input1 .input_field:disabled .loading{
   color: #9ca3af;
   cursor: wait;
-}
+} */
 
 .separator {
   position: relative;

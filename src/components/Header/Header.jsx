@@ -100,8 +100,10 @@ const Header = ({
           <button onClick={onLogin}>Iniciar sesion</button>
         ) : (
           <div className="session_buttons">
-            <NotificationsBell showModal={setIsNotificationModalVisible} />
-            <button onClick={() => setIsAsideVisible(true)}>{user.name}</button>
+            <NotificationsBell showModal={setIsNotificationModalVisible}/>
+            <button onClick={() => setIsAsideVisible(true)}>
+              {user.name.split(' ')[0]}
+            </button>
           </div>
         )}
       </div>

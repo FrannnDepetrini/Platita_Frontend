@@ -32,7 +32,7 @@
 
 .escroll-job-wrapper {
   position: relative;
-  height: 300px;
+  height: 400px;
   overflow: hidden;
 }
 
@@ -68,7 +68,7 @@
   height: 10px;
   background: linear-gradient(to top, white, transparent);
   pointer-events: none;
-  z-index: 2;
+  z-index: 1;
 }
 
 .ejob-list-header {

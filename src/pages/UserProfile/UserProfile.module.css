@@ -79,7 +79,7 @@
 }
 
 .button_container.check {
-  bottom: 60px;
+  bottom: 70px;
   background-color: var(--transparentGreen);
 }
 
@@ -97,7 +97,7 @@
 }
 
 .button_container.cancel {
-  bottom: 60px;
+  bottom: 70px;
   background-color: var(--transparentRed);
 }
 
@@ -129,7 +129,7 @@
 }
 
 .edit.pressed {
-  bottom: 60px;
+  bottom: 70px;
 }
 .check.pressed {
   bottom: 0;

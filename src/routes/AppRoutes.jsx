@@ -48,6 +48,7 @@ export default function AppRoutes() {
       <Route path="/not-allowed" element={<NotAllowed />} />
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
+
         <Route
           path="/register"
           element={
@@ -56,6 +57,7 @@ export default function AppRoutes() {
             </GuestProtect>
           }
         />
+
         <Route path="/recover-password" element={<RecoverPassword />} />
         <Route index element={<Home />} />
         {/* Empleado  */}
