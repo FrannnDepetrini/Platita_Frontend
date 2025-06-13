@@ -30,6 +30,7 @@ import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJ
 
 // Admin
 import SupportHome from "../pages/support/supportHome/SupportHome";
+import SupportDetail from "../pages/support/supportDetail/SupportDetail";
 
 //Support
 import HistoryComplains from "../pages/support/historial/HistoryComplains";
@@ -171,6 +172,15 @@ export default function AppRoutes() {
             </Protected>
           }
         />
+
+
+        <Route 
+          path="/support/detail/:id"
+          element={
+              <Protected acceptedRoles={["Admin", "Client"]}>
+                <SupportDetail />
+              </Protected>
+
         {/*SysAdmin*/}
         <Route
           path="/sysadmin/home"
@@ -178,6 +188,7 @@ export default function AppRoutes() {
             <Protected acceptedRoles={["Admin", "Client"]}>
               <SysAdminHome />
             </Protected>
+
           }
         />
       </Route>
