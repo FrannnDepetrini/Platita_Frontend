@@ -29,8 +29,9 @@ export default function EmployeeHistorial() {
   useEffect(() => {
     fetchData();
   }, []);
-
+  console.log("uli");
   const starsCalculated = (average, expirationDate) => {
+    console.log("me calcule");
     const today = new Date();
     const dateMapped = new Date(expirationDate);
     const isExpired = dateMapped < today;
@@ -43,11 +44,11 @@ export default function EmployeeHistorial() {
     } else {
       for (var i = 1; i < 6; i++) {
         if (average >= i) {
-          stars.push(<IoIosStar className="star" />);
+          stars.push(<IoIosStar className="star" key={i} />);
         } else if (average >= i - 0.5) {
-          stars.push(<IoIosStarHalf className="star" />);
+          stars.push(<IoIosStarHalf className="star" key={i} />);
         } else {
-          stars.push(<IoIosStarOutline className="star" />);
+          stars.push(<IoIosStarOutline className="star" key={i} />);
         }
       }
 

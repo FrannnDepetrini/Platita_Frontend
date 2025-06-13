@@ -47,6 +47,10 @@
   animation: slideUp 0.7s ease-out forwards;
 }
 
+.modalConfirm_container h2 {
+  text-align: center;
+}
+
 .buttons {
   display: flex;
   gap: 20px;

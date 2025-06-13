@@ -1,72 +1,56 @@
-.postulations_container {
+.sysadmin_container {
   display: flex;
-  justify-content: center;
-  margin-right: 20px;
-  margin-top: 20px;
+  flex-direction: column;
+  margin: 10px 0 0 90px;
 }
 
+.sysadmin_container h4 {
+  margin-bottom: 5px;
+}
 .table_container {
   padding-bottom: 50px;
 }
 
-.table_postulations {
+.table_users {
   background-color: white;
   border-radius: 10px;
   box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.2);
-  width: 1200px;
+  width: 900px;
   border-collapse: collapse;
 }
 
-.category_icon {
-  color: var(--principalRed);
-  width: 30px;
-  height: 30px;
-}
-
-.delete_icon {
-  cursor: pointer;
-  width: 20px;
-  height: 20px;
-  transition: all 0.2s ease-in-out;
-}
-
-.whatsapp_icon {
-  font-size: 25px;
-  color: #25d366;
-  cursor: pointer;
-}
-
-.delete_icon:hover {
-  color: var(--principalRed);
-}
-
-.td_empleador h4 {
+.td_user {
   font-weight: 400;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
 }
 
-.td_empleador h4:hover {
+.td_user:hover {
   color: var(--principalYellow);
 }
 
-.td_state {
+.td_role {
   border-radius: 15px;
   padding-top: 7px;
   padding-bottom: 7px;
 }
-.Pending {
+.Client {
   background-color: rgba(252, 169, 16, 0.3);
 
   color: var(--principalYellow);
 }
-.Accepted {
+.Moderator {
   background-color: rgba(68, 175, 105, 0.3);
   color: var(--principalGreen);
 }
-.Finished {
+.SysAdmin {
   background-color: rgba(248, 51, 60, 0.3);
   color: var(--principalRed);
+}
+
+.Support {
+  background-color: rgba(76, 10, 152, 0.3);
+  color: var(--purple);
 }
 
 .dots::after {

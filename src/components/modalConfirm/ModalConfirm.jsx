@@ -4,6 +4,7 @@ import classNames from "classnames";
 
 const ModalConfirm = ({
   message,
+  subMessage = "",
   isModalVisible,
   handleCancel,
   handleConfirm,
@@ -47,6 +48,7 @@ const ModalConfirm = ({
         )}
       >
         <h1>{message}</h1>
+        {subMessage && <h2>{subMessage}</h2>}
         <div className={styles.buttons}>
           <button
             className={classNames(styles.modalButton, styles.buttonCancel)}
