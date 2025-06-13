@@ -48,7 +48,6 @@ export default function AppRoutes() {
       <Route path="/not-allowed" element={<NotAllowed />} />
       {/* Invitado */}
       <Route path="/" element={<Layout />}>
-
         <Route
           path="/register"
           element={
@@ -175,14 +174,14 @@ export default function AppRoutes() {
           }
         />
 
-
-        <Route 
+        <Route
           path="/support/detail/:id"
           element={
-              <Protected acceptedRoles={["Admin", "Client"]}>
-                <SupportDetail />
-              </Protected>
-
+            <Protected acceptedRoles={["Admin", "Client"]}>
+              <SupportDetail />
+            </Protected>
+          }
+        />
         {/*SysAdmin*/}
         <Route
           path="/sysadmin/home"
@@ -190,7 +189,6 @@ export default function AppRoutes() {
             <Protected acceptedRoles={["Admin", "Client"]}>
               <SysAdminHome />
             </Protected>
-
           }
         />
       </Route>
