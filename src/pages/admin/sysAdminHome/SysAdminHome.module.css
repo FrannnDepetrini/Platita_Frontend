@@ -1,0 +1,93 @@
+.sysadmin_container {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0 0 90px;
+}
+
+.sysadmin_container h4 {
+  margin-bottom: 5px;
+}
+.table_container {
+  padding-bottom: 50px;
+}
+
+.table_users {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.2);
+  width: 900px;
+  border-collapse: collapse;
+}
+
+.td_user {
+  font-weight: 400;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.td_user:hover {
+  color: var(--principalYellow);
+}
+
+.td_role {
+  border-radius: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.Client {
+  background-color: rgba(252, 169, 16, 0.3);
+
+  color: var(--principalYellow);
+}
+.Moderator {
+  background-color: rgba(68, 175, 105, 0.3);
+  color: var(--principalGreen);
+}
+.SysAdmin {
+  background-color: rgba(248, 51, 60, 0.3);
+  color: var(--principalRed);
+}
+
+.Support {
+  background-color: rgba(76, 10, 152, 0.3);
+  color: var(--purple);
+}
+
+.dots::after {
+  content: "";
+  display: inline-block;
+  animation: dots 1.5s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+
+td {
+  text-align: center;
+  padding: 20px;
+  border-top: 1px solid var(--lightGray);
+}
+
+th {
+  padding: 15px;
+}
+
+tr:last-child {
+  border-bottom: 1px solid var(--lightGray);
+}
+
+tfoot td {
+  padding: 20px;
+}

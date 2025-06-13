@@ -1,7 +1,7 @@
 // CardJobRequest.jsx
 
 import { useNavigate } from "react-router-dom";
-import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
+
 import styles from "./ComplaintCard.module.css";
 
 const ComplaintCard = ({ complaintInfo }) => {

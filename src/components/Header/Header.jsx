@@ -50,20 +50,7 @@ const Header = ({
           <img onClick={handleNavigateHome} className="logo" src={Logo}></img>
         </div>
         <div className="nav_container">
-          {user.role == "Guest" ? (
-            <>
-              <h1
-                onClick={() => handleNavigateTo()}
-                className={`nav_h1 activeIndex`}
-              >
-                Inicio
-              </h1>
-
-              <h1 className="nav_h1" onClick={scrollToCategories}>
-                Categorias
-              </h1>
-            </>
-          ) : (
+          {user.role == "Client" ? (
             <>
               <h1
                 onClick={() => handleNavigateTo("employee/home")}
@@ -90,6 +77,19 @@ const Header = ({
                 } `}
               >
                 Historial
+              </h1>
+            </>
+          ) : (
+            <>
+              <h1
+                onClick={() => handleNavigateTo()}
+                className={`nav_h1 activeIndex`}
+              >
+                Inicio
+              </h1>
+
+              <h1 className="nav_h1" onClick={scrollToCategories}>
+                Categorias
               </h1>
             </>
           )}
