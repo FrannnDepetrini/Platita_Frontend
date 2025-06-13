@@ -17,25 +17,23 @@ const initialState = {
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(initialState);
-  const [isAuthenticated, setIsAuthenticated] = useState((initialState.token ? true : false));
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    initialState.token ? true : false
+  );
   const navigate = useNavigate();
 
   const paleUli = (token) => {
+    const userData = jwtDecode(token);
 
-      const userData = jwtDecode(token);
+    const role =
+      userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
 
-      const role =
-        userData[
-          "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
-        ];
-
-      switch (role) {
-        case "Client":
-          navigate("/employee/home", { replace: true });
-          break;
-        case "Moderator":
-          navigate("/moderator/job/detail", { replace: true });
-
+    switch (role) {
+      case "Client":
+        navigate("/employee/home", { replace: true });
+        break;
+      case "Moderator":
+        navigate("/moderator/job/detail", { replace: true });
     }
   };
 
@@ -83,7 +81,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = initialState.token;
 
-    if(token){
+    if (token) {
       if (window.location.pathname === "/") {
         paleUli(token);
       }
@@ -118,10 +116,12 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    authService.logout();
-    setUser(initialState);
-    // setUser({ role: "Guest" });
-    setIsAuthenticated(false);
+    navigate("/");
+    setTimeout(() => {
+      authService.logout();
+      setUser(initialState);
+      setIsAuthenticated(false);
+    }, 1);
   };
 
   const value = {
