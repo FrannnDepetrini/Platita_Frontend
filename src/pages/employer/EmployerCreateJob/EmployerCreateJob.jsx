@@ -10,6 +10,7 @@ import {
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import classNames from "classnames";
 import useVerificate from "../../../customHooks/UseVerificate";
+import SearchInput from "../../../components/SearchInput/SearchInput";
 
 var today = new Date();
 var todayFormatted = today.toISOString().split("T")[0];
@@ -32,6 +33,8 @@ const EmployerCreateJob = () => {
   const [data, setData] = useState({
     title: "",
     description: "",
+    province: "",
+    city:"",
   });
 
   const handleChange = (e) => {
@@ -51,6 +54,18 @@ const EmployerCreateJob = () => {
         break;
     }
   };
+
+
+  const customHandle = (e) => {
+    const {name, value} = e.target;
+
+    switch(name){
+      case "province":
+        setProvince(value);
+      case "city":
+        setCity(value);
+    }
+  }
 
   const inputDateRef = useRef();
 
@@ -123,30 +138,11 @@ const EmployerCreateJob = () => {
             </div>
 
             <div className={styles.input_container}>
-              <label htmlFor="Province">Provincia</label>
-              <div className={styles.iconAndInput_container}>
-                <MdLocationOn className={styles.icon_generic} />
-                <input
-                  className={styles.input_generic}
-                  id="Province"
-                  type="text"
-                  placeholder="Santa Fe"
-                  onChange={(e) => setProvince(e.target.value)}
-                />
-              </div>
-            </div>
 
-            <div className={styles.input_container}>
-              <label htmlFor="City">Ciudad</label>
+              <label>Localidad</label>
               <div className={styles.iconAndInput_container}>
-                <MdLocationOn className={styles.icon_generic} />
-                <input
-                  className={styles.input_generic}
-                  id="City"
-                  type="text"
-                  placeholder="Rosario"
-                  onChange={(e) => setCity(e.target.value)}
-                />
+                <MdLocationOn className={styles.icon_generic}/>
+                <SearchInput onChange={customHandle} province={province} city={city}/>
               </div>
             </div>
 
