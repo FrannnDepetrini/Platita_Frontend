@@ -1,4 +1,4 @@
-import UseCategoryIcon from "../../customhooks/useCategoryIcon";
+import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 
 import "./CardJob.css";
 
