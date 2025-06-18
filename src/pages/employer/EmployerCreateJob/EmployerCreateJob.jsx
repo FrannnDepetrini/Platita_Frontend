@@ -62,8 +62,12 @@ const EmployerCreateJob = () => {
     switch(name){
       case "province":
         setProvince(value);
+        break;
+        
       case "city":
         setCity(value);
+        break;
+
     }
   }
 
