@@ -31,6 +31,7 @@ import ModeratorJobDetail from "../pages/moderator/moderatorJobDetail/ModeratorJ
 // Admin
 import SupportHome from "../pages/support/supportHome/SupportHome";
 import SupportDetail from "../pages/support/supportDetail/SupportDetail";
+import SysAdminCreateUser from "../pages/admin/sysAdminCreateUser/SysAdminCreateUser";
 
 //Support
 import HistoryComplains from "../pages/support/historial/HistoryComplains";
@@ -196,6 +197,14 @@ export default function AppRoutes() {
           element={
             <Protected acceptedRoles={["Admin", "Client"]}>
               <SysAdminHome />
+            </Protected>
+          }
+        />
+        <Route
+          path="/sysadmin/createUser"
+          element={
+            <Protected acceptedRoles={["Admin", "Client"]}>
+              <SysAdminCreateUser />
             </Protected>
           }
         />
