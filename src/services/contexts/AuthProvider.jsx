@@ -71,6 +71,13 @@ export function AuthProvider({ children }) {
           break;
         case "Moderator":
           navigate("/moderator/job/detail", { replace: true });
+          break;
+        case "SysAdmin":
+          navigate("/sysadmin/home", {replace: true});
+          break;
+        case "Support":
+          navigate("/support/home", {replace:true});
+          break;
       }
     } else {
       setUser({ role: "Guest" });

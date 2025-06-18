@@ -40,6 +40,7 @@ import NotFound from "../pages/not_found/NotFound";
 import NotAllowed from "../pages/not_allowed/NotAllowed";
 import GuestProtect from "./GuestProtect/GuestProtect";
 import SysAdminHome from "../pages/admin/sysAdminHome/SysAdminHome";
+import SysAdminCreateUser from "../pages/admin/sysAdminCreateUser/SysAdminCreateUser";
 
 export default function AppRoutes() {
   return (
@@ -189,6 +190,13 @@ export default function AppRoutes() {
             <Protected acceptedRoles={["Admin", "Client"]}>
               <SysAdminHome />
             </Protected>
+          }
+        />
+
+        <Route
+          path="/sysadmin/create_user"
+          element={
+            <SysAdminCreateUser/>
           }
         />
       </Route>
