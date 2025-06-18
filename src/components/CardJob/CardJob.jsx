@@ -1,4 +1,4 @@
-import UseCategoryIcon from "../../customhooks/useCategoryIcon";
+import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 
 import "./CardJob.css";
 
@@ -37,7 +37,7 @@ export default function CardJob({ jobInfo, cardType = false }) {
     <div className={`parent ${cardType && "client"}`}>
       <div className="topCard">
         <div className="titleSection">
-          <h2>{jobInfo.jobTitle}</h2>
+          <h2>{jobInfo.title}</h2>
           <CategoryIcon className="job-icon" />
         </div>
         <div className="priceSection">
@@ -58,7 +58,7 @@ export default function CardJob({ jobInfo, cardType = false }) {
 
           <div className="applications">
             <span>
-              <strong>+{jobInfo.applications}</strong> Postulaciones
+              <strong>+{jobInfo.amountPostulations}</strong> Postulaciones
             </span>
           </div>
         </div>

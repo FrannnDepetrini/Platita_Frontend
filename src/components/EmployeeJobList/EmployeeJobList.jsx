@@ -1,53 +1,22 @@
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useEffect } from "react";
 import { IoMdArrowDropdown } from "../../utils/icons/icons";
 import { FiSearch } from "react-icons/fi"; // Ícono de lupa
 import CardJob from "../CardJob/CardJob";
 import "./EmployeeJobList.css";
-// import EmployeeCardJob from "../EmployeeCardJob/EmployeeCardJob";
-
-const initialJobs = [
-  {
-    id: "1",
-    jobTitle: "Levantar un tapial",
-    description:
-      "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
-    city: "Rosario",
-    location: "Santa fe 50",
-    applications: 300,
-    averagePrice: 10000,
-    userName: "Fulano Detal",
-    category: "Construction",
-  },
-  {
-    id: "2",
-    jobTitle: "Arreglar un caño",
-    description:
-      "Necesito a alguien con conocimientos de plomeria para arreglar un caño de mi casa",
-    city: "Santa Fe",
-    location: "San Martin 1150",
-    applications: 150,
-    averagePrice: 8000,
-    userName: "Fulano Detal",
-    category: "Construction",
-  },
-  {
-    id: "3",
-    jobTitle: "Arreglar cables",
-    description:
-      "Necesito a alguien con conocimientos de electricista para arreglar cables pelados en mi negocio",
-    city: "Esperanza",
-    location: "Jujuy 274",
-    applications: 450,
-    averagePrice: 12000,
-    userName: "Fulano Detal",
-    category: "Construction",
-  },
-];
+import { jobService } from "../../services/jobService/jobService";
 
 const EmployeeJobList = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [jobs, setJobs] = useState(initialJobs);
+  const [jobs, setJobs] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const getJobs = async () => {
+      const data = await jobService.getJobs();
+      setJobs(data);
+    };
+    getJobs();
+  }, []);
 
   const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
 
@@ -62,8 +31,10 @@ const EmployeeJobList = () => {
         case "price":
           sortedJobs.sort((a, b) => b.averagePrice - a.averagePrice);
           break;
-        case "applications":
-          sortedJobs.sort((a, b) => b.applications - a.applications);
+        case "amountPostulations":
+          sortedJobs.sort(
+            (a, b) => b.amountPostulations - a.amountPostulations
+          );
           break;
         default:
           break;
@@ -79,7 +50,7 @@ const EmployeeJobList = () => {
     const term = searchTerm.toLowerCase();
     return jobs.filter(
       (job) =>
-        job.jobTitle.toLowerCase().includes(term) ||
+        job.title.toLowerCase().includes(term) ||
         job.description.toLowerCase().includes(term) ||
         job.city.toLowerCase().includes(term)
     );
@@ -115,7 +86,7 @@ const EmployeeJobList = () => {
           <ul className={`dropdown-menu ${menuOpen ? "open" : "closed"}`}>
             <li onClick={() => handleSort("city")}>Por ciudad</li>
             <li onClick={() => handleSort("price")}>Por precio</li>
-            <li onClick={() => handleSort("applications")}>
+            <li onClick={() => handleSort("amountPostulations")}>
               Por postulaciones
             </li>
           </ul>
@@ -125,9 +96,13 @@ const EmployeeJobList = () => {
       <div className="escroll-job-wrapper">
         <div className="escroll-job">
           <div className="ejob-scroll-box">
-            {filteredJobs.map((job, index) => (
-              <CardJob key={index} jobInfo={job} cardType={true} />
-            ))}
+            {jobs.length == 0 ? (
+              <h1>No hay trabajos en tu localidad aún</h1>
+            ) : (
+              filteredJobs.map((job, index) => (
+                <CardJob key={index} jobInfo={job} cardType={true} />
+              ))
+            )}
           </div>
         </div>
         <div className="fade-bottom"></div>

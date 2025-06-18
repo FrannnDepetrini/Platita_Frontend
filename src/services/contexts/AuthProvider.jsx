@@ -22,7 +22,7 @@ export function AuthProvider({ children }) {
   );
   const navigate = useNavigate();
 
-  const paleUli = (token) => {
+  const autoNavigate = (token) => {
     const userData = jwtDecode(token);
 
     const role =
@@ -73,10 +73,10 @@ export function AuthProvider({ children }) {
           navigate("/moderator/job/detail", { replace: true });
           break;
         case "SysAdmin":
-          navigate("/sysadmin/home", {replace: true});
+          navigate("/sysadmin/home", { replace: true });
           break;
         case "Support":
-          navigate("/support/home", {replace:true});
+          navigate("/support/home", { replace: true });
           break;
       }
     } else {
@@ -90,7 +90,7 @@ export function AuthProvider({ children }) {
 
     if (token) {
       if (window.location.pathname === "/") {
-        paleUli(token);
+        autoNavigate(token);
       }
     }
   }, []);

@@ -3,7 +3,7 @@ import api from "../api";
 export const authService = {
   login: async (userData) => {
     try {
-      const response = await api.post("/Auth/Login", userData);
+      const response = await api.post("/auth/Login", userData);
       localStorage.setItem("token", response);
       return { success: true };
     } catch (error) {
@@ -15,7 +15,7 @@ export const authService = {
 
   register: async (userData) => {
     try {
-      const response = await api.post("/Auth/Register", userData);
+      const response = await api.post("/auth/Register", userData);
       return response.data;
     } catch (error) {
       throw new Error(error.response?.data?.message || "Error al registrarse");
@@ -33,7 +33,7 @@ export const authService = {
 
   getCurrentUser: async () => {
     try {
-      const response = await api.get("Auth/Me");
+      const response = await api.get("auth/Me");
       return response.data;
     } catch (error) {
       throw new Error(
