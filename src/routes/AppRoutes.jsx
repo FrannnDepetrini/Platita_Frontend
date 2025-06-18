@@ -138,11 +138,11 @@ export default function AppRoutes() {
         />
 
         <Route
-          path="/support/historial_complains"
+          path="/employer/historial"
           element={
-            <Protected acceptedRoles={["Support"]}>
-              <HistoryComplains />
-            </Protected>
+            // <Protected acceptedRoles={["Admin", "Client"]}>
+            <EmployerHistorial />
+            // </Protected>
           }
         />
 
@@ -170,6 +170,14 @@ export default function AppRoutes() {
           element={
             <Protected acceptedRoles={["Admin", "Client"]}>
               <SupportHome />
+            </Protected>
+          }
+        />
+        <Route
+          path="/support/historial_complains"
+          element={
+            <Protected acceptedRoles={["Support"]}>
+              <HistoryComplains />
             </Protected>
           }
         />
