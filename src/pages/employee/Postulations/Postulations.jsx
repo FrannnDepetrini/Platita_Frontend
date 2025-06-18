@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import useAuth from "../../../services/contexts/AuthProvider";
 import PostulationNumber from "./PostulationNumber";
+import { postulationService } from "../../../services/postulationServices/postulationService";
 
 export default function Postulations() {
   const [postulations, setPostulations] = useState([]);
@@ -14,13 +15,14 @@ export default function Postulations() {
 
   const fetchData = async () => {
     try {
-      const response = await fetch(
-        "https://magicloops.dev/api/loop/6ee7a60e-6f33-4349-b209-c5786a6f99a9/run?input=Hello+World"
-      );
-      if (!response.ok) throw new Error("Sucedio un error inesperado");
-      const data = await response.json();
+      // const response = await fetch(
+      //   "https://magicloops.dev/api/loop/6ee7a60e-6f33-4349-b209-c5786a6f99a9/run?input=Hello+World"
+      // );
+      const response = await postulationService.getMyPostulations();
+      console.log(response);
+      // if (!response.ok) throw new Error("Sucedio un error inesperado");
 
-      setPostulations(data);
+      setPostulations(response);
     } catch (err) {
       alert(err.message);
     } finally {
@@ -40,13 +42,14 @@ export default function Postulations() {
       <td colspan={6}>No tienes postulaciones aún!</td>;
     } else {
       return postulations.map((ps) => {
-        const CategoryIcon = UseCategoryIcon(ps.Category);
+        const CategoryIcon = UseCategoryIcon(ps.job.category);
+        const jobDayFormatted = new Date(ps.jobDay).toLocaleDateString();
         return (
           <tr key={ps.id}>
-            <td>{ps.Title} </td>
+            <td>{ps.job.title} </td>
             {/* Ese onClick debera enviarte al perfil de ese usuario */}
             <td onClick={null} className="td_empleador">
-              <h4>{ps.UserName}</h4>
+              <h4>{ps.job.userName}</h4>
             </td>
             <td>
               <CategoryIcon className="category_icon" />
@@ -54,17 +57,19 @@ export default function Postulations() {
             <td>
               <div
                 className={`td_state ${
-                  ps.Status == "Pendiente"
+                  ps.Status == "Pending"
                     ? "Pending"
-                    : ps.Status == "Aceptado"
+                    : ps.status == "Success"
                     ? "Accepted"
-                    : "Finished"
+                    : ps.status == "Done"
+                    ? "Finished"
+                    : "Cancelled"
                 }`}
               >
-                {ps.Status}
+                {ps.status}
               </div>
             </td>
-            <td>{ps.JobDay} </td>
+            <td>{jobDayFormatted} </td>
             <td>
               <FaTrashAlt
                 onClick={() => handleDeletePs(ps.Id)}

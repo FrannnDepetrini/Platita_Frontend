@@ -1,20 +1,32 @@
 import { useEffect, useState } from "react";
 import { IoLogoWhatsapp } from "../../../utils/icons/icons";
+import { postulationService } from "../../../services/postulationServices/postulationService";
 const PostulationNumber = ({ ps, userName }) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   useEffect(() => {
-    if (ps.Status === "Aceptado" && !phoneNumber) {
-      fetch(
-        `https://magicloops.dev/api/loop/dfd1c54a-2cef-4c26-95e9-c8ea808d54b2/run?input=Hello+World`
-      )
-        .then((res) => res.json())
-        .then((data) => {
-          setPhoneNumber(data.phoneNumber);
-        })
-        .catch((err) => {
-          console.error("Error al obtener el número:", err);
-        });
-    }
+    const fetchNumber = async () => {
+      if (ps.status === "Success" && !phoneNumber) {
+        // fetch(
+        //   `https://magicloops.dev/api/loop/dfd1c54a-2cef-4c26-95e9-c8ea808d54b2/run?input=Hello+World`
+        // )
+        //   .then((res) => res.json())
+        //   .then((data) => {
+        //     setPhoneNumber(data.phoneNumber);
+        //   })
+        //   .catch((err) => {
+        //     console.error("Error al obtener el número:", err);
+        //   });
+        try {
+          const response =
+            await postulationService.showPhoneForAcceptedPostulation(ps.id);
+          console.log(response);
+          setPhoneNumber(response);
+        } catch (error) {
+          throw new Error(error);
+        }
+      }
+    };
+    fetchNumber();
   }, []);
 
   const handleContact = (jobTitle) => {
@@ -25,9 +37,9 @@ const PostulationNumber = ({ ps, userName }) => {
   };
   return (
     <td>
-      {ps.Status === "Aceptado" ? (
+      {ps.status === "Success" ? (
         <IoLogoWhatsapp
-          onClick={() => handleContact(ps.Title)}
+          onClick={() => handleContact(ps.job.title)}
           className="whatsapp_icon"
         />
       ) : (
