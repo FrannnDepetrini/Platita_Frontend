@@ -26,4 +26,30 @@ export const postulationService = {
       );
     }
   },
+  applicateJob: async (userData) => {
+    try {
+      const response = await api.post("/Postulation/ApplicateJob", userData);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error enviendo postulacion"
+      );
+    }
+  },
+  deletePostulationLogic: async (jobId, psId) => {
+    try {
+      const response = await api.patch(
+        "/Postulation/DeletePostulationLogic",
+        null,
+        {
+          params: { jobId: jobId, postulationId: psId },
+        }
+      );
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error borrando postulacion"
+      );
+    }
+  },
 };

@@ -56,17 +56,27 @@
   padding-bottom: 7px;
 }
 .Pending {
-  background-color: rgba(252, 169, 16, 0.3);
+  background-color: var(--transparentYellow);
 
   color: var(--principalYellow);
 }
 .Accepted {
-  background-color: rgba(68, 175, 105, 0.3);
+  background-color: var(--transparentGreen);
   color: var(--principalGreen);
 }
 .Finished {
-  background-color: rgba(248, 51, 60, 0.3);
+  background-color: var(--transparentPurple);
+  color: var(--purple);
+}
+
+.Rejected {
+  background-color: var(--transparentRed);
   color: var(--principalRed);
+}
+
+.Cancelled {
+  background-color: var(--transparentOrange);
+  color: var(--orange);
 }
 
 .dots::after {

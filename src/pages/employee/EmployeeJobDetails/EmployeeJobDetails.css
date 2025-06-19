@@ -1,267 +1,267 @@
 .title-text {
-    font-size: 8px;
-    text-align: left;
-    font-weight: bold;
-    margin-left: 90px;
+  font-size: 8px;
+  text-align: left;
+  font-weight: bold;
+  margin-left: 90px;
 }
 
 .grey-text {
-    color: grey;
+  color: grey;
 }
 
 .align-cards {
-    display: flex;
-    align-items: flex-start;
-    gap:40px;
-    margin-top: 10px;
-    margin-right: 80px;
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 10px;
+  margin-right: 80px;
 }
 
 .sidebar-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 10px;
 }
 
 .postulate-button {
-    background-color: var(--principalYellow);
-    font-size: 20px;
-    color: white;
-    font-weight: bold;
-    padding: 15px 20px;
-    margin-left: 25px;
-    border-radius: 10px;
-    border: none;
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    display: flex;
+  background-color: var(--principalYellow);
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+  padding: 15px 20px;
+  margin-left: 25px;
+  border-radius: 10px;
+  border: none;
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  display: flex;
 }
 
 .postulate-button:hover {
-    transform: translateY(-3px);
-    background-color: rgba(252, 171, 16, 0.22);
-    box-shadow: var(--shadow);
-    color: var(--principalYellow);
-    transition: all 0.3s ease;
+  transform: translateY(-3px);
+  background-color: rgba(252, 171, 16, 0.22);
+  box-shadow: var(--shadow);
+  color: var(--principalYellow);
+  transition: all 0.3s ease;
 }
 
 .link-button {
-    display: flex;
-    gap: 10px;
-    background-color: rgba(252, 171, 16, 0.22);
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
+  display: flex;
+  gap: 10px;
+  background-color: rgba(252, 171, 16, 0.22);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .link-button:hover {
-    background-color: var(--principalYellow);
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+  background-color: var(--principalYellow);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
 }
 
 .link-button:hover .icon-link {
-    color: white;
+  color: white;
 }
 
 .icon-link {
-    color: var(--principalYellow);
+  color: var(--principalYellow);
 }
 
-.save-button{
-    display: flex;
-    gap: 10px;
-    background-color: rgba(252, 171, 16, 0.22);
-    border: none;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
+.save-button {
+  display: flex;
+  gap: 10px;
+  background-color: rgba(252, 171, 16, 0.22);
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 18px;
+  cursor: pointer;
 }
 
 .save-button:hover {
-    background-color: var(--principalYellow);
-    box-shadow: var(--shadow);
-    transition: all 0.3s ease;
+  background-color: var(--principalYellow);
+  box-shadow: var(--shadow);
+  transition: all 0.3s ease;
 }
 
 .save-button:hover .icon-save {
-    color: white;
+  color: white;
 }
 
 .icon-save {
-    color: var(--principalYellow);
+  color: var(--principalYellow);
 }
 
 .icon-button-container {
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    justify-content: left;
-    align-items: center;
-    margin-right: 40px;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  justify-content: left;
+  align-items: center;
+  margin-right: 40px;
 }
 
 .job-container-box {
-    bottom: 650px;
-    background-color: white;
-    padding: 30px;
-    width: 100%;
-    max-width: 800px;
-    border-radius: 20px;
-    text-align: left;
-    box-shadow: var(--shadow);
-    margin-top: 10px;
-    margin-left: 80px;
+  bottom: 650px;
+  background-color: white;
+  padding: 30px;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 20px;
+  text-align: left;
+  box-shadow: var(--shadow);
+  margin-top: 10px;
+  margin-left: 80px;
 }
 
 .user-container {
-    margin-left: auto;
-    width: fit-content;
-    background-color: white; 
-    border-radius: 15px;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: var(--shadow);
-    height: 120px;
-    margin-left: 50px;
+  margin-left: auto;
+  width: fit-content;
+  background-color: white;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow);
+  height: 120px;
+  margin-left: 50px;
 }
 
 .user-picture {
-    width: 40px;
-    height: 40px;
-    background-color: var(--principalYellow);
-    border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: var(--principalYellow);
+  border-radius: 50%;
 }
 
 .job-header {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  gap: 20px;
 }
 
 .job-title {
-    font-size: 27px;
+  font-size: 27px;
 }
 
 .description-title {
-    font-size: 20px;
-    margin-top: 15px;
+  font-size: 20px;
+  margin-top: 15px;
 }
 
 .job-icon {
-    margin-top: -1px;
+  margin-top: -1px;
 }
 .box-separator {
-    width: 100%;
-    max-width: 280px;
-    border: none;
-    margin: 10px 0;
-    display: block;
+  width: 100%;
+  max-width: 280px;
+  border: none;
+  margin: 10px 0;
+  display: block;
 }
 
 .job-details {
-    text-align: right;
-    margin-top: 20px;
-    margin-bottom: -15px;
-    font-size: 14px;
+  text-align: right;
+  margin-top: 20px;
+  margin-bottom: -15px;
+  font-size: 14px;
 }
 
 .job-information {
-    margin-top: -40px;
-    display: flex;
-    align-items: stretch;
-    gap: 1rem;
-    margin-left: 80px;
+  margin-top: -40px;
+  display: flex;
+  align-items: stretch;
+  gap: 1rem;
+  margin-left: 80px;
 }
 
 .fecha-container {
-    color: black;
-    background-color: #ffcccc;
-    width: 100%;
-    max-width: 150px;
-    text-align: center;
-    height: auto;
-    border-radius: 7px;
-    text-align: left;
-    gap: 6px;
-    padding: 12px 10px 10px 10px;
+  color: black;
+  background-color: #ffcccc;
+  width: 100%;
+  max-width: 150px;
+  text-align: center;
+  height: auto;
+  border-radius: 7px;
+  text-align: left;
+  gap: 6px;
+  padding: 12px 10px 10px 10px;
 }
 
 .icon-fecha {
-    color: var(--principalRed);
-    font-size: 24px;
+  color: var(--principalRed);
+  font-size: 24px;
 }
 
 .fecha-container h4 {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .fecha-container p {
-    font-size: 14px;
-    margin: 0;
+  font-size: 14px;
+  margin: 0;
 }
 
 .ubicacion-container {
-    color: black;
-    text-align: left;
-    background-color: #ffcccc;
-    max-width: 150px;
-    width: 100%;
-    height: auto;
-    border-radius: 7px;
-    gap: 6px;
-    padding: 12px 10px 10px 10px;
+  color: black;
+  text-align: left;
+  background-color: #ffcccc;
+  max-width: 150px;
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+  gap: 6px;
+  padding: 12px 10px 10px 10px;
 }
 
 .icon-ubicacion {
-    color: var(--principalRed);
-    font-size: 24px;
+  color: var(--principalRed);
+  font-size: 24px;
 }
 
 .ubicacion-container h4 {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .ubicacion-container p {
-    font-size: 14px;
-    margin: 0;
+  font-size: 14px;
+  margin: 0;
 }
 
 .salario-container {
-    color: black;
-    text-align: left;
-    background-color: #44AF6938;
-    max-width: 170px;
-    width: 100%;
-    height: auto;
-    border-radius: 7px;
-    gap: 6px;
-    padding: 12px 10px 10px 10px;
+  color: black;
+  text-align: left;
+  background-color: #44af6938;
+  max-width: 170px;
+  width: 100%;
+  height: auto;
+  border-radius: 7px;
+  gap: 6px;
+  padding: 12px 10px 10px 10px;
 }
 
 .icon-dinero {
-    color: var(--principalGreen);
-    font-size: 24px;
+  color: var(--principalGreen);
+  font-size: 24px;
 }
 
 .salario-container h4 {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
 }
 
 .salario-container p {
-    color: var(--principalGreen);
-    font-size: 14px;
-    margin: 0;
+  color: var(--principalGreen);
+  font-size: 14px;
+  margin: 0;
 }

@@ -15,13 +15,7 @@ export default function Postulations() {
 
   const fetchData = async () => {
     try {
-      // const response = await fetch(
-      //   "https://magicloops.dev/api/loop/6ee7a60e-6f33-4349-b209-c5786a6f99a9/run?input=Hello+World"
-      // );
       const response = await postulationService.getMyPostulations();
-      console.log(response);
-      // if (!response.ok) throw new Error("Sucedio un error inesperado");
-
       setPostulations(response);
     } catch (err) {
       alert(err.message);
@@ -33,8 +27,15 @@ export default function Postulations() {
     fetchData();
   }, []);
 
-  const handleDeletePs = (id) => {
-    setPostulations(postulations.filter((ps) => ps.id !== id));
+  const handleDeletePs = async (jobId, psId) => {
+    try {
+      console.log(jobId, psId);
+      await postulationService.deletePostulationLogic(jobId, psId);
+      fetchData();
+    } catch (error) {
+      console.log(error);
+      alert("Hubo un error al borrar la postulacion", error);
+    }
   };
 
   const postMapped = () => {
@@ -57,12 +58,14 @@ export default function Postulations() {
             <td>
               <div
                 className={`td_state ${
-                  ps.Status == "Pending"
+                  ps.status == "Pending"
                     ? "Pending"
                     : ps.status == "Success"
                     ? "Accepted"
                     : ps.status == "Done"
                     ? "Finished"
+                    : ps.status == "Rejected"
+                    ? "Rejected"
                     : "Cancelled"
                 }`}
               >
@@ -71,10 +74,14 @@ export default function Postulations() {
             </td>
             <td>{jobDayFormatted} </td>
             <td>
-              <FaTrashAlt
-                onClick={() => handleDeletePs(ps.Id)}
-                className="delete_icon"
-              />
+              {ps.status == "Pending" ? (
+                <FaTrashAlt
+                  onClick={() => handleDeletePs(ps.job.id, ps.id)}
+                  className="delete_icon"
+                />
+              ) : (
+                "-"
+              )}
             </td>
 
             <PostulationNumber ps={ps} userName={user.name} />
