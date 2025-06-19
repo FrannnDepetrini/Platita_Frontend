@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 
 import "./CardJob.css";
@@ -8,6 +9,11 @@ export default function CardJob({ jobInfo, cardType = false }) {
   const ellipsis = "...";
 
   const CategoryIcon = UseCategoryIcon(jobInfo.category);
+  const navigate = useNavigate();
+
+  const handleNavigateJobId = (id) => {
+    navigate(`/employee/job/${id}`);
+  };
 
   const getTruncatedContent = () => {
     if (!jobInfo.description || jobInfo.description.length <= maxLength) {
@@ -34,7 +40,10 @@ export default function CardJob({ jobInfo, cardType = false }) {
   };
 
   return (
-    <div className={`parent ${cardType && "client"}`}>
+    <div
+      onClick={() => handleNavigateJobId(jobInfo.id)}
+      className={`parent ${cardType && "client"}`}
+    >
       <div className="topCard">
         <div className="titleSection">
           <h2>{jobInfo.title}</h2>

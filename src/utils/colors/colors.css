@@ -13,8 +13,11 @@
   --transparentRed: rgba(248, 51, 60, 0.3);
   --transparentGreen: rgba(68, 175, 105, 0.3);
   --transparentYellow: rgba(252, 169, 16, 0.3);
+  --transparentPurple: rgba(76, 10, 152, 0.3);
+  --transparentOrange: rgba(255, 99, 0, 0.3);
   --hoverYellow: #c9860a;
   --hoverGreen: #2d7546;
   --hoverRed: #9c1f26;
   --purple: #4c0a98;
+  --orange: #ff6300cc;
 }
