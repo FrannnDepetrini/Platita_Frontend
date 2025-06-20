@@ -1,3 +1,5 @@
+@import url("../../../utils/colors/colors.css");
+
 .sysadmin_container {
   display: flex;
   flex-direction: column;
@@ -12,11 +14,61 @@
 }
 
 .table_users {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table_users thead {
+  display: table;
+  width: 100%;
+}
+
+.table_users tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table_users th:nth-child(1),
+.table_users td:nth-child(1) {
+  width: 25%;
+}
+
+.table_users th:nth-child(2),
+.table_users td:nth-child(2) {
+  width: 35%;
+}
+
+.table_users th:nth-child(3),
+.table_users td:nth-child(3) {
+  width: 25%;
+}
+
+.table_users th:nth-child(4),
+.table_users td:nth-child(4) {
+  width: 15%;
+}
+
+.scrollable_tbody {
+  display: block;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.table_users thead,
+.table_users tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.table_wrapper {
+  position: relative;
+  width: 900px;
   background-color: white;
   border-radius: 10px;
   box-shadow: -1px 7px 5px -3px rgba(0, 0, 0, 0.2);
-  width: 900px;
-  border-collapse: collapse;
+  overflow: hidden;
 }
 
 .td_user {
@@ -91,3 +143,97 @@ tr:last-child {
 tfoot td {
   padding: 20px;
 }
+
+.name h4 {
+  font-weight: 600;
+}
+
+.containerButtons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+}
+
+.containerButtons button {
+  font-weight: 700;
+  font-size: large;
+  padding: 20px;
+  background-color: var(--principalYellow);
+  color: white;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  box-shadow: var(--shadowDark);
+  transition: all 0.3s ease;
+}
+
+.containerButtons button:hover {
+  cursor: pointer;
+  background-color: var(--hoverYellow);
+}
+
+.containerButtons select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 70%;
+  border-radius: 12px;
+  background-color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.tableButtons {
+  display: flex;
+  gap: 20px;
+}
+
+.selectWrapper {
+  position: relative;
+  min-width: 50px;
+}
+
+.customSelect {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 50%;
+  padding: 10px 32px 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+}
+
+.customSelect {
+  border: none;
+  outline: none;
+  box-shadow: var(--shadowDark);
+}
+
+.customSelect option {
+  transition: 0.4s ease;
+}
+
+.selectIcon {
+  position: absolute;
+  left: 55%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--orange);
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.customSelect:open + .selectIcon {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* .customSelect:open > .selectIcon {
+  transform: translateY(-50%) rotate(180deg);
+} */
