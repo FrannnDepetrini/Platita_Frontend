@@ -15,6 +15,7 @@
 
 .table_users {
   width: 100%;
+
   border-collapse: collapse;
 }
 
@@ -51,8 +52,18 @@
 
 .scrollable_tbody {
   display: block;
-  max-height: 60vh;
+  max-height: 50vh;
   overflow-y: auto;
+}
+
+.scrollable_tbody::-webkit-scrollbar {
+  width: 8px;
+  background-color: white;
+  border-radius: 16px;
+}
+.scrollable_tbody::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 16px;
 }
 
 .table_users thead,
@@ -63,7 +74,6 @@
 }
 
 .table_wrapper {
-  position: relative;
   width: 900px;
   background-color: white;
   border-radius: 10px;
