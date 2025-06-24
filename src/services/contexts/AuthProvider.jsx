@@ -87,17 +87,14 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = initialState.token;
-
     if (token) {
+      setIsAuthenticated(true);
+      console.log(isAuthenticated);
       if (window.location.pathname === "/") {
         autoNavigate(token);
       }
     }
   }, []);
-
-  // useEffect(() => {
-  //   checkAuth();
-  // }, [isAuthenticated]);
 
   const login = async (userData) => {
     try {
