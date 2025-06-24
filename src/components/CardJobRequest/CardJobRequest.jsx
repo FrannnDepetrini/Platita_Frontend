@@ -8,13 +8,13 @@ export default function CardJobRequest({ jobInfo }) {
   return (
     <div className="cardjob-request">
       <div className="request-title">
-        <h2>{jobInfo.jobTitle}</h2>
+        <h2>{jobInfo.title}</h2>
         <CategoryIcon className="rjob-icon" />
       </div>
 
       <div className="request-applications">
         <span>
-          Solicitudes: <strong>{jobInfo.applications}</strong>
+          Solicitudes: <strong>{jobInfo.amountPostulations}</strong>
         </span>
       </div>
 
