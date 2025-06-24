@@ -3,32 +3,23 @@ import { useEffect, useState, useCallback } from "react";
 import ComplaintCard from "../ComplaintCard/ComplaintCard";
 import styles from "./ComplaintList.module.css";
 import { IoMdArrowDropdown } from "../../utils/icons/icons";
+import { complaintService } from "../../services/complaintService/complaintService";
 
 const ComplaintList = () => {
   const [complaints, setComplaints] = useState([]);
   const [menuOpen, setMenuOpen] = useState(false);
   const [loading, setLoading] = useState("true");
 
-  // Fetch de solicitudes reales desde API
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await fetch(
-          "https://magicloops.dev/api/loop/047d7cbb-65c1-4e24-8eb1-adc0ac828146/run?input=Hello+World"
-        );
-        /*, {
-        headers: {
-          Authorization: `API_KEY`,
-          "Content-Type": "application/json",
-        },
-        */
-        if (!response.ok) throw new Error("Error al obtener solicitudes");
-        const data = await response.json();
-        setComplaints(data);
-        console.log(data);
-        setLoading(false);
+        const response = await complaintService.getAllComplaint();
+        setComplaints(response);
+        console.log(response);
       } catch (error) {
-        console.error("Error cargando trabajos:", error);
+        console.error("Error cargando complaints:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
