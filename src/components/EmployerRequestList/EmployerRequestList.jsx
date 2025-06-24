@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import CardJobRequest from "../CardJobRequest/CardJobRequest";
 import "./EmployerRequestList.css";
+import { jobService } from "../../services/jobService/jobService";
 
 const EmployerRequestList = () => {
   const [jobs, setJobs] = useState([]);
@@ -11,34 +12,26 @@ const EmployerRequestList = () => {
 
   // Fetch de solicitudes reales desde API
   useEffect(() => {
-    const fetchJobs = async () => {
+    const fetchData = async () => {
       try {
-        const response = await fetch(
-          "https://magicloops.dev/api/loop/dea8a378-20bb-45ea-8cf8-111ee33d69c8/run?input=Hello+World"
-        );
-        /*, {
-        headers: {
-          Authorization: `API_KEY`,
-          "Content-Type": "application/json",
-        },
-        */
-        if (!response.ok) throw new Error("Error al obtener solicitudes");
-        const data = await response.json();
-        setJobs(data);
+        const response = await jobService.getMyJobs();
+        console.log(response);
+        setJobs(response);
+      } catch (err) {
+        alert(err.message);
+      } finally {
         setLoading(false);
-      } catch (error) {
-        console.error("Error cargando trabajos:", error);
       }
     };
 
-    fetchJobs();
+    fetchData();
   }, []);
 
   const filteredJobs = useMemo(() => {
     const term = searchTerm.toLowerCase();
     return jobs.filter(
       (job) =>
-        job.jobTitle.toLowerCase().includes(term) ||
+        job.title.toLowerCase().includes(term) ||
         job.description.toLowerCase().includes(term) ||
         job.city.toLowerCase().includes(term)
     );
