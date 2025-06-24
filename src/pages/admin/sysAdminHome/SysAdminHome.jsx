@@ -81,7 +81,7 @@ const SysAdminHome = () => {
           {loading ? (
             <tr>
               <td colSpan={6}>
-                Cargando postulaciones<span className={styles.dots}></span>
+                Cargando usuarios<span className={styles.dots}></span>
               </td>
             </tr>
           ) : (

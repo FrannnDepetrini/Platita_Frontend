@@ -85,13 +85,17 @@ const ComplaintList = () => {
                 <div className={styles.loader}></div>
               ) : (
                 <>
-                  {complaints.map((com) => (
-                    <ComplaintCard
-                      key={com.id}
-                      complaintInfo={com}
-                      cardType={true}
-                    />
-                  ))}
+                  {complaints.length == 0 ? (
+                    <h1>No hay quejas aún</h1>
+                  ) : (
+                    complaints.map((com) => (
+                      <ComplaintCard
+                        key={com.id}
+                        complaintInfo={com}
+                        cardType={true}
+                      />
+                    ))
+                  )}
                 </>
               )}
             </div>

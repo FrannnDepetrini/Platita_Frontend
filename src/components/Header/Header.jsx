@@ -27,8 +27,10 @@ const Header = ({
     if (user.role == "Guest") {
       navigate("/");
     } else if (user.role == "Client") {
-      navigate("/employee/home");
+      // navigate("/employee/home");
       setActiveIndex("employee/home");
+    } else if (user.role == "Support") {
+      navigate("/support/home");
     }
   };
 
@@ -100,9 +102,9 @@ const Header = ({
           <button onClick={onLogin}>Iniciar sesion</button>
         ) : (
           <div className="session_buttons">
-            <NotificationsBell showModal={setIsNotificationModalVisible}/>
+            <NotificationsBell showModal={setIsNotificationModalVisible} />
             <button onClick={() => setIsAsideVisible(true)}>
-              {user.name.split(' ')[0]}
+              {user.name.split(" ")[0]}
             </button>
           </div>
         )}

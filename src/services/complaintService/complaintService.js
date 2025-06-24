@@ -3,7 +3,7 @@ import api from "../api";
 export const complaintService = {
   getAllComplaint: async () => {
     try {
-      const response = await api.get("Complaint/GetAllComplaint");
+      const response = await api.get("/Complaint/getAllComplaint");
       return response;
     } catch (error) {
       throw new Error(

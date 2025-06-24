@@ -29,9 +29,7 @@ export default function EmployeeHistorial() {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log("uli");
   const starsCalculated = (average, expirationDate) => {
-    console.log("me calcule");
     const today = new Date();
     const dateMapped = new Date(expirationDate);
     const isExpired = dateMapped < today;
