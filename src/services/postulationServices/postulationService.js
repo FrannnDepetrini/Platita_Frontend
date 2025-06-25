@@ -68,16 +68,18 @@ export const postulationService = {
         );
     }
 },
-    approvePostulation: async (jobId, postulantId) => {
-      try {
-        const response = await api.put("/Postulation/ApprovePostulation", null, {
-          params: { jobId, postulantId },
-        });
-        return response.data;
-      } catch (error) {
-        throw new Error(
-          error.response?.data?.message || "Error al aprobar la postulacion."
-        );
-      }
-    }
+    approvePostulation: async (jobId, postulationId) => {
+  try {
+    const response = await api.put("/Postulation/ApproveApplication", null, {
+      params: { jobId: jobId, postulationId: postulationId },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error al aprobar la postulación (backend):", error.response);
+    throw new Error(
+      error.response?.data?.message || "Error al aprobar la postulación"
+    );
+  }
+},
+
 };

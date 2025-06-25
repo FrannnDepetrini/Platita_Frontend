@@ -26,39 +26,50 @@ export default function EmployerJobDetails() {
   const [selectedPostulationId, setSelectedPostulationId] = useState("");
 
   // Estado para saber si ya se aceptó a alguien
-  const [jobAccepted, setJobAccepted] = useState(false); // Aca se tomaria el status del trabajo si esta taken pasando el bool a true
-  const [acceptedEmployee, setAcceptedEmployee] = useState(null); // Aca asignamos el empleado o tomamos el unico que se trae cuando ya habia sido aceptado
+  const [jobAccepted, setJobAccepted] = useState(false);
+  const [acceptedEmployee, setAcceptedEmployee] = useState(null);
 
-  // ver despues. se encarga de traer el trabajo y las postulaciones
+  // Función para traer el trabajo y las postulaciones
   const fetchJobAndPostulations = async () => {
-  try {
-    console.log("ID del trabajo actual (frontend):", id);
+    try {
+      console.log("ID del trabajo actual (frontend):", id);
 
-    const jobData = await jobService.getJobById(id);
-    setInfo(jobData);
+      const jobData = await jobService.getJobById(id);
+      setInfo(jobData);
 
-    const postulationData = await postulationService.getPostulationsByJobId(id);
+      // Verificar si el trabajo ya tiene un empleado aceptado
+      if (jobData.status === "Taken" || jobData.status === "Completed") {
+        setJobAccepted(true);
+      }
 
-    console.log("Postulaciones recibidas:", postulationData);
-    setPostulations(Array.isArray(postulationData) ? postulationData : []);
-  } catch (error) {
-    console.error("Error al obtener los datos del trabajo o las postulaciones.", error);
-    alert("Error al cargar los datos. Intentalo nuevamente más tarde.");
-    setPostulations([]);
-  } finally {
-    setLoading(false);
-  }
-};
+      const postulationData = await postulationService.getPostulationsByJobId(id);
+      console.log("Postulaciones recibidas:", postulationData);
+      
+      const postulationsArray = Array.isArray(postulationData) ? postulationData : [];
+      setPostulations(postulationsArray);
 
-// carga el trabajo y postulaciones al montar el componente
-useEffect(() => {
-  if (id) {
-    fetchJobAndPostulations();
-  } else {
-    setLoading(false);
-  }
-}, [id]);
+      // Si hay solo una postulación y el trabajo está tomado, esa es la aceptada
+      if (jobData.status === "Taken" && postulationsArray.length === 1) {
+        setAcceptedEmployee(postulationsArray[0]);
+      }
 
+    } catch (error) {
+      console.error("Error al obtener los datos del trabajo o las postulaciones.", error);
+      alert("Error al cargar los datos. Intentalo nuevamente más tarde.");
+      setPostulations([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Cargar el trabajo y postulaciones al montar el componente
+  useEffect(() => {
+    if (id) {
+      fetchJobAndPostulations();
+    } else {
+      setLoading(false);
+    }
+  }, [id]);
 
   const navigate = useNavigate();
   const CategoryIcon = info.category && UseCategoryIcon(info.category);
@@ -116,7 +127,7 @@ useEffect(() => {
 
   const handleConfirmRestore = async () => {
     try {
-      await JobService.restoreJob(id);
+      await jobService.restoreJob(id); // Corregido: era JobService, ahora jobService
 
       await fetchJobAndPostulations();
 
@@ -141,15 +152,18 @@ useEffect(() => {
   };
 
   const handleConfirmReject = async () => {
-    if (!selectedPostulationId) return;
+    if (!selectedPostulationId) {
+      alert("No se seleccionó ninguna postulación.");
+      return;
+    }
 
     try {
       await postulationService.deletePostulationLogic(id, selectedPostulationId);
 
       setPostulations((prev) =>
-      prev.filter((p) => p.id !== selectedPostulationId)
-    );
-    console.log(`Postulacion ${selectedPostulationId} rechazada`);
+        prev.filter((p) => p.id !== selectedPostulationId)
+      );
+      console.log(`Postulacion ${selectedPostulationId} rechazada`);
     } catch (error) {
       console.error("Error al rechazar la postulacion", error);
       alert("Error al rechazar la postulación. Inténtalo nuevamente más tarde.");
@@ -162,11 +176,42 @@ useEffect(() => {
   const handleConfirmAccept = async () => {
     setIsModalVisible(false);
 
-    if (!selectedPostulationId) return;
+    if (!selectedPostulationId) {
+      alert("No se seleccionó ninguna postulación.");
+      return;
+    }
 
     try {
-      await postulationService.approvePostulation(id, selectedPostulationId);
+      console.log("Job ID:", id);
+      console.log("Postulation ID que estoy enviando:", selectedPostulationId);
 
+      // Buscar la postulación seleccionada
+      const selectedPost = postulations.find(p => p.id === selectedPostulationId);
+      
+      if (!selectedPost) {
+        alert("No se encontró la postulación seleccionada.");
+        return;
+      }
+
+      console.log("Postulación encontrada:", selectedPost);
+      console.log("Estructura completa de la postulación:", JSON.stringify(selectedPost, null, 2));
+
+      // Verificar que tenemos los datos del cliente
+      if (!selectedPost.client?.id) {
+        alert("No se pudo obtener el ID del cliente de la postulación.");
+        return;
+      }
+
+      const clientId = selectedPost.client.id;
+      console.log("Client ID que enviaré:", clientId);
+
+      // OPCIÓN 1: Si tu backend espera el clientId como postulantId
+      await postulationService.approvePostulation(id, selectedPostulationId);
+      
+      // OPCIÓN 2: Si tu backend espera el ID de la postulación como postulantId
+      // await postulationService.approvePostulation(id, selectedPostulationId);
+
+      // Actualizar el estado local después de la aprobación exitosa
       const acceptedEmployeeData = postulations.find(
         (p) => p.id === selectedPostulationId
       );
@@ -175,10 +220,32 @@ useEffect(() => {
       setJobAccepted(true);
       setAcceptedEmployee(acceptedEmployeeData);
 
-      console.log(`Postulacion ${selectedPostulationId} aceptada`);
+      console.log(`Postulación ${selectedPostulationId} aprobada exitosamente`);
+      
     } catch (error) {
-      console.error("Error al aceptar la postulacion", error);
-      alert("Error al aceptar la postulación. Inténtalo nuevamente más tarde.");
+      console.error("Error al aprobar la postulación:", error);
+      
+      // Mostrar más detalles del error
+      if (error.response) {
+        console.error("Response data:", error.response.data);
+        console.error("Response status:", error.response.status);
+        console.error("Response headers:", error.response.headers);
+        
+        const errorMessage = error.response.data?.message || 
+                           error.response.data?.title || 
+                           error.response.statusText || 
+                           'Error desconocido del servidor';
+        
+        alert(`Error del servidor (${error.response.status}): ${errorMessage}`);
+      } else if (error.request) {
+        console.error("Request error:", error.request);
+        alert("Error de conexión. Verifica tu conexión a internet.");
+      } else {
+        console.error("Error message:", error.message);
+        alert(`Error: ${error.message}`);
+      }
+    } finally {
+      setSelectedPostulationId("");
     }
   };
 
@@ -229,7 +296,7 @@ useEffect(() => {
               <div className={styles.number_postulations}>
                 {jobAccepted ? (
                   <span style={{ color: "green" }}>
-                    ✅ Trabajo aceptado - {acceptedEmployee?.name}
+                    ✅ Trabajo aceptado - {acceptedEmployee?.client?.userName || acceptedEmployee?.name}
                   </span>
                 ) : (
                   <span>+{info.postulations} Postulaciones</span>
@@ -237,7 +304,7 @@ useEffect(() => {
               </div>
             </div>
             <div className={styles.container_button}>
-              {info.status == "Available" ? (
+              {info.status === "Available" ? (
                 <button
                   disabled={jobAccepted}
                   onClick={() => handleAction("DeleteJob")}
@@ -280,16 +347,16 @@ useEffect(() => {
                         {jobAccepted &&
                         postulation.id === acceptedEmployee?.id ? (
                           <span style={{ fontWeight: "bold", color: "green" }}>
-                            ✅ {postulation.client.userName}
+                            ✅ {postulation.client?.userName}
                           </span>
                         ) : ( 
-                          postulation.client.userName
-                        )} {/* trae nombre del cliente */}
+                          postulation.client?.userName
+                        )}
                       </td>
-                      <td className={`${styles.bodyCell} ${styles.budget}`}> {/* trae promedio dinero */}
-                        {postulation.budget?.toLocaleString()}$ 
+                      <td className={`${styles.bodyCell} ${styles.budget}`}>
+                        {postulation.budget?.toLocaleString()}$
                       </td>
-                      <td className={styles.bodyCell}> {/* trae promedio dinero */}
+                      <td className={styles.bodyCell}>
                         {postulation.jobDay}
                       </td>
                       <td className={styles.bodyCell}>
@@ -329,6 +396,7 @@ useEffect(() => {
                           <PostulationNumber
                             ps={postulation}
                             userName={user.userName}
+                            jobId={id}
                           />
                           <td>
                             <FaTrashAlt
