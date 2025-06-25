@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./ModalLogin.css";
 import platitaLogo from "../../utils/images/PlatitaLogo.png";
-import googleLogo from "../../utils/images/GoogleLogo.png";
 import Loader from "../Loader/Loader";
 import useVerificate from "../../customHooks/UseVerificate";
 import { useNavigate } from "react-router-dom";
@@ -14,15 +13,14 @@ const ModalLogin = ({ isOpen, onClose }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [isFlipped, setIsFlipped] = useState(false);
   const [restoreEmail, setRestoreEmail] = useState("");
-  const [dataLogin, setDataLogin] = useState(
-    {
-      email: "",
-      password: "",
-    });
+  const [dataLogin, setDataLogin] = useState({
+    email: "",
+    password: "",
+  });
   const [loaderStatus, setLoaderStatus] = useState("idle");
   const { errors, validateField } = useVerificate();
   const { login } = useAuth();
-  const [errorLogin, setErrorLogin] = useState("")
+  const [errorLogin, setErrorLogin] = useState("");
 
   const navigate = useNavigate();
 
@@ -61,7 +59,6 @@ const ModalLogin = ({ isOpen, onClose }) => {
     e.preventDefault();
     setLoaderStatus("loading");
 
-
     const response = await login(dataLogin);
 
     if (response.success) {
@@ -78,7 +75,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
       navigate("/employee/home", { replace: true });
     } else {
       setErrorLogin(response.error || "Error en las credenciales");
-      setLoaderStatus('idle');
+      setLoaderStatus("idle");
     }
   };
 
@@ -165,8 +162,9 @@ const ModalLogin = ({ isOpen, onClose }) => {
     >
       <div className={`card ${isFlipped ? "flipped" : ""}`}>
         <div
-          className={`face modal-login-box ${modalVisible ? "modalVisible" : ""
-            }`}
+          className={`face modal-login-box ${
+            modalVisible ? "modalVisible" : ""
+          }`}
           onClick={(e) => e.stopPropagation()}
         >
           <img src={platitaLogo} alt="logo" className="logo-image" />
@@ -186,9 +184,17 @@ const ModalLogin = ({ isOpen, onClose }) => {
                   value={dataLogin.email}
                   name="email"
                   onChange={handleLoginChange}
-                  className={(errors.email && dataLogin.email.length > 0) || errorLogin ? "error" : ""}
+                  className={
+                    (errors.email && dataLogin.email.length > 0) || errorLogin
+                      ? "error"
+                      : ""
+                  }
                 />
-                <span className="error-message">{errors.email && dataLogin.email.length > 0 ? errors.email : ''}</span>
+                <span className="error-message">
+                  {errors.email && dataLogin.email.length > 0
+                    ? errors.email
+                    : ""}
+                </span>
               </div>
 
               <div className="input-group">
@@ -200,7 +206,7 @@ const ModalLogin = ({ isOpen, onClose }) => {
                     placeholder="●●●●●●●●●"
                     value={dataLogin.password}
                     onChange={handleLoginChange}
-                    className={errorLogin ? "error": ""}
+                    className={errorLogin ? "error" : ""}
                   />
                   <span
                     onClick={() => setShowPassword(!showPassword)}
@@ -271,9 +277,13 @@ const ModalLogin = ({ isOpen, onClose }) => {
                   onChange={handleEmailChange}
                   value={restoreEmail}
                   name="email"
-                  className={errors.email && restoreEmail.length > 0 ? "error" : ""}
+                  className={
+                    errors.email && restoreEmail.length > 0 ? "error" : ""
+                  }
                 />
-              <span className="error-message">{errors.email && restoreEmail.length > 0 ? errors.email : ""}</span>
+                <span className="error-message">
+                  {errors.email && restoreEmail.length > 0 ? errors.email : ""}
+                </span>
               </div>
             )}
 
@@ -283,7 +293,9 @@ const ModalLogin = ({ isOpen, onClose }) => {
                 onClick={() => {
                   handleSendLink();
                 }}
-                disabled={!restoreEmail || loaderStatus !== "idle" || errors.email}
+                disabled={
+                  !restoreEmail || loaderStatus !== "idle" || errors.email
+                }
               >
                 Enviar link
               </button>
