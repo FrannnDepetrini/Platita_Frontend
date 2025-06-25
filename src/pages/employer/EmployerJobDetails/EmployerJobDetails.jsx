@@ -127,7 +127,7 @@ export default function EmployerJobDetails() {
 
   const handleConfirmRestore = async () => {
     try {
-      await jobService.restoreJob(id); // Corregido: era JobService, ahora jobService
+      await jobService.restoreJob(id);
 
       await fetchJobAndPostulations();
 
@@ -395,7 +395,7 @@ export default function EmployerJobDetails() {
                         <>
                           <PostulationNumber
                             ps={postulation}
-                            userName={user.userName}
+                            userName={user.name}
                             jobId={id}
                           />
                           <td>
