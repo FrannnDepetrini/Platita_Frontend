@@ -5,7 +5,7 @@
   import { IoIosStar, IoIosStarOutline } from "react-icons/io";
   import { FaTrash } from "react-icons/fa6";
   import { postRating } from "../../../services/employeeRatingService/employeeRatingService";
-  import { useParams } from "react-router-dom";
+  import { useNavigate, useParams } from "react-router-dom";
 
   export default function EmployeeJobRating() {
       const [text, setText] = useState('');
@@ -15,6 +15,7 @@
       const [selectedIndex, setSelectedIndex] = useState(null);
       const fileInputRef = useRef();
       const { id } = useParams();
+      const navigate = useNavigate();
 
     const handleSubmit = async () => {
       try {
@@ -27,6 +28,7 @@
         };
         console.log("Data to be sent:", data);
         await postRating(data);
+        navigate("/employee/historial");
         alert("Reseña publicada con éxito");
 
         setText('');
