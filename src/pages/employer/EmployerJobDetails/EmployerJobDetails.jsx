@@ -7,6 +7,8 @@ import ModalConfirm from "../../../components/modalConfirm/modalConfirm";
 import { useNavigate } from "react-router-dom";
 import PostulationNumber from "../../employee/Postulations/PostulationNumber";
 import useAuth from "../../../services/contexts/AuthProvider";
+import { jobService } from "../../../services/jobService/jobService";
+import { postulationService } from "../../../services/postulationServices/postulationService";
 
 export default function EmployerJobDetails() {
   const { id } = useParams();
@@ -27,63 +29,39 @@ export default function EmployerJobDetails() {
   const [jobAccepted, setJobAccepted] = useState(false); // Aca se tomaria el status del trabajo si esta taken pasando el bool a true
   const [acceptedEmployee, setAcceptedEmployee] = useState(null); // Aca asignamos el empleado o tomamos el unico que se trae cuando ya habia sido aceptado
 
+  // ver despues. se encarga de traer el trabajo y las postulaciones
+  const fetchJobAndPostulations = async () => {
+  try {
+    console.log("ID del trabajo actual (frontend):", id);
+
+    const jobData = await jobService.getJobById(id);
+    setInfo(jobData);
+
+    const postulationData = await postulationService.getPostulationsByJobId(id);
+
+    console.log("Postulaciones recibidas:", postulationData);
+    setPostulations(Array.isArray(postulationData) ? postulationData : []);
+  } catch (error) {
+    console.error("Error al obtener los datos del trabajo o las postulaciones.", error);
+    alert("Error al cargar los datos. Intentalo nuevamente más tarde.");
+    setPostulations([]);
+  } finally {
+    setLoading(false);
+  }
+};
+
+// carga el trabajo y postulaciones al montar el componente
+useEffect(() => {
+  if (id) {
+    fetchJobAndPostulations();
+  } else {
+    setLoading(false);
+  }
+}, [id]);
+
+
   const navigate = useNavigate();
   const CategoryIcon = info.category && UseCategoryIcon(info.category);
-
-  const employees = [
-    {
-      id: 1,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 2,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 3,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 4,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 5,
-      name: "Francisco tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-  ];
-
-  const infoJob = {
-    title: "Levantar un tapial",
-    category: "Mechanics",
-    description:
-      "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
-    postulations: 300,
-    status: "god",
-  };
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-      setInfo(infoJob);
-      setPostulations(employees);
-    }, 2000);
-  }, []);
 
   const handleCancelPostulant = () => {
     handleAction("cancelPostulant");
@@ -136,12 +114,20 @@ export default function EmployerJobDetails() {
     }
   };
 
-  const handleConfirmRestore = () => {
-    setInfo({ ...infoJob, status: "Available" });
-    setPostulations(employees);
-    setIsModalVisible(false);
-    setJobAccepted(false);
-    setSelectedPostulationId("");
+  const handleConfirmRestore = async () => {
+    try {
+      await JobService.restoreJob(id);
+
+      await fetchJobAndPostulations();
+
+      setJobAccepted(false);
+      setAcceptedEmployee(null);
+      setIsModalVisible(false);
+      setSelectedPostulationId("");
+    } catch (error) {
+      console.error("Error al reestablecer el trabajo", error);
+      alert("Error al reestablecer el trabajo. Inténtalo nuevamente más tarde.");
+    }
   };
 
   const handleCancel = () => {
@@ -154,30 +140,45 @@ export default function EmployerJobDetails() {
     navigate(-1, { replace: true });
   };
 
-  const handleConfirmReject = () => {
-    setSelectedPostulationId("");
-    setIsModalVisible(false);
-    if (selectedPostulationId) {
+  const handleConfirmReject = async () => {
+    if (!selectedPostulationId) return;
+
+    try {
+      await postulationService.deletePostulationLogic(id, selectedPostulationId);
+
       setPostulations((prev) =>
-        prev.filter((p) => p.id !== selectedPostulationId)
-      );
-      console.log(`Postulación ${selectedPostulationId} rechazada`);
+      prev.filter((p) => p.id !== selectedPostulationId)
+    );
+    console.log(`Postulacion ${selectedPostulationId} rechazada`);
+    } catch (error) {
+      console.error("Error al rechazar la postulacion", error);
+      alert("Error al rechazar la postulación. Inténtalo nuevamente más tarde.");
+    } finally {
+      setIsModalVisible(false);
+      setSelectedPostulationId("");
     }
   };
 
-  const handleConfirmAccept = () => {
+  const handleConfirmAccept = async () => {
     setIsModalVisible(false);
-    if (selectedPostulationId) {
+
+    if (!selectedPostulationId) return;
+
+    try {
+      await postulationService.approvePostulation(id, selectedPostulationId);
+
       const acceptedEmployeeData = postulations.find(
         (p) => p.id === selectedPostulationId
       );
 
       setPostulations([acceptedEmployeeData]);
-
       setJobAccepted(true);
       setAcceptedEmployee(acceptedEmployeeData);
 
-      console.log(`Postulación ${selectedPostulationId} aceptada`);
+      console.log(`Postulacion ${selectedPostulationId} aceptada`);
+    } catch (error) {
+      console.error("Error al aceptar la postulacion", error);
+      alert("Error al aceptar la postulación. Inténtalo nuevamente más tarde.");
     }
   };
 
@@ -256,7 +257,7 @@ export default function EmployerJobDetails() {
 
           {/* Tabla con scroll y header fijo */}
           <div className={styles.tableContainer}>
-            {postulations.length > 0 ? (
+            {postulations && postulations.length > 0 ? (
               <table className={styles.table}>
                 <thead>
                   <tr className={styles.headerRow}>
@@ -279,16 +280,18 @@ export default function EmployerJobDetails() {
                         {jobAccepted &&
                         postulation.id === acceptedEmployee?.id ? (
                           <span style={{ fontWeight: "bold", color: "green" }}>
-                            ✅ {postulation.name}
+                            ✅ {postulation.client.userName}
                           </span>
-                        ) : (
-                          postulation.name
-                        )}
+                        ) : ( 
+                          postulation.client.userName
+                        )} {/* trae nombre del cliente */}
                       </td>
-                      <td className={`${styles.bodyCell} ${styles.budget}`}>
-                        {postulation.budget.toLocaleString()}$
+                      <td className={`${styles.bodyCell} ${styles.budget}`}> {/* trae promedio dinero */}
+                        {postulation.budget?.toLocaleString()}$ 
                       </td>
-                      <td className={styles.bodyCell}>{postulation.date}</td>
+                      <td className={styles.bodyCell}> {/* trae promedio dinero */}
+                        {postulation.jobDay}
+                      </td>
                       <td className={styles.bodyCell}>
                         <div className={styles.actions}>
                           {!jobAccepted ? (
@@ -325,7 +328,7 @@ export default function EmployerJobDetails() {
                         <>
                           <PostulationNumber
                             ps={postulation}
-                            userName={user.name}
+                            userName={user.userName}
                           />
                           <td>
                             <FaTrashAlt

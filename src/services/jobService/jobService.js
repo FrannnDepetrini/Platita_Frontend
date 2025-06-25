@@ -34,4 +34,16 @@ export const jobService = {
       );
     }
   },
+  restoreJob: async (id) => {
+    try {
+      const response = await api.patch("Job/ResetJobCancellation", null, {
+        params: { jobId: id },
+      });
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || `Error restaurando el trabajo ${id}`
+      );
+    }
+  },
 };
