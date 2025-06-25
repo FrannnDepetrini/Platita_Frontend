@@ -195,7 +195,7 @@ export default function AppRoutes() {
         <Route
           path="/sysadmin/home"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin", "Client"]}>
               <SysAdminHome />
             </Protected>
           }
@@ -203,7 +203,7 @@ export default function AppRoutes() {
         <Route
           path="/sysadmin/createUser"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin", "Client"]}>
               <SysAdminCreateUser />
             </Protected>
           }
