@@ -5,8 +5,8 @@ import Footer from "../Footer/Footer";
 import ModalLogin from "../ModalLogin/ModalLogin";
 import { Outlet, useLocation } from "react-router-dom";
 import useAuth from "../../services/contexts/AuthProvider";
-import { ModalContext } from "../../services/ModalContext";
-import ModalRecoverPass from "../ModalRecoverPass/ModalRecoverPass";
+import { ModalContext } from "../../services/contexts/ModalContext";
+import FeedbackModal from "../FeedbackModal/FeedbackModal";
 import Aside from "../Aside/Aside";
 import ModalNotification from "../ModalNotification/ModalNotification";
 
@@ -26,14 +26,21 @@ const Layout = () => {
 
   useEffect(() => {
     if (location.state?.notAllowed) {
-      setTimeout(() => { handleOpenLogin() }, 300);
-      window.history.replaceState({}, '');
+      setTimeout(() => {
+        handleOpenLogin();
+      }, 300);
+      window.history.replaceState({}, "");
     }
-  }, [location])
-
+  }, [location]);
 
   const categoriesRef = useRef(null);
-  const { showModal, isSuccess, hideRecoverModal } = useContext(ModalContext);
+  const {
+    showModal,
+    isSuccess,
+    hideRecoverModal,
+    successMessage,
+    errorMessage,
+  } = useContext(ModalContext);
   return (
     <div className="layout_container">
       <aside className="aside_container">
@@ -61,7 +68,12 @@ const Layout = () => {
       <ModalLogin isOpen={isLoginModalOpen} onClose={handleCloseLogin} />
 
       {showModal && (
-        <ModalRecoverPass bool={isSuccess} hide={hideRecoverModal} />
+        <FeedbackModal
+          bool={isSuccess}
+          hide={hideRecoverModal}
+          successMessage={successMessage}
+          errorMessage={errorMessage}
+        />
       )}
 
       {isNotificationModalVisible && (

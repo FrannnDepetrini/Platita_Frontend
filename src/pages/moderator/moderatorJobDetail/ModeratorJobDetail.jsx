@@ -4,7 +4,7 @@ import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { useParams } from "react-router-dom";
 import { GoAlertFill } from "../../../utils/icons/icons";
 import classNames from "classnames";
-import ModalConfirm from "../../../components/modalConfirm/modalConfirm";
+import ModalConfirm from "../../../components/ModalConfirm/modalConfirm";
 
 const ModeratorJobDetail = () => {
   const { id } = useParams();

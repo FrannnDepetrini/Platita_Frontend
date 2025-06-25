@@ -34,4 +34,14 @@ export const jobService = {
       );
     }
   },
+  create: async (jobData) => {
+    try {
+      const response = await api.post("/Job/create", jobData);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error creando el trabajo"
+      );
+    }
+  },
 };

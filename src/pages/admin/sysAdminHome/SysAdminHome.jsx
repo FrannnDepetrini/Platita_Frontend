@@ -3,7 +3,7 @@ import styles from "./SysAdminHome.module.css";
 import { FaTrashAlt } from "../../../utils/icons/icons";
 import classNames from "classnames";
 import { sysadminService } from "../../../services/sysadminServices/sysadminServices";
-import ModalConfirm from "../../../components/modalConfirm/ModalConfirm";
+import ModalConfirm from "../../../components/ModalConfirm/modalConfirm";
 import { SlArrowDown } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 
@@ -28,18 +28,18 @@ const SysAdminHome = () => {
   const handleShowModal = (user) => {
     setDeleteUser(user);
     setShowModal(true);
-  }
+  };
 
   const nameSpanish = (role) => {
     const roles = {
-      'Moderator': 'Moderador',
-      'Support': 'Soporte',
-      'Client': 'Cliente',
-      'SysAdmin': 'Administrador del Sistema'
+      Moderator: "Moderador",
+      Support: "Soporte",
+      Client: "Cliente",
+      SysAdmin: "Administrador del Sistema",
     };
 
-    return roles[role] || 'Rol no encontrado';
-  }
+    return roles[role] || "Rol no encontrado";
+  };
 
   // Función para ordenar usuarios
   const sortUsers = (usersArray, sortBy) => {
@@ -50,7 +50,7 @@ const SysAdminHome = () => {
         return a.userName.toLowerCase().localeCompare(b.userName.toLowerCase());
       } else if (sortBy === "email") {
         return a.email.toLowerCase().localeCompare(b.email.toLowerCase());
-      } else if (sortBy === "role"){
+      } else if (sortBy === "role") {
         return a.role.toLowerCase().localeCompare(b.role.toLowerCase());
       }
       return 0;
@@ -66,7 +66,7 @@ const SysAdminHome = () => {
   const fetchData = async () => {
     try {
       const data = await sysadminService.getAllUsers();
-      setUsers(data)
+      setUsers(data);
       console.log(data);
     } catch (err) {
       alert(err.message);
@@ -89,7 +89,7 @@ const SysAdminHome = () => {
     } else {
       // Aplicar ordenamiento a los usuarios antes de mapearlos
       const sortedUsers = sortUsers(users, sortBy);
-      
+
       return sortedUsers.map((user) => {
         return (
           <tr key={user.id}>
@@ -157,7 +157,7 @@ const SysAdminHome = () => {
           </div>
           <div className={styles.containerButtons}>
             <div className={styles.selectWrapper}>
-              <select 
+              <select
                 className={styles.customSelect}
                 value={sortBy}
                 onChange={handleSortChange}
@@ -169,14 +169,18 @@ const SysAdminHome = () => {
               </select>
               <SlArrowDown className={styles.selectIcon} />
             </div>
-            <button onClick={() => navigate("/sysadmin/createUser")}>Crear un nuevo usuario</button>
+            <button onClick={() => navigate("/sysadmin/createUser")}>
+              Crear un nuevo usuario
+            </button>
           </div>
         </div>
       </div>
       <ModalConfirm
         message={`¿Seguro quiere eliminar este usuario "${deleteUser?.userName}?"`}
         isModalVisible={showModal}
-        handleCancel={() => { setShowModal(false) }}
+        handleCancel={() => {
+          setShowModal(false);
+        }}
         handleConfirm={handleDeleteUser}
       />
     </>
