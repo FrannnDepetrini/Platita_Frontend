@@ -151,7 +151,7 @@ export default function AppRoutes() {
         <Route
           path="/moderator/home"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Moderator", "Client"]}>
               <ModeratorHome />
             </Protected>
           }
@@ -159,7 +159,7 @@ export default function AppRoutes() {
         <Route
           path="/moderator/job/detail/:id"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Moderator", "Client"]}>
               <ModeratorJobDetail />
             </Protected>
           }
