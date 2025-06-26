@@ -196,7 +196,7 @@ button:disabled {
 
 .selectIcon {
   position: absolute;
-  left: 80%;
+  left: 45%;
   top: 55%;
   transform: translateY(-50%);
   pointer-events: none;
