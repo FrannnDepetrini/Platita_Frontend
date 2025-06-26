@@ -33,8 +33,8 @@ export const authService = {
 
   getCurrentUser: async () => {
     try {
-      const response = await api.get("auth/Me");
-      return response.data;
+      const response = await api.get("/User/GetUserMyProfile");
+      return response;
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Error obteniendo usuario"
