@@ -86,7 +86,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/employee/rating"
+          path="/employee/rating/:id"
           element={
             <Protected acceptedRoles={["Client"]}>
               <EmployeeRating />
