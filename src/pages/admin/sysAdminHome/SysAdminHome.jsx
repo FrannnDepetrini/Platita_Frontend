@@ -123,6 +123,7 @@ const SysAdminHome = () => {
   };
 
   return (
+
     <>
       <div className={styles.sysadmin_container}>
         <h4>Inicio</h4>
@@ -184,6 +185,7 @@ const SysAdminHome = () => {
         handleConfirm={handleDeleteUser}
       />
     </>
+
   );
 };
 

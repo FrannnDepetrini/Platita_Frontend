@@ -4,6 +4,7 @@ export const postulationService = {
   getMyPostulations: async () => {
     try {
       const response = await api.get("Postulation/GetMyPostulations");
+      console.log(response);
       return response;
     } catch (error) {
       throw new Error(
@@ -49,6 +50,17 @@ export const postulationService = {
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Error borrando postulacion"
+      );
+    }
+  },
+  getMyPostulationsDone: async () => {
+    try {
+      const response = await api.get("Postulation/GetMyPostulationsDone");
+      console.log(response);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error obteniendo las postulaciones"
       );
     }
   },

@@ -3,7 +3,9 @@ import { useParams } from "react-router-dom";
 import styles from "./EmployerJobDetails.module.css";
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { FaTrashAlt } from "react-icons/fa";
+
 import ModalConfirm from "../../../components/ModalConfirm/modalConfirm";
+
 import { useNavigate } from "react-router-dom";
 import PostulationNumber from "../../employee/Postulations/PostulationNumber";
 import useAuth from "../../../services/contexts/AuthProvider";
