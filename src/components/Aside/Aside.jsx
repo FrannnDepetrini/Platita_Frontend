@@ -4,6 +4,7 @@ import styles from "./Aside.module.css";
 import classNames from "classnames";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../services/contexts/AuthProvider";
+import { IoWarning } from "react-icons/io5";
 
 const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
   const { logout, user } = useAuth();
@@ -85,6 +86,10 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
             </h3>
           ) : (
             <>
+
+              <div className={styles.dividerOptions}></div>
+              <h3 className={classNames(styles.menu_option, styles.centerIcon)} onClick={() => {handleNavigateTo("/employee/complaint")}}>Realizar una queja <IoWarning/></h3>
+
               <h3
                 onClick={() => handleNavigate("/employer/createJob")}
                 className={styles.menu_option}
@@ -103,6 +108,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
               >
                 Historial de trabajos
               </h3>
+
             </>
           )}{" "}
         </div>
