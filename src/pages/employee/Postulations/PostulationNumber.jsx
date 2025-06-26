@@ -6,16 +6,6 @@ const PostulationNumber = ({ ps, userName }) => {
   useEffect(() => {
     const fetchNumber = async () => {
       if (ps.status === "Success" && !phoneNumber) {
-        // fetch(
-        //   `https://magicloops.dev/api/loop/dfd1c54a-2cef-4c26-95e9-c8ea808d54b2/run?input=Hello+World`
-        // )
-        //   .then((res) => res.json())
-        //   .then((data) => {
-        //     setPhoneNumber(data.phoneNumber);
-        //   })
-        //   .catch((err) => {
-        //     console.error("Error al obtener el número:", err);
-        //   });
         try {
           const response =
             await postulationService.showPhoneForAcceptedPostulation(ps.id);

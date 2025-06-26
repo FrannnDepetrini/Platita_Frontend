@@ -20,6 +20,8 @@ export function AuthProvider({ children }) {
   const [isAuthenticated, setIsAuthenticated] = useState(
     initialState.token ? true : false
   );
+  const [isLoadingAuth, setIsLoadingAuth] = useState(false);
+
   const navigate = useNavigate();
 
   const autoNavigate = (token) => {
@@ -31,9 +33,17 @@ export function AuthProvider({ children }) {
     switch (role) {
       case "Client":
         navigate("/employee/home", { replace: true });
+
         break;
       case "Moderator":
         navigate("/moderator/job/detail", { replace: true });
+        break;
+      case "SysAdmin":
+        navigate("/sysadmin/home", { replace: true });
+        break;
+      case "Support":
+        navigate("/support/home", { replace: true });
+        break;
     }
   };
 
@@ -46,7 +56,6 @@ export function AuthProvider({ children }) {
         userData[
           "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
         ];
-      console.log(role);
 
       localStorage.setItem("id", userData.sub);
       localStorage.setItem("email", userData.email);
@@ -68,6 +77,7 @@ export function AuthProvider({ children }) {
       switch (role) {
         case "Client":
           navigate("/employee/home", { replace: true });
+
           break;
         case "Moderator":
           navigate("/moderator/job/detail", { replace: true });
@@ -87,20 +97,18 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     const token = initialState.token;
-
     if (token) {
-      if (window.location.pathname === "/") {
+      setIsAuthenticated(true);
+      console.log(isAuthenticated);
+      if (window.location.pathname === "/" && !isLoadingAuth) {
         autoNavigate(token);
       }
     }
   }, []);
 
-  // useEffect(() => {
-  //   checkAuth();
-  // }, [isAuthenticated]);
-
   const login = async (userData) => {
     try {
+      setIsLoadingAuth(true);
       const response = await authService.login(userData);
 
       if (response.success) {
@@ -110,6 +118,8 @@ export function AuthProvider({ children }) {
       }
     } catch (error) {
       return { success: false, error: error.message };
+    } finally {
+      setIsLoadingAuth(false);
     }
   };
 

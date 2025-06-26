@@ -7,9 +7,7 @@ import useAuth from "../../services/contexts/AuthProvider";
 
 const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
   const { logout, user } = useAuth();
-  
-  //Dato que se reemplazara con el llamado a la api
-  const [hasPostedJob, setHasPostedJob] = useState(user?.hasPostedJob || false);
+
   //Dato que se reemplazara con el themeContext
   const [theme, setTheme] = useState("Claro");
   const handleToggleTheme = (e) => {
@@ -21,7 +19,6 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     }
   };
 
-
   const handleNavigateTo = (url) => {
     setIsOverlayVisible(false);
     setIsAsideVisible(false);
@@ -32,7 +29,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
   const [isThemeDrDwVisible, setIsThemeDrDwVisible] = useState(false);
 
   const navigate = useNavigate();
-  
+
   const handleIsThemeDrDwVisible = () => {
     setIsThemeDrDwVisible(!isThemeDrDwVisible);
   };
@@ -47,7 +44,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     logout();
     handleCloseAside();
     navigate("/");
-  }
+  };
 
   return (
     <>
@@ -77,7 +74,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
         </div>
         <div className={styles.divider}></div>
         <div className={styles.jobs_container}>
-          {!hasPostedJob ? (
+          {!user.hasJobs ? (
             <h3 onClick={() => navigate()} className={styles.menu_option}>
               Publica tu primer trabajo
             </h3>

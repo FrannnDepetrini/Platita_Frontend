@@ -24,4 +24,44 @@ export const jobService = {
       );
     }
   },
+  getMyJobs: async () => {
+    try {
+<<<<<<< 129-implementar-api-del-back-en-la-vista-moderatorjobdetailid
+      const response = await api.get("Job/my-jobs");
+=======
+      const response = await api.get("/Job/my-jobs");
+>>>>>>> Develop
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error obteniendo tus trabajos"
+      );
+    }
+  },
+  getJobForModeratorByID: async (id) => {
+    try {
+      const response = await api.get("/Job/GetJobsForModeratorById", {
+        params: { jobId: id },
+      });
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error obteniendo los trabajos"
+      );
+    }
+  },
+  deleteJobReported: async (id) => {
+    try {
+      const response = await api.delete("Report/DeleteJobReported", {
+        params: { jobId: id },
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        error.response?.data?.message || "Error eliminando el trabajo"
+      );
+    }
+  },
 };
