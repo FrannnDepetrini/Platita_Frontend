@@ -26,11 +26,9 @@ export const jobService = {
   },
   getMyJobs: async () => {
     try {
-<<<<<<< 129-implementar-api-del-back-en-la-vista-moderatorjobdetailid
-      const response = await api.get("Job/my-jobs");
-=======
+
       const response = await api.get("/Job/my-jobs");
->>>>>>> Develop
+
       return response;
     } catch (error) {
       throw new Error(
@@ -38,6 +36,15 @@ export const jobService = {
       );
     }
   },
+
+  create: async (jobData) => {
+    try {
+      const response = await api.post("/Job/create", jobData);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error creando el trabajo"
+
   getJobForModeratorByID: async (id) => {
     try {
       const response = await api.get("/Job/GetJobsForModeratorById", {
@@ -61,6 +68,7 @@ export const jobService = {
       console.log(error);
       throw new Error(
         error.response?.data?.message || "Error eliminando el trabajo"
+
       );
     }
   },

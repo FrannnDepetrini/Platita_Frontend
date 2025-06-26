@@ -4,8 +4,11 @@ import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { useNavigate, useParams } from "react-router-dom";
 import { GoAlertFill } from "../../../utils/icons/icons";
 import classNames from "classnames";
-import ModalConfirm from "../../../components/ModalConfirm/ModalConfirm";
+
+import ModalConfirm from "../../../components/ModalConfirm/modalConfirm";
+
 import { jobService } from "../../../services/jobService/jobService";
+
 
 const ModeratorJobDetail = () => {
   const { id } = useParams();
