@@ -47,6 +47,11 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     navigate("/");
   };
 
+  const handleNavigate = (url) => {
+    navigate(url);
+    handleCloseAside();
+  };
+
   return (
     <>
       <div
@@ -81,11 +86,29 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
             </h3>
           ) : (
             <>
-              <h3 className={styles.menu_option}>Publica un trabajo</h3>
-              <h3 className={styles.menu_option}>Solicitudes de trabajos</h3>
-              <h3 className={styles.menu_option}>Historial de trabajos</h3>
+
               <div className={styles.dividerOptions}></div>
               <h3 className={classNames(styles.menu_option, styles.centerIcon)} onClick={() => {handleNavigateTo("/employee/complaint")}}>Realizar una queja <IoWarning/></h3>
+
+              <h3
+                onClick={() => handleNavigate("/employer/createJob")}
+                className={styles.menu_option}
+              >
+                Publica un trabajo
+              </h3>
+              <h3
+                onClick={() => handleNavigate("/employer/request")}
+                className={styles.menu_option}
+              >
+                Solicitudes de trabajos
+              </h3>
+              <h3
+                onClick={() => handleNavigate("/employer/historial")}
+                className={styles.menu_option}
+              >
+                Historial de trabajos
+              </h3>
+
             </>
           )}{" "}
         </div>

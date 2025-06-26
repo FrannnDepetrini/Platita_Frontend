@@ -9,9 +9,12 @@ const ComplaintCard = ({ complaintInfo }) => {
 
   const navigate = useNavigate();
 
-  //Aca debera de navegar al complaintDetail con el id en la url
+  const formattedCreatedDate = new Date(
+    complaintInfo.createdAt
+  ).toLocaleDateString();
+
   const handleNavigateComplaintDetail = (id) => {
-    // navigate("")
+    navigate(`/support/detail/${id}`);
   };
   return (
     <div
@@ -19,15 +22,15 @@ const ComplaintCard = ({ complaintInfo }) => {
       className={styles.cardjob_request}
     >
       <div className={styles.request_title}>
-        <h2>{complaintInfo.UserName}</h2>
+        <h2>{complaintInfo.client.userName}</h2>
         <div className={styles.image_container}></div>
       </div>
       <div>
-        <p>{complaintInfo.Description}</p>
+        <p>{complaintInfo.description}</p>
       </div>
 
       <div className={styles.request_price}>
-        <p>Fecha de queja: {complaintInfo.CreatedAt}</p>
+        <p>Fecha de queja: {formattedCreatedDate}</p>
       </div>
     </div>
   );

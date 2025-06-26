@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ModeratorJobDetail.module.css";
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { GoAlertFill } from "../../../utils/icons/icons";
 import classNames from "classnames";
-import ModalConfirm from "../../../components/modalConfirm/modalConfirm";
+
+import ModalConfirm from "../../../components/ModalConfirm/modalConfirm";
+
+import { jobService } from "../../../services/jobService/jobService";
+
 
 const ModeratorJobDetail = () => {
   const { id } = useParams();
@@ -14,29 +18,24 @@ const ModeratorJobDetail = () => {
   const [message, setMessage] = useState("");
   const [action, setAction] = useState("");
 
-  const CategoryIcon = job.Category && UseCategoryIcon(job.Category);
-  const inputEncoded = encodeURIComponent(JSON.stringify({ id: parseInt(id) }));
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const fethFunction = async () => {
-      const response = await fetch(
-        `https://magicloops.dev/api/loop/f32570e2-deec-446e-bb83-bb223f3a053c/run?input=${inputEncoded}`
-      );
-      if (!response.ok) {
-        throw new Error(response);
-      }
+  const CategoryIcon = UseCategoryIcon(job.category);
 
-      const data = await response.json();
-      console.log(data);
-      const [name, lastName] = data.UserName.split(" ");
-      setJob({ ...data, name, lastName });
-      setLoading(false);
-    };
+  const fethFunction = async () => {
     try {
-      fethFunction();
+      const response = await jobService.getJobForModeratorByID(id);
+      console.log(response);
+      setJob(response);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  useEffect(() => {
+    fethFunction();
   }, []);
 
   const handleAction = (action) => {
@@ -44,21 +43,22 @@ const ModeratorJobDetail = () => {
     setIsModalVisible(true);
     if (action == "Delete") {
       setMessage("¿Estas seguro de borrar el trabajo?");
-    } else setMessage("¿Estas seguro de dejar el trabajo?");
+    }
   };
 
-  const handleConfirmDelete = () => {
-    setIsModalVisible(false);
-    alert("Se borro");
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await jobService.deleteJobReported(id);
+      console.log(response);
+      setIsModalVisible(false);
+      navigate("/moderator/home");
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-  };
-
-  const handleConfirmVerificate = () => {
-    setIsModalVisible(false);
-    alert("Nada malo en el trabajo");
   };
 
   return (
@@ -76,29 +76,28 @@ const ModeratorJobDetail = () => {
             <div className={styles.titleAndUser_container}>
               <div className={styles.jobTitle_container}>
                 <div className={styles.titleAndCategory}>
-                  <h1 className={styles.jobTitle}>{job.Title}</h1>
+                  <h1 className={styles.jobTitle}>{job.title}</h1>
                   <CategoryIcon className={styles.categoryIcon} />
                 </div>
                 <div className={styles.line}></div>
               </div>
               <div className={styles.userNameAndImage_container}>
                 <div className={styles.userName_container}>
-                  <h2 className={styles.name}>{job.name}</h2>
-                  <h2 className={styles.name}>{job.lastName}</h2>
+                  <h2 className={styles.name}>{job.userName}</h2>
                 </div>
                 <div className={styles.imageContainer}></div>
               </div>
             </div>
             <div className={styles.description_container}>
               <h1 className={styles.h1Description}>Descripción</h1>
-              <p>{job.Description}</p>
+              <p>{job.description}</p>
             </div>
           </div>
           <div className={styles.reportsAndButtons_container}>
             <div className={styles.reports_container}>
               <GoAlertFill className={styles.iconAlert} />
               <h2>Reportes</h2>
-              <h1>{job.Reports}</h1>
+              <h1>{job.reportCount}</h1>
             </div>
             <div className={styles.buttons}>
               <button
@@ -106,15 +105,6 @@ const ModeratorJobDetail = () => {
                 className={classNames(styles.buttonReport, styles.deleteButton)}
               >
                 Eliminar
-              </button>
-              <button
-                onClick={() => handleAction("Verificate")}
-                className={classNames(
-                  styles.buttonReport,
-                  styles.verificateButton
-                )}
-              >
-                Verificar
               </button>
             </div>
           </div>
@@ -124,9 +114,7 @@ const ModeratorJobDetail = () => {
         message={message}
         isModalVisible={isModalVisible}
         handleCancel={handleCancel}
-        handleConfirm={
-          action == "Delete" ? handleConfirmDelete : handleConfirmVerificate
-        }
+        handleConfirm={action == "Delete" && handleConfirmDelete}
       />
     </div>
   );

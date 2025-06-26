@@ -43,20 +43,21 @@
   color: var(--principalRed);
 }
 
-.td_empleador h4 {
+.td_empleador_historial h4 {
   font-weight: 400;
-  transition: all 0.2s ease-in-out;
-  cursor: pointer;
-}
-
-.td_empleador h4:hover {
-  color: var(--principalYellow);
 }
 
 .dots::after {
   content: "";
   display: inline-block;
   animation: dots 1.5s steps(3, end) infinite;
+}
+
+.a_rating {
+  font-weight: 500;
+  color: var(--principalYellow);
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 @keyframes dots {
