@@ -26,7 +26,11 @@ export const jobService = {
   },
   getMyJobs: async () => {
     try {
+<<<<<<< 129-implementar-api-del-back-en-la-vista-moderatorjobdetailid
       const response = await api.get("Job/my-jobs");
+=======
+      const response = await api.get("/Job/my-jobs");
+>>>>>>> Develop
       return response;
     } catch (error) {
       throw new Error(

@@ -53,4 +53,15 @@ export const postulationService = {
       );
     }
   },
+  getMyPostulationsDone: async () => {
+    try {
+      const response = await api.get("Postulation/GetMyPostulationsDone");
+      console.log(response);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error obteniendo las postulaciones"
+      );
+    }
+  },
 };
