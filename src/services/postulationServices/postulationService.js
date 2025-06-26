@@ -4,6 +4,7 @@ export const postulationService = {
   getMyPostulations: async () => {
     try {
       const response = await api.get("Postulation/GetMyPostulations");
+      console.log(response);
       return response;
     } catch (error) {
       throw new Error(
