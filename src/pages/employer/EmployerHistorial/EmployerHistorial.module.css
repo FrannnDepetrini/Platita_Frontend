@@ -112,6 +112,11 @@ tfoot td {
     font-weight: normal;
 }
 
+.job_title:hover {
+  color: var(--principalYellow);
+  transition: all 0.3s ease-in-out;
+}
+
 .job_date {
     font-weight: normal;
 }
