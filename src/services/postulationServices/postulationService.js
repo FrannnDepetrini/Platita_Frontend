@@ -4,6 +4,7 @@ export const postulationService = {
   getMyPostulations: async () => {
     try {
       const response = await api.get("Postulation/GetMyPostulations");
+      console.log(response);
       return response;
     } catch (error) {
       throw new Error(
@@ -52,6 +53,7 @@ export const postulationService = {
       );
     }
   },
+<<<<<<< 126-implementar-api-del-back-en-la-vista-employerjobdetailsid
     getPostulationsByJobId: async (id) => {
     try {
         const response = await api.get("/Postulation/GetPostulationsByJobId", {
@@ -94,4 +96,17 @@ export const postulationService = {
         );
       }
     }
+=======
+  getMyPostulationsDone: async () => {
+    try {
+      const response = await api.get("Postulation/GetMyPostulationsDone");
+      console.log(response);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error obteniendo las postulaciones"
+      );
+    }
+  },
+>>>>>>> Develop
 };

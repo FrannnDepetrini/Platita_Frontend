@@ -6,46 +6,46 @@ import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { FaTrash } from "react-icons/fa6";
 
 export default function EmployeeJobRating() {
-    const [text, setText] = useState('');
-    const [images, setImages] = useState([]);
-    const [rating, setRating] = useState(0);
-    const [hover, setHover] = useState(0);
-    const [selectedIndex, setSelectedIndex] = useState(null);
+  const [text, setText] = useState("");
+  const [images, setImages] = useState([]);
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(null);
 
-    const fileInputRef = useRef();
+  const fileInputRef = useRef();
 
-    const handleImageUpload = (e) => {
-      const files = Array.from(e.target.files);
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files);
 
-      const remainingSlots = 4 - images.length;
-      if (remainingSlots <= 0) {
-        alert("Solo puedes subir un maximo de 4 imagenes.");
-        fileInputRef.current.value = "";
-        return;
-      }
-
-      const limitedFiles = files.slice(0, remainingSlots);
-      const newImages = files.map(file => ({
-        id: crypto.randomUUID(),
-        url: URL.createObjectURL(file)
-      }));
-      setImages(prev => [...prev, ...newImages]);
+    const remainingSlots = 4 - images.length;
+    if (remainingSlots <= 0) {
+      alert("Solo puedes subir un maximo de 4 imagenes.");
       fileInputRef.current.value = "";
-    };
+      return;
+    }
 
-    const handleRemoveImage = (id) => {
-      setImages(prev => prev.filter(img => img.id !== id));
-    };
+    const limitedFiles = files.slice(0, remainingSlots);
+    const newImages = files.map((file) => ({
+      id: crypto.randomUUID(),
+      url: URL.createObjectURL(file),
+    }));
+    setImages((prev) => [...prev, ...newImages]);
+    fileInputRef.current.value = "";
+  };
 
-    const prevImage = () => {
-      if (selectedIndex > 0) setSelectedIndex(selectedIndex - 1);
-    };
+  const handleRemoveImage = (id) => {
+    setImages((prev) => prev.filter((img) => img.id !== id));
+  };
 
-    const nextImage = () => {
-      if (selectedIndex < images.length - 1) setSelectedIndex(selectedIndex + 1);
-    };
+  const prevImage = () => {
+    if (selectedIndex > 0) setSelectedIndex(selectedIndex - 1);
+  };
 
-    useEffect(() => {
+  const nextImage = () => {
+    if (selectedIndex < images.length - 1) setSelectedIndex(selectedIndex + 1);
+  };
+
+  useEffect(() => {
     const handleKeyDown = (e) => {
       if (selectedIndex !== null) {
         if (e.key === "ArrowLeft") {
@@ -64,7 +64,7 @@ export default function EmployeeJobRating() {
     };
   }, [selectedIndex, images]);
 
-  return(
+  return (
     <div>
       <div className="rating-title-text">
         <h1>
@@ -86,8 +86,13 @@ export default function EmployeeJobRating() {
 
           <div className="input-group">
             <h1 className="picture-text">Adjunta una foto</h1>
-            <label htmlFor="file-upload" className={`custom-file-upload ${images.length > 0 ? "shrink" : ""}`}>
-              <FiDownload size={images.length > 0 ? 25 : 40}/>
+            <label
+              htmlFor="file-upload"
+              className={`custom-file-upload ${
+                images.length > 0 ? "shrink" : ""
+              }`}
+            >
+              <FiDownload size={images.length > 0 ? 25 : 40} />
             </label>
             <input
               id="file-upload"
@@ -102,7 +107,11 @@ export default function EmployeeJobRating() {
               <div className="image-preview">
                 {images.map((img, index) => (
                   <div key={img.id}>
-                    <img src={img.url} alt="preview" onClick={() => setSelectedIndex(index)}/>
+                    <img
+                      src={img.url}
+                      alt="preview"
+                      onClick={() => setSelectedIndex(index)}
+                    />
                   </div>
                 ))}
               </div>
@@ -124,11 +133,12 @@ export default function EmployeeJobRating() {
                   onMouseEnter={() => setHover(star)}
                   onMouseLeave={() => setHover(0)}
                 >
-                  <StarIcon 
+                  <StarIcon
                     className={`star-icon ${isFilled ? "filled" : ""}`}
                     onClick={() => setRating(star)}
                     onMouseEnter={() => setHover(star)}
-                    onMouseLeave={() => setHover(0)}/>
+                    onMouseLeave={() => setHover(0)}
+                  />
                 </span>
               );
             })}
@@ -140,31 +150,46 @@ export default function EmployeeJobRating() {
       </div>
       <div className="box-footer-text">
         <h1>
-          Recuerda que las reseñas serán analizadas por el moderador antes de ser subidas
+          Recuerda que las reseñas serán analizadas por el moderador antes de
+          ser subidas
         </h1>
       </div>
 
       {selectedIndex !== null && images[selectedIndex] && (
-        <div className="modal-image-overlay" onClick={() => setSelectedIndex(null)}>
-          <div className="modal-image-content" onClick={(e) => e.stopPropagation()}>
-              <img src={images[selectedIndex].url} alt="selected"/>
+        <div
+          className="modal-image-overlay"
+          onClick={() => setSelectedIndex(null)}
+        >
+          <div
+            className="modal-image-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img src={images[selectedIndex].url} alt="selected" />
             <div className="modal-image-buttons">
-              <button className="remove-image-button" onClick={() => {
-                const newImages = images.filter((_, idx) => idx !== selectedIndex);
-                let newIndex = selectedIndex;
+              <button
+                className="remove-image-button"
+                onClick={() => {
+                  const newImages = images.filter(
+                    (_, idx) => idx !== selectedIndex
+                  );
+                  let newIndex = selectedIndex;
 
-                if (selectedIndex >= newImages.length) {
-                  newIndex = newImages.length - 1;
-                }
+                  if (selectedIndex >= newImages.length) {
+                    newIndex = newImages.length - 1;
+                  }
 
-                setImages(newImages);
-                setSelectedIndex(newIndex >= 0 ? newIndex : null);
-                //handleRemoveImage(images[selectedIndex].id);
-                //setSelectedIndex(null);
-              }}>
+                  setImages(newImages);
+                  setSelectedIndex(newIndex >= 0 ? newIndex : null);
+                  //handleRemoveImage(images[selectedIndex].id);
+                  //setSelectedIndex(null);
+                }}
+              >
                 <FaTrash className="trash-icon" />
               </button>
-              <button className="modal-image-close" onClick={() => setSelectedIndex(null)}>
+              <button
+                className="modal-image-close"
+                onClick={() => setSelectedIndex(null)}
+              >
                 &times;
               </button>
             </div>

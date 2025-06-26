@@ -26,6 +26,9 @@ const ModalPostulation = ({ onClose, jobId }) => {
       const response = await postulationService.applicateJob(postulationInfo);
       console.log("Respuesta:", response.data); // o response.status si querés ver el 200
       setIsSuccessSend(true);
+      setTimeout(() => {
+        onClose();
+      }, 5000);
     } catch (error) {
       console.error("Error:", error.message);
       setIsSuccessSend(false);
@@ -38,7 +41,7 @@ const ModalPostulation = ({ onClose, jobId }) => {
     const jobApplication = {
       jobId: jobId,
       budget: Number(budget),
-      jobDay: new Date(date).toISOString(),
+      jobDay: date,
     };
     console.log(jobApplication);
     fetchApplicateJob(jobApplication);

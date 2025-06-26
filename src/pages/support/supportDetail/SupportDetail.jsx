@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import styles from "./SupportDetail.module.css";
 import { IoCalendarOutline } from "react-icons/io5";
 import { useState } from "react";
-import ModalConfirm from "../../../components/modalConfirm/modalConfirm";
+import ModalConfirm from "../../../components/ModalConfirm/ModalConfirm";
 import { IoLogoWhatsapp } from "react-icons/io5";
 
 // Eliminar cuando este la API
@@ -17,15 +17,13 @@ const supportDetailComplains = [
   {
     id: "2",
     userName: "Juan Gomez",
-    description:
-      "Intenté actualizar mi perfil y los cambios no se guardaron.",
+    description: "Intenté actualizar mi perfil y los cambios no se guardaron.",
     date: "23/05/2025",
   },
   {
     id: "3",
     userName: "Pedro Sanchez",
-    description:
-      "No puedo subir un nuevo trabajo, el botón no hace nada.",
+    description: "No puedo subir un nuevo trabajo, el botón no hace nada.",
     date: "15/04/2025",
   },
   {
@@ -108,7 +106,9 @@ export default function SupportDetail() {
         <div className={styles.button_container}>
           {!isResolved ? (
             <>
-              <button className={styles.whatsapp_button}>{<IoLogoWhatsapp/>} Whatsapp</button>
+              <button className={styles.whatsapp_button}>
+                {<IoLogoWhatsapp />} Whatsapp
+              </button>
               <button
                 className={styles.resolve_button}
                 onClick={() => setShowResolveModal(true)}

@@ -26,23 +26,51 @@ export const jobService = {
   },
   getMyJobs: async () => {
     try {
+<<<<<<< 129-implementar-api-del-back-en-la-vista-moderatorjobdetailid
+      const response = await api.get("Job/my-jobs");
+=======
       const response = await api.get("/Job/my-jobs");
-      console.log(response);
+>>>>>>> Develop
+      return response;
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Error obteniendo tus trabajos"
       );
     }
   },
+<<<<<<< 126-implementar-api-del-back-en-la-vista-employerjobdetailsid
   restoreJob: async (id) => {
     try {
       const response = await api.patch("Job/ResetJobCancellation", null, {
+=======
+  getJobForModeratorByID: async (id) => {
+    try {
+      const response = await api.get("/Job/GetJobsForModeratorById", {
+>>>>>>> Develop
         params: { jobId: id },
       });
       return response;
     } catch (error) {
       throw new Error(
+<<<<<<< 126-implementar-api-del-back-en-la-vista-employerjobdetailsid
         error.response?.data?.message || `Error restaurando el trabajo ${id}`
+=======
+        error.response?.data?.message || "Error obteniendo los trabajos"
+      );
+    }
+  },
+  deleteJobReported: async (id) => {
+    try {
+      const response = await api.delete("Report/DeleteJobReported", {
+        params: { jobId: id },
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        error.response?.data?.message || "Error eliminando el trabajo"
+>>>>>>> Develop
       );
     }
   },
