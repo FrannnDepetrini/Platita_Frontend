@@ -15,8 +15,8 @@ export const authService = {
 
   register: async (userData) => {
     try {
-      const response = await api.post("/auth/Register", userData);
-      return response.data;
+      const response = await api.post("/Auth/Register", userData);
+      return response;
     } catch (error) {
       throw new Error(error.response?.data?.message || "Error al registrarse");
     }

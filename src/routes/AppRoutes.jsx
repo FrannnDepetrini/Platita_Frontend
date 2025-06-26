@@ -151,11 +151,7 @@ export default function AppRoutes() {
         <Route
           path="/moderator/home"
           element={
-<<<<<<< 129-implementar-api-del-back-en-la-vista-moderatorjobdetailid
-            <Protected acceptedRoles={["Moderator", "Client"]}>
-=======
             <Protected acceptedRoles={["Moderator"]}>
->>>>>>> Develop
               <ModeratorHome />
             </Protected>
           }
@@ -163,11 +159,7 @@ export default function AppRoutes() {
         <Route
           path="/moderator/job/detail/:id"
           element={
-<<<<<<< 129-implementar-api-del-back-en-la-vista-moderatorjobdetailid
-            <Protected acceptedRoles={["Moderator", "Client"]}>
-=======
             <Protected acceptedRoles={["Moderator"]}>
->>>>>>> Develop
               <ModeratorJobDetail />
             </Protected>
           }
@@ -203,7 +195,7 @@ export default function AppRoutes() {
         <Route
           path="/sysadmin/home"
           element={
-            <Protected acceptedRoles={["SysAdmin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin"]}>
               <SysAdminHome />
             </Protected>
           }
@@ -211,7 +203,7 @@ export default function AppRoutes() {
         <Route
           path="/sysadmin/createUser"
           element={
-            <Protected acceptedRoles={["SysAdmin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin"]}>
               <SysAdminCreateUser />
             </Protected>
           }
