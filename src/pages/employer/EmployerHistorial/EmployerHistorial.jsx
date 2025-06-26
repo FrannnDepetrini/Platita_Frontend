@@ -4,10 +4,16 @@ import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { FaTrashAlt } from "../../../utils/icons/icons";
 import { useEffect, useState } from "react";
 import { jobService } from '../../../services/jobService/jobService';
+import { useNavigate } from "react-router-dom";
 
 export default function EmployeeHistorial() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const handleGoToJobDetail = (id) => {
+    navigate(`/employer/jobDetails/${id}`);
+  }
 
   const handleJobDetail = async (id) => {
     try {
@@ -73,8 +79,11 @@ export default function EmployeeHistorial() {
 
     return (
       <tr key={job.id}>
-        <td>
-          <div className={styles.job_title}>{job.title}</div>
+        <td
+        onClick={() => handleGoToJobDetail(job.id)}
+        className={styles.job_title}
+        style={{ cursor: "pointer" }}>
+            {job.title}
         </td>
         <td
           onClick={() => handleJobDetail(job.id)}
