@@ -3,87 +3,114 @@ import styles from './EmployerHistorial.module.css';
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { FaTrashAlt } from "../../../utils/icons/icons";
 import { useEffect, useState } from "react";
+import { jobService } from '../../../services/jobService/jobService';
 
 export default function EmployeeHistorial() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchData = async () => {
+  const handleJobDetail = async (id) => {
     try {
-      const response = await fetch(
-        "https://magicloops.dev/api/loop/ae1b4e54-65cb-4250-89cd-7124ab305d57/run?input=Hello+World"
-      );
-      if (!response.ok) throw new Error("Sucedio un error inesperado");
-      const data = await response.json();
-      setJobs(data);
-    } catch (err) {
-      alert(err.message);
+      const response = await jobService.getJobById(id);
+      console.log("Detalle del trabajo:", response);
+    } catch (error) {
+      alert(error.message);
+    }
+  }
+
+  useEffect(() => {
+  const fetchJobs = async () => {
+    try {
+      const response = await jobService.getMyJobs();
+      console.log("RESPONSE:", response);
+
+      if (Array.isArray(response)) {
+        setJobs(response);
+      } else {
+        setJobs([]);
+      }
+    } catch (error) {
+      alert(error.message);
+      setJobs([]);
     } finally {
       setLoading(false);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
-  const handleDeleteJob = (id) => {
-    setJobs(jobs.filter((job) => job.id !== id));
-    console.log("elimine");
+  fetchJobs();
+}, []);
+
+
+  const handleDeleteJob = async (id) => {
+    if (!window.confirm("¿Estás seguro de que quieres eliminar este trabajo?"))
+      return;
+
+    try {
+      await jobService.deleteJobById(id);
+      setJobs(jobs.filter((job) => job.id !== id));
+      console.log("Trabajo eliminado con exito");
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   const jobsMapped = () => {
-    if (jobs.length == 0) {
-      <td colspan={6}>No tienes trabajos aún!</td>;
-    } else {
-      return jobs.map((job) => {
-        const CategoryIcon = UseCategoryIcon(job.category);
-        // Define un objeto para mapear los estados a clases de color
-        const stateClass = {
-          finalizado: styles.state_finalizado,
-          asignado: styles.state_asignado,
-          disponible: styles.state_disponible,
-        };
+  if (jobs.length === 0) {
+    return (
+      <tr>
+        <td colSpan={6}>No tienes trabajos aún!</td>
+      </tr>
+    );
+  }
 
-        return (
-          <tr key={job.id}>
-            <td>
-                <div className={styles.job_title}>
-                    {job.title}
-                </div>
-            </td>
-            {/* Ese onClick debera enviarte al perfil de ese usuario */}
-            <td onClick={null} className={styles.td_empleado}>
-              <h4>{job.employee}</h4>
-            </td>
-            <td>
-              <CategoryIcon className={styles.category_icon} />
-            </td>
-            <td>
-              <div
+  return jobs.map((job) => {
+    const CategoryIcon = UseCategoryIcon(job.category);
+    const stateClass = {
+      deleted: styles.state_finalizado,
+      taken: styles.state_asignado,
+      available: styles.state_disponible,
+    };
+
+    return (
+      <tr key={job.id}>
+        <td>
+          <div className={styles.job_title}>{job.title}</div>
+        </td>
+        <td
+          onClick={() => handleJobDetail(job.id)}
+          className={styles.td_empleado}
+        >
+          <h4>{job.userName}</h4>
+        </td>
+        <td>
+          <CategoryIcon className={styles.category_icon} />
+        </td>
+        <td>
+          <div
             className={`${styles.job_state} ${
-              stateClass[job.state?.toLowerCase()] || ""
+              stateClass[job.status?.toLowerCase()] || ""
             }`}
             style={{ fontWeight: "normal" }}
-              >
-            {job.state}
-              </div>
-            </td>
-            <td>
-              <div className={styles.job_date}>
-                {job.date}
-              </div>
-            </td>
-            <td>
-              <FaTrashAlt
+          >
+            {job.status}
+          </div>
+        </td>
+        <td>
+          <div className={styles.job_date}>
+            {new Date(job.dayPublicationEnd).toLocaleDateString()}
+          </div>
+        </td>
+        <td>
+          <FaTrashAlt
             onClick={() => handleDeleteJob(job.id)}
             className={styles.delete_icon}
-              />
-            </td>
-          </tr>
-        );
-      });
-    }
-  };
+          />
+        </td>
+      </tr>
+    );
+  });
+};
+
 
 return (
     <>
