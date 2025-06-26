@@ -71,7 +71,7 @@ export const postulationService = {
     approvePostulation: async (jobId, postulationId) => {
   try {
     const response = await api.put("/Postulation/ApproveApplication", null, {
-      params: { jobId: jobId, postulationId: postulationId },
+      params: { jobId: jobId, postulantId: postulationId }, // Cambiar postulantId por postulationId si se cambia la api a la de maruco
     });
     return response.data;
   } catch (error) {
@@ -81,5 +81,17 @@ export const postulationService = {
     );
   }
 },
-
+    cancelSuccessPostulation: async (jobId, postulationId) => {
+      try {
+        const response = await api.put("Postulation/CancelWhenSuccessPostulation", null, {
+          params: { jobId: jobId, postulationId: postulationId},
+        }
+      );
+      return response;
+      } catch (error) {
+        throw new Error(
+          error.response?.data?.message || "Error al cancelar la postulacion aceptada"
+        );
+      }
+    }
 };

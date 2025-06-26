@@ -74,13 +74,30 @@ export default function EmployerJobDetails() {
   const navigate = useNavigate();
   const CategoryIcon = info.category && UseCategoryIcon(info.category);
 
-  const handleCancelPostulant = () => {
-    handleAction("cancelPostulant");
-  };
+  const handleConfirmCancel = async () => {
+    if (!selectedPostulationId) {
+      alert("No se selecciono ninguna postulacion.");
+      return;
+    }
 
-  const handleConfirmCancel = () => {
-    setIsModalVisible(false);
-    setInfo({ ...info, status: "Deleted" });
+    try {
+      await postulationService.cancelSuccessPostulation(id, selectedPostulationId);
+
+      setAcceptedEmployee(null);
+      setJobAccepted(false);
+
+      await fetchJobAndPostulations();
+
+      console.log(`Postulacion ${selectedPostulationId} cancelada exitosamente`);
+    } catch (error) {
+      console.error("Error al cancelar la postulacion aceptada", error);
+      alert (
+        error.message || "Error al cancelar la postulacion.Intentalo mas tarde."
+      );
+    } finally {
+      setIsModalVisible(false);
+      setSelectedPostulationId("");
+    }
   };
 
   const handleAction = (actionType, postulationId = null) => {
@@ -216,9 +233,7 @@ export default function EmployerJobDetails() {
         (p) => p.id === selectedPostulationId
       );
 
-      setPostulations([acceptedEmployeeData]);
-      setJobAccepted(true);
-      setAcceptedEmployee(acceptedEmployeeData);
+      await fetchJobAndPostulations();
 
       console.log(`Postulación ${selectedPostulationId} aprobada exitosamente`);
       
@@ -232,9 +247,9 @@ export default function EmployerJobDetails() {
         console.error("Response headers:", error.response.headers);
         
         const errorMessage = error.response.data?.message || 
-                           error.response.data?.title || 
-                           error.response.statusText || 
-                           'Error desconocido del servidor';
+            error.response.data?.title || 
+            error.response.statusText || 
+            'Error desconocido del servidor';
         
         alert(`Error del servidor (${error.response.status}): ${errorMessage}`);
       } else if (error.request) {
@@ -400,7 +415,7 @@ export default function EmployerJobDetails() {
                           />
                           <td>
                             <FaTrashAlt
-                              onClick={() => handleCancelPostulant()}
+                              onClick={() => handleAction("cancelPostulant", postulation.id)}
                               className={styles.delete_icon}
                             />
                           </td>

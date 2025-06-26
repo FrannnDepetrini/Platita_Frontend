@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://mariomass.tech/platita-api/api",
+  baseURL: "https://localhost:7224/api",
   timeout: 5000,
 });
 
