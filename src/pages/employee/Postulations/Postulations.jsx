@@ -74,7 +74,7 @@ export default function Postulations() {
             </td>
             <td>{jobDayFormatted} </td>
             <td>
-              {ps.status == "Pending" ? (
+              {ps.status == "Pending" || ps.status == "Done" ? (
                 <FaTrashAlt
                   onClick={() => handleDeletePs(ps.job.id, ps.id)}
                   className="delete_icon"

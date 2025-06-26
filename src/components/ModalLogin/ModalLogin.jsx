@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./ModalLogin.css";
 import platitaLogo from "../../utils/images/PlatitaLogo.png";
-import googleLogo from "../../utils/images/GoogleLogo.png";
 import Loader from "../Loader/Loader";
 import useVerificate from "../../customHooks/UseVerificate";
 import { useNavigate } from "react-router-dom";
