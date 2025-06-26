@@ -27,7 +27,7 @@ export const jobService = {
   getMyJobs: async () => {
     try {
       const response = await api.get("/Job/my-jobs");
-      console.log(response);
+      return response;
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Error obteniendo tus trabajos"

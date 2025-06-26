@@ -72,7 +72,6 @@ const ModalLogin = ({ isOpen, onClose }) => {
         });
       }, 3000);
       setErrorLogin("");
-      navigate("/employee/home", { replace: true });
     } else {
       setErrorLogin(response.error || "Error en las credenciales");
       setLoaderStatus("idle");

@@ -6,7 +6,7 @@ export default function Protected({ children, acceptedRoles }) {
   console.log(user.role);
 
   if (!acceptedRoles.includes(user.role)) {
-    return <Navigate to={"/not-allowed"} replace/>;
+    return <Navigate to={"/not-allowed"} replace />;
   }
 
   return children;
