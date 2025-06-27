@@ -2,7 +2,7 @@ import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./services/contexts/AuthProvider";
-import { ModalContextProvider } from "./services/ModalContext";
+import { ModalContextProvider } from "./services/contexts/ModalContext";
 
 function App() {
   return (

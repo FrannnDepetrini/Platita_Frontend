@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useContext } from "react";
 import styles from "./EmployerCreateJob.module.css";
 import {
   IoCalendarOutline,
@@ -11,6 +11,9 @@ import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import classNames from "classnames";
 import useVerificate from "../../../customHooks/UseVerificate";
 import SearchInput from "../../../components/SearchInput/SearchInput";
+import { jobService } from "../../../services/jobService/jobService";
+import { ModalContext } from "../../../services/contexts/ModalContext";
+import { useNavigate } from "react-router-dom";
 
 var today = new Date();
 var todayFormatted = today.toISOString().split("T")[0];
@@ -29,12 +32,20 @@ const EmployerCreateJob = () => {
   const [wantExpirationDate, setWantExpirationDate] = useState(false);
   const [expandInfo, setExpandInfo] = useState(false);
 
+  const navigate = useNavigate();
+  const {
+    showRecoverModal,
+    hideRecoverModal,
+    setSuccessMessage,
+    setErrorMessage,
+  } = useContext(ModalContext);
+
   const { errors, validateField } = useVerificate();
   const [data, setData] = useState({
     title: "",
     description: "",
     province: "",
-    city:"",
+    city: "",
   });
 
   const handleChange = (e) => {
@@ -55,21 +66,19 @@ const EmployerCreateJob = () => {
     }
   };
 
-
   const customHandle = (e) => {
-    const {name, value} = e.target;
+    const { name, value } = e.target;
 
-    switch(name){
+    switch (name) {
       case "province":
         setProvince(value);
         break;
-        
+
       case "city":
         setCity(value);
         break;
-
     }
-  }
+  };
 
   const inputDateRef = useRef();
 
@@ -92,15 +101,32 @@ const EmployerCreateJob = () => {
     return false;
   };
 
-  const handleCreateJob = () => {
+  const handleCreateJob = async () => {
     const job = {
       title: data["title"],
       province,
       city,
       description: data["description"],
       category,
-      expirationDate,
+      dayPublicationEnd: expirationDate,
     };
+    try {
+      await jobService.create(job);
+
+      setSuccessMessage("¡Trabajo creado con exito!");
+      showRecoverModal("success");
+      setTimeout(() => {
+        hideRecoverModal();
+        navigate("/employer/request");
+      }, 6000);
+    } catch (error) {
+      setErrorMessage("¡Sucedio un error inesperado, pruebe nuevamente!");
+      showRecoverModal();
+      console.log(error);
+      setTimeout(() => {
+        hideRecoverModal();
+      }, 6000);
+    }
   };
 
   const CategoryIcon = UseCategoryIcon(category);
@@ -142,11 +168,14 @@ const EmployerCreateJob = () => {
             </div>
 
             <div className={styles.input_container}>
-
               <label>Localidad</label>
               <div className={styles.iconAndInput_container}>
-                <MdLocationOn className={styles.icon_generic}/>
-                <SearchInput onChange={customHandle} province={province} city={city}/>
+                <MdLocationOn className={styles.icon_generic} />
+                <SearchInput
+                  onChange={customHandle}
+                  province={province}
+                  city={city}
+                />
               </div>
             </div>
 

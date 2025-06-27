@@ -11,12 +11,12 @@ export const jobService = {
       );
     }
   },
+
   getJobById: async (id) => {
     try {
       const response = await api.get("/Job/GetJobById", {
         params: { jobId: id },
       });
-
       return response;
     } catch (error) {
       throw new Error(
@@ -24,13 +24,10 @@ export const jobService = {
       );
     }
   },
+
   getMyJobs: async () => {
     try {
-<<<<<<< 129-implementar-api-del-back-en-la-vista-moderatorjobdetailid
-      const response = await api.get("Job/my-jobs");
-=======
       const response = await api.get("/Job/my-jobs");
->>>>>>> Develop
       return response;
     } catch (error) {
       throw new Error(
@@ -38,27 +35,44 @@ export const jobService = {
       );
     }
   },
-<<<<<<< 126-implementar-api-del-back-en-la-vista-employerjobdetailsid
+
   restoreJob: async (id) => {
     try {
       const response = await api.patch("Job/ResetJobCancellation", null, {
-=======
-  getJobForModeratorByID: async (id) => {
-    try {
-      const response = await api.get("/Job/GetJobsForModeratorById", {
->>>>>>> Develop
         params: { jobId: id },
       });
       return response;
     } catch (error) {
       throw new Error(
-<<<<<<< 126-implementar-api-del-back-en-la-vista-employerjobdetailsid
         error.response?.data?.message || `Error restaurando el trabajo ${id}`
-=======
-        error.response?.data?.message || "Error obteniendo los trabajos"
       );
     }
   },
+
+  create: async (jobData) => {
+    try {
+      const response = await api.post("/Job/create", jobData);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error creando el trabajo"
+      );
+    }
+  },
+
+  getJobForModeratorByID: async (id) => {
+    try {
+      const response = await api.get("/Job/GetJobsForModeratorById", {
+        params: { jobId: id },
+      });
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error obteniendo el trabajo"
+      );
+    }
+  },
+
   deleteJobReported: async (id) => {
     try {
       const response = await api.delete("Report/DeleteJobReported", {
@@ -70,7 +84,6 @@ export const jobService = {
       console.log(error);
       throw new Error(
         error.response?.data?.message || "Error eliminando el trabajo"
->>>>>>> Develop
       );
     }
   },
