@@ -53,7 +53,6 @@ export const postulationService = {
       );
     }
   },
-<<<<<<< 126-implementar-api-del-back-en-la-vista-employerjobdetailsid
     getPostulationsByJobId: async (id) => {
     try {
         const response = await api.get("/Postulation/GetPostulationsByJobId", {
@@ -84,19 +83,18 @@ export const postulationService = {
   }
 },
     cancelSuccessPostulation: async (jobId, postulationId) => {
-      try {
-        const response = await api.put("Postulation/CancelWhenSuccessPostulation", null, {
-          params: { jobId: jobId, postulationId: postulationId},
-        }
-      );
+    try {
+      const response = await api.put("Postulation/CancelWhenSuccessPostulation", null, {
+        params: { jobId: jobId, postulationId: postulationId },
+      });
       return response;
-      } catch (error) {
-        throw new Error(
-          error.response?.data?.message || "Error al cancelar la postulacion aceptada"
-        );
-      }
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error al cancelar la postulación aceptada"
+      );
     }
-=======
+  },
+
   getMyPostulationsDone: async () => {
     try {
       const response = await api.get("Postulation/GetMyPostulationsDone");
@@ -108,5 +106,4 @@ export const postulationService = {
       );
     }
   },
->>>>>>> Develop
 };
