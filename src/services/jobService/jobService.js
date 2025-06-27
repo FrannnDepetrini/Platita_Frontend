@@ -11,12 +11,12 @@ export const jobService = {
       );
     }
   },
-
   getJobById: async (id) => {
     try {
       const response = await api.get("/Job/GetJobById", {
         params: { jobId: id },
       });
+
       return response;
     } catch (error) {
       throw new Error(
@@ -24,27 +24,14 @@ export const jobService = {
       );
     }
   },
-
   getMyJobs: async () => {
     try {
       const response = await api.get("/Job/my-jobs");
+
       return response;
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Error obteniendo tus trabajos"
-      );
-    }
-  },
-
-  restoreJob: async (id) => {
-    try {
-      const response = await api.patch("Job/ResetJobCancellation", null, {
-        params: { jobId: id },
-      });
-      return response;
-    } catch (error) {
-      throw new Error(
-        error.response?.data?.message || `Error restaurando el trabajo ${id}`
       );
     }
   },
@@ -68,11 +55,10 @@ export const jobService = {
       return response;
     } catch (error) {
       throw new Error(
-        error.response?.data?.message || "Error obteniendo el trabajo"
+        error.response?.data?.message || "Error obteniendo los trabajos"
       );
     }
   },
-
   deleteJobReported: async (id) => {
     try {
       const response = await api.delete("Report/DeleteJobReported", {
