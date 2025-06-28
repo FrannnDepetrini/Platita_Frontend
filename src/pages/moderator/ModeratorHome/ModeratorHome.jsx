@@ -95,10 +95,10 @@ const ModeratorHome = ({ handleOpenLogin }) => {
     );
 }, [moderatorJobs, searchTerm]);
 
-    const jobsMapped = () =>
-        filteredJobs.map((moderatorJob, index) => (
-            <ModeratorCardJob key={index} handleOpenLogin={handleOpenLogin} moderatorJobInfo={moderatorJob} />
-        ));
+    // const jobsMapped = () =>
+    //     filteredJobs.map((moderatorJob, index) => (
+    //         <ModeratorCardJob key={index} handleOpenLogin={handleOpenLogin} moderatorJobInfo={moderatorJob} />
+    //     ));
 
 return (
         <>

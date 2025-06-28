@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
 
         break;
       case "Moderator":
-        navigate("/moderator/job/detail", { replace: true });
+        navigate("/moderator/home", { replace: true });
         break;
       case "SysAdmin":
         navigate("/sysadmin/home", { replace: true });
@@ -62,7 +62,7 @@ export function AuthProvider({ children }) {
       localStorage.setItem("name", userData.given_name);
       localStorage.setItem("role", role);
       localStorage.setItem("hasJobs", userData.hasJobs);
-      localStorage.setItem("token", token);
+      // localStorage.setItem("token", token);
       const payload = {
         id: userData.sub,
         email: userData.email,
@@ -74,21 +74,23 @@ export function AuthProvider({ children }) {
 
       setUser(payload);
       setIsAuthenticated(true);
-      switch (role) {
-        case "Client":
-          navigate("/employee/home", { replace: true });
+      // switch (role) {
+      //   case "Client":
+      //     navigate("/employee/home", { replace: true });
 
-          break;
-        case "Moderator":
-          navigate("/moderator/job/detail", { replace: true });
-          break;
-        case "SysAdmin":
-          navigate("/sysadmin/home", { replace: true });
-          break;
-        case "Support":
-          navigate("/support/home", { replace: true });
-          break;
-      }
+      //     break;
+      //   case "Moderator":
+      //     navigate("/moderator/home", { replace: true });
+      //     break;
+      //   case "SysAdmin":
+      //     navigate("/sysadmin/home", { replace: true });
+      //     break;
+      //   case "Support":
+      //     navigate("/support/home", { replace: true });
+      //     break;
+      // }
+
+      autoNavigate(token);
     } else {
       setUser({ role: "Guest" });
       setIsAuthenticated(false);
