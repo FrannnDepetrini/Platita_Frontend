@@ -4,6 +4,8 @@ import { FaTrashAlt } from "react-icons/fa";
 import { FiDownload } from "react-icons/fi";
 import { IoIosStar, IoIosStarOutline } from "react-icons/io";
 import { FaTrash } from "react-icons/fa6";
+import { postRating } from "../../../services/employeeRatingService/employeeRatingService";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EmployeeJobRating() {
   const [text, setText] = useState("");
@@ -11,21 +13,62 @@ export default function EmployeeJobRating() {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [selectedIndex, setSelectedIndex] = useState(null);
-
   const fileInputRef = useRef();
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    try {
+      // Validaciones básicas
+      if (!text.trim()) {
+        alert("Por favor, ingresa una descripción.");
+        return;
+      }
+      
+      if (rating === 0) {
+        alert("Por favor, selecciona una calificación con estrellas.");
+        return;
+      }
+
+      const imageFiles = Array.from(fileInputRef.current.files || []);
+      
+      const data = {
+        jobId: parseInt(id), 
+        score: Number(rating),
+        description: text.trim(),
+      };
+      
+      console.log("Data to be sent:", data);
+      await postRating(data);
+      
+      // Limpiar formulario después del éxito
+      setText('');
+      setRating(0);
+      setImages([]);
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+      
+      alert("Reseña publicada con éxito");
+      navigate("/employee/historial");
+    } catch (error) {
+      console.error("Error al enviar la reseña:", error);
+      alert("Error al enviar la reseña. Por favor, intenta nuevamente.");
+    }
+  };
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
 
     const remainingSlots = 4 - images.length;
     if (remainingSlots <= 0) {
-      alert("Solo puedes subir un maximo de 4 imagenes.");
+      alert("Solo puedes subir un máximo de 4 imágenes.");
       fileInputRef.current.value = "";
       return;
     }
 
     const limitedFiles = files.slice(0, remainingSlots);
-    const newImages = files.map((file) => ({
+    const newImages = limitedFiles.map((file) => ({
       id: crypto.randomUUID(),
       url: URL.createObjectURL(file),
     }));
@@ -78,9 +121,10 @@ export default function EmployeeJobRating() {
             <h1 className="description-title">Descripción</h1>
             <textarea
               className="input"
-              placeholder="Descripcion"
+              placeholder="Descripción"
               value={text}
               onChange={(e) => setText(e.target.value)}
+              required
             />
           </div>
 
@@ -118,6 +162,7 @@ export default function EmployeeJobRating() {
             )}
           </div>
         </div>
+        
         <div className="stars-container">
           <h1>Estrellas</h1>
           <div className="stars">
@@ -135,19 +180,25 @@ export default function EmployeeJobRating() {
                 >
                   <StarIcon
                     className={`star-icon ${isFilled ? "filled" : ""}`}
-                    onClick={() => setRating(star)}
-                    onMouseEnter={() => setHover(star)}
-                    onMouseLeave={() => setHover(0)}
                   />
                 </span>
               );
             })}
           </div>
         </div>
+
+        {/* Botón de envío que faltaba en la rama Develop */}
         <div className="send-button-container">
-          <button className="send-button">Enviar</button>
+          <button 
+            className="send-button" 
+            onClick={handleSubmit}
+            disabled={!text.trim() || rating === 0}
+          >
+            Enviar
+          </button>
         </div>
       </div>
+      
       <div className="box-footer-text">
         <h1>
           Recuerda que las reseñas serán analizadas por el moderador antes de
@@ -155,6 +206,7 @@ export default function EmployeeJobRating() {
         </h1>
       </div>
 
+      {/* Modal para ver imágenes */}
       {selectedIndex !== null && images[selectedIndex] && (
         <div
           className="modal-image-overlay"
@@ -180,8 +232,6 @@ export default function EmployeeJobRating() {
 
                   setImages(newImages);
                   setSelectedIndex(newIndex >= 0 ? newIndex : null);
-                  //handleRemoveImage(images[selectedIndex].id);
-                  //setSelectedIndex(null);
                 }}
               >
                 <FaTrash className="trash-icon" />
