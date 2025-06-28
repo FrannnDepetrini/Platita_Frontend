@@ -73,4 +73,27 @@ export const jobService = {
       );
     }
   },
+    deleteLogicJob: async (id) => {
+    try {
+      const response = await api.patch(`/Job/DeleteLogic/${id}`);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || `Error eliminando el trabajo ${id}`
+      );
+    };
+  },
+  restoreJob: async (id) => {
+  try {
+    const response = await api.patch("Job/ResetJobCancellation", null, {
+      params: { idJob: id }, // <-- este es el nombre correcto
+    });
+    return response;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || `Error reestableciendo el trabajo ${id}`
+    );
+  }
+}
+
 };

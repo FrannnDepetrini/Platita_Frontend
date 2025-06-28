@@ -72,7 +72,7 @@ export const postulationService = {
     approvePostulation: async (jobId, postulationId) => {
   try {
     const response = await api.put("/Postulation/ApproveApplication", null, {
-      params: { jobId: jobId, postulantId: postulationId }, // Cambiar postulantId por postulationId si se cambia la api a la de maruco
+      params: { jobId: jobId, postulationId: postulationId }, // Cambiar postulantId por postulationId si se cambia la api a la de maruco
     });
     return response.data;
   } catch (error) {
