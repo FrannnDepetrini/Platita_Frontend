@@ -2,7 +2,12 @@ import { useEffect, useState } from "react";
 import { IoLogoWhatsapp } from "../../../utils/icons/icons";
 import { postulationService } from "../../../services/postulationServices/postulationService";
 import { jobService } from "../../../services/jobService/jobService";
-const PostulationNumber = ({ ps, userName, jobId = null }) => {
+const PostulationNumber = ({
+  ps,
+  userName,
+  jobId = null,
+  isEmployer = false,
+}) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   useEffect(() => {
     const fetchNumber = async () => {
@@ -28,7 +33,12 @@ const PostulationNumber = ({ ps, userName, jobId = null }) => {
       const job = await jobService.getJobById(jobId);
       jobTitle = job.title;
     }
-    const message = `Hola, me llamo ${userName}. Fui aceptado para el trabajo de *${jobTitle}* a través de la app Platita. Te escribo para coordinar los detalles.`;
+    let message = "";
+    if (!isEmployer) {
+      message = `Hola, me llamo ${userName}. Fui aceptado para el trabajo de *${jobTitle}* a través de la app Platita. Te escribo para coordinar los detalles.`;
+    } else {
+      message = `Hola, me llamo ${userName}. Yo soy quien te acepto para el trabajo de *${jobTitle}* a través de la app Platita. Te escribo para coordinar los detalles.`;
+    }
     const encodedMessage = encodeURIComponent(message);
     console.log(`https://wa.me/${phoneNumber}?text=${encodedMessage}`);
     window.location.href = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
