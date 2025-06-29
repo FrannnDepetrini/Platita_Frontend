@@ -1,8 +1,7 @@
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ComplaintList from "../../../components/ComplaintList/ComplaintList";
 
 const SupportHome = () => {
-  const navigate = useNavigate();
   return (
     <div className="employer-request">
       <div className="erbreadcrumb">

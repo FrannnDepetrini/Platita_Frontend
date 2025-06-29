@@ -94,8 +94,12 @@
   border-radius: 10px;
   box-shadow: var(--shadowDark);
   display: flex;
-
+  align-items: center;
   border: none;
+}
+
+.inputLocation {
+  padding: 3px 10px 3px 10px !important;
 }
 
 .icon_generic {

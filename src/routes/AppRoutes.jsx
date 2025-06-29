@@ -17,6 +17,7 @@ import EmployeeJobDetails from "../pages/employee/EmployeeJobDetails/EmployeeJob
 import Postulations from "../pages/employee/Postulations/Postulations";
 import EmployeeHistorial from "../pages/employee/EmployeeHistorial/EmployeeHistorial";
 import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
+import EmployeeComplaint from "../pages/employee/EmployeeComplaint/EmployeeComplaint";
 
 // Employer
 import EmployerRequest from "../pages/employer/EmployerRequest/EmployerRequest";
@@ -64,15 +65,23 @@ export default function AppRoutes() {
         <Route
           path="/employee/home"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client", "prueb"]}>
               <EmployeeHome />
+            </Protected>
+          }
+        />
+        <Route
+          path="/employee/complaint"
+          element={
+            <Protected acceptedRoles={["Client"]}>
+              <EmployeeComplaint />
             </Protected>
           }
         />
         <Route
           path="/employee/job/:id"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <EmployeeJobDetails />
             </Protected>
           }
@@ -80,15 +89,15 @@ export default function AppRoutes() {
         <Route
           path="/employee/postulations"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <Postulations />
             </Protected>
           }
         />
         <Route
-          path="/employee/rating"
+          path="/employee/rating/:id"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <EmployeeRating />
             </Protected>
           }
@@ -96,7 +105,7 @@ export default function AppRoutes() {
         <Route
           path="/employee/historial"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <EmployeeHistorial />
             </Protected>
           }
@@ -105,7 +114,7 @@ export default function AppRoutes() {
         <Route
           path="/myProfile"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <UserProfile />
             </Protected>
           }
@@ -115,7 +124,7 @@ export default function AppRoutes() {
         <Route
           path="/employer/createJob"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <EmployerCreateJob />
             </Protected>
           }
@@ -123,7 +132,7 @@ export default function AppRoutes() {
         <Route
           path="/employer/request"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <EmployerRequest />
             </Protected>
           }
@@ -132,7 +141,7 @@ export default function AppRoutes() {
         <Route
           path="/employer/jobDetails/:id"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <EmployerJobDetails />
             </Protected>
           }
@@ -141,7 +150,7 @@ export default function AppRoutes() {
         <Route
           path="/employer/historial"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Client"]}>
               <EmployerHistorial />
             </Protected>
           }
@@ -151,7 +160,7 @@ export default function AppRoutes() {
         <Route
           path="/moderator/home"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Moderator"]}>
               <ModeratorHome />
             </Protected>
           }
@@ -159,7 +168,7 @@ export default function AppRoutes() {
         <Route
           path="/moderator/job/detail/:id"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["Moderator"]}>
               <ModeratorJobDetail />
             </Protected>
           }
@@ -169,7 +178,7 @@ export default function AppRoutes() {
         <Route
           path="/support/home"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin", "Support"]}>
               <SupportHome />
             </Protected>
           }
@@ -177,7 +186,7 @@ export default function AppRoutes() {
         <Route
           path="/support/historial_complains"
           element={
-            <Protected acceptedRoles={["Support"]}>
+            <Protected acceptedRoles={["SysAdmin", "Support"]}>
               <HistoryComplains />
             </Protected>
           }
@@ -186,7 +195,7 @@ export default function AppRoutes() {
         <Route
           path="/support/detail/:id"
           element={
-            <Protected acceptedRoles={["Admin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin", "Support"]}>
               <SupportDetail />
             </Protected>
           }
@@ -195,7 +204,7 @@ export default function AppRoutes() {
         <Route
           path="/sysadmin/home"
           element={
-            <Protected acceptedRoles={["SysAdmin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin"]}>
               <SysAdminHome />
             </Protected>
           }
@@ -203,7 +212,7 @@ export default function AppRoutes() {
         <Route
           path="/sysadmin/createUser"
           element={
-            <Protected acceptedRoles={["SysAdmin", "Client"]}>
+            <Protected acceptedRoles={["SysAdmin"]}>
               <SysAdminCreateUser />
             </Protected>
           }

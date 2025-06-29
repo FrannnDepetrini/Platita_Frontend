@@ -43,5 +43,66 @@ export const jobService = {
         error.response?.data?.message || "Error eliminando el trabajo"
       );
     }
+  },
+
+  create: async (jobData) => {
+    try {
+      const response = await api.post("/Job/create", jobData);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error creando el trabajo"
+      );
+    }
+  },
+
+  getJobForModeratorByID: async (id) => {
+    try {
+      const response = await api.get("/Job/GetJobsForModeratorById", {
+        params: { jobId: id },
+      });
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error obteniendo los trabajos"
+      );
+    }
+  },
+  deleteJobReported: async (id) => {
+    try {
+      const response = await api.delete("Report/DeleteJobReported", {
+        params: { jobId: id },
+      });
+      console.log(response);
+      return response;
+    } catch (error) {
+      console.log(error);
+      throw new Error(
+        error.response?.data?.message || "Error eliminando el trabajo"
+      );
+    }
+  },
+    deleteLogicJob: async (id) => {
+    try {
+      const response = await api.patch(`/Job/DeleteLogic/${id}`);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || `Error eliminando el trabajo ${id}`
+      );
+    };
+  },
+  restoreJob: async (id) => {
+  try {
+    const response = await api.patch("Job/ResetJobCancellation", null, {
+      params: { idJob: id }, // <-- este es el nombre correcto
+    });
+    return response;
+  } catch (error) {
+    throw new Error(
+      error.response?.data?.message || `Error reestableciendo el trabajo ${id}`
+    );
   }
+}
+
 };

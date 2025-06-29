@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./EmployerJobDetails.module.css";
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { FaTrashAlt } from "react-icons/fa";
-import ModalConfirm from "../../../components/modalConfirm/modalConfirm";
-import { useNavigate } from "react-router-dom";
+import ModalConfirm from "../../../components/ModalConfirm/modalConfirm";
 import PostulationNumber from "../../employee/Postulations/PostulationNumber";
 import useAuth from "../../../services/contexts/AuthProvider";
+import { jobService } from "../../../services/jobService/jobService";
+import { postulationService } from "../../../services/postulationServices/postulationService";
 
 export default function EmployerJobDetails() {
   const { id } = useParams();
@@ -14,84 +15,80 @@ export default function EmployerJobDetails() {
   const [postulations, setPostulations] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [processing, setProcessing] = useState(false);
   const [message, setMessage] = useState({
-    pricipalMessage: "",
+    principalMessage: "",
     subMessage: "",
   });
 
   const { user } = useAuth();
   const [action, setAction] = useState("");
   const [selectedPostulationId, setSelectedPostulationId] = useState("");
-
-  // Estado para saber si ya se aceptó a alguien
-  const [jobAccepted, setJobAccepted] = useState(false); // Aca se tomaria el status del trabajo si esta taken pasando el bool a true
-  const [acceptedEmployee, setAcceptedEmployee] = useState(null); // Aca asignamos el empleado o tomamos el unico que se trae cuando ya habia sido aceptado
+  const [jobAccepted, setJobAccepted] = useState(false);
+  const [jobDeleted, setJobDeleted] = useState(false);
+  const [acceptedEmployee, setAcceptedEmployee] = useState(null);
 
   const navigate = useNavigate();
   const CategoryIcon = info.category && UseCategoryIcon(info.category);
 
-  const employees = [
-    {
-      id: 1,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 2,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 3,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 4,
-      name: "Joaquín tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-    {
-      id: 5,
-      name: "Francisco tanlongo",
-      budget: 10000,
-      date: "07/04/25",
-      Status: "Aceptado",
-    },
-  ];
+  const fetchJobAndPostulations = async () => {
+    try {
+      const jobData = await jobService.getJobById(id);
+      setInfo(jobData);
+      setJobDeleted(jobData.status === "Deleted");
 
-  const infoJob = {
-    title: "Levantar un tapial",
-    category: "Mechanics",
-    description:
-      "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
-    postulations: 300,
-    status: "god",
+      if (jobData.status === "Taken" || jobData.status === "Completed") {
+        setJobAccepted(true);
+      }
+
+      const postulationData = await postulationService.getPostulationsByJobId(id);
+      const postulationsArray = Array.isArray(postulationData) ? postulationData : [];
+
+      if (jobData.status === "Taken") {
+        const accepted = postulationsArray.find((p) => p.status === "Success");
+        setAcceptedEmployee(accepted);
+        setPostulations(postulationsArray.filter((p) => p.status === "Success"));
+      } else if (jobData.status === "Available") {
+        setPostulations(postulationsArray.filter((p) => p.status === "Pending"));
+      }
+    } catch (error) {
+      console.error("Error al obtener datos del trabajo o postulaciones", error);
+      setPostulations([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    if (id) {
+      fetchJobAndPostulations();
+    } else {
       setLoading(false);
-      setInfo(infoJob);
-      setPostulations(employees);
-    }, 2000);
-  }, []);
+    }
+  }, [id]);
 
-  const handleCancelPostulant = () => {
-    handleAction("cancelPostulant");
-  };
+  const handleConfirmCancel = async () => {
+    if (!selectedPostulationId) {
+      alert("No se seleccionó ninguna postulación.");
+      return;
+    }
 
-  const handleConfirmCancel = () => {
-    setIsModalVisible(false);
-    setInfo({ ...info, status: "Deleted" });
+    setProcessing(true);
+
+    try {
+      await postulationService.cancelSuccessPostulation(id, selectedPostulationId);
+      setAcceptedEmployee(null);
+      setJobAccepted(false);
+      await fetchJobAndPostulations();
+      console.log(`Postulación ${selectedPostulationId} cancelada exitosamente`);
+    } catch (error) {
+      console.error("Error al cancelar la postulación aceptada", error);
+      alert(error.message || "Error al cancelar la postulación. Inténtalo más tarde.");
+    } finally {
+      setIsModalVisible(false);
+      setSelectedPostulationId("");
+      setProcessing(false);
+    }
   };
 
   const handleAction = (actionType, postulationId = null) => {
@@ -99,49 +96,54 @@ export default function EmployerJobDetails() {
     setSelectedPostulationId(postulationId);
     setIsModalVisible(true);
 
-    if (actionType === "DeleteJob") {
-      if (jobAccepted || postulations.length > 0) {
+    switch (actionType) {
+      case "DeleteJob":
         setMessage({
-          pricipalMessage: "¿Estás seguro de borrar el trabajo?",
+          principalMessage: "¿Estás seguro de borrar el trabajo?",
           subMessage: "",
         });
-      } else {
+        break;
+      case "Reject":
         setMessage({
-          pricipalMessage: "¿Estás seguro de borrar el trabajo?",
+          principalMessage: "¿Estás seguro de eliminar la postulación?",
           subMessage: "",
         });
-      }
-    } else if (actionType === "Reject") {
-      setMessage({
-        pricipalMessage: "¿Estás seguro de eliminar la postulación?",
-        subMessage: "",
-      });
-    } else if (actionType === "Accept") {
-      setMessage({
-        pricipalMessage: "¿Estás seguro de aceptar la postulación?",
-        subMessage: "Esta acción eliminará todas las demás postulaciones",
-      });
-    } else if (actionType === "cancelPostulant") {
-      setMessage({
-        pricipalMessage: "¿Estás seguro de cancelar al postulante?",
-        subMessage:
-          "Esta acción tendrá una sancion que se vera reflejada en tu rating",
-      });
-    } else if (actionType === "restoreJob") {
-      console.log("ando re facil");
-      setMessage({
-        pricipalMessage: "¿Estás seguro de reestablecer el trabajo?",
-        subMessage: "",
-      });
+        break;
+      case "Accept":
+        setMessage({
+          principalMessage: "¿Estás seguro de aceptar la postulación?",
+          subMessage: "Esta acción eliminará todas las demás postulaciones",
+        });
+        break;
+      case "cancelPostulant":
+        setMessage({
+          principalMessage: "¿Estás seguro de cancelar al postulante?",
+          subMessage: "Esta acción tendrá una sanción que se verá reflejada en tu rating",
+        });
+        break;
+      case "restoreJob":
+        setMessage({
+          principalMessage: "¿Estás seguro de reestablecer el trabajo?",
+          subMessage: "",
+        });
+        break;
+      default:
+        break;
     }
   };
 
-  const handleConfirmRestore = () => {
-    setInfo({ ...infoJob, status: "Available" });
-    setPostulations(employees);
-    setIsModalVisible(false);
-    setJobAccepted(false);
-    setSelectedPostulationId("");
+  const handleConfirmRestore = async () => {
+    try {
+      await jobService.restoreJob(id);
+      await fetchJobAndPostulations();
+      setJobAccepted(false);
+      setAcceptedEmployee(null);
+      setIsModalVisible(false);
+      setSelectedPostulationId("");
+    } catch (error) {
+      console.error("Error al reestablecer el trabajo", error);
+      alert("Error al reestablecer el trabajo. Inténtalo nuevamente más tarde.");
+    }
   };
 
   const handleCancel = () => {
@@ -149,39 +151,65 @@ export default function EmployerJobDetails() {
     setSelectedPostulationId("");
   };
 
-  const handleConfirmDelete = () => {
-    setIsModalVisible(false);
-    navigate(-1, { replace: true });
+  const handleConfirmDelete = async () => {
+    try {
+      await jobService.deleteLogicJob(id);
+      setInfo((prev) => ({ ...prev, status: "Deleted" }));
+      await fetchJobAndPostulations();
+    } catch (error) {
+      console.error("Error al eliminar el trabajo", error);
+      alert(error.message || "Error al eliminar el trabajo. Inténtalo nuevamente más tarde.");
+    } finally {
+      setIsModalVisible(false);
+    }
   };
 
-  const handleConfirmReject = () => {
-    setSelectedPostulationId("");
-    setIsModalVisible(false);
-    if (selectedPostulationId) {
-      setPostulations((prev) =>
-        prev.filter((p) => p.id !== selectedPostulationId)
-      );
+  const handleConfirmReject = async () => {
+    if (!selectedPostulationId) {
+      alert("No se seleccionó ninguna postulación.");
+      return;
+    }
+
+    try {
+      await postulationService.deletePostulationLogic(id, selectedPostulationId);
+      setPostulations((prev) => prev.filter((p) => p.id !== selectedPostulationId));
       console.log(`Postulación ${selectedPostulationId} rechazada`);
+      await fetchJobAndPostulations();
+    } catch (error) {
+      console.error("Error al rechazar la postulación", error);
+      alert("Error al rechazar la postulación. Inténtalo nuevamente más tarde.");
+    } finally {
+      setIsModalVisible(false);
+      setSelectedPostulationId("");
     }
   };
 
-  const handleConfirmAccept = () => {
+  const handleConfirmAccept = async () => {
+    if (!selectedPostulationId) {
+      alert("No se seleccionó ninguna postulación.");
+      return;
+    }
+
+    setProcessing(true);
     setIsModalVisible(false);
-    if (selectedPostulationId) {
-      const acceptedEmployeeData = postulations.find(
-        (p) => p.id === selectedPostulationId
-      );
 
-      setPostulations([acceptedEmployeeData]);
+    try {
+      const selectedPost = postulations.find((p) => p.id === selectedPostulationId);
+      if (!selectedPost) {
+        alert("No se encontró la postulación seleccionada.");
+        return;
+      }
 
-      setJobAccepted(true);
-      setAcceptedEmployee(acceptedEmployeeData);
-
-      console.log(`Postulación ${selectedPostulationId} aceptada`);
+      await postulationService.approvePostulation(id, selectedPostulationId);
+      window.location.reload(); // O reemplazar por fetchJobAndPostulations()
+    } catch (error) {
+      console.error("Error al aprobar la postulación:", error);
+    } finally {
+      setSelectedPostulationId("");
+      setProcessing(false);
     }
   };
 
-  // Función para determinar qué función de confirmación usar
   const getConfirmHandler = () => {
     switch (action) {
       case "DeleteJob":
@@ -226,37 +254,44 @@ export default function EmployerJobDetails() {
                 <p>{info.description}</p>
               </div>
               <div className={styles.number_postulations}>
-                {jobAccepted ? (
+                {jobDeleted ? (
+                  <span style={{ color: "red" }}>❌ Trabajo cancelado</span>
+                ) : jobAccepted ? (
                   <span style={{ color: "green" }}>
-                    ✅ Trabajo aceptado - {acceptedEmployee?.name}
+                    ✅ Trabajo aceptado -{" "}
+                    {acceptedEmployee?.client?.userName || acceptedEmployee?.name}
                   </span>
                 ) : (
-                  <span>+{info.postulations} Postulaciones</span>
+                  <span>{info.amountPostulations} Postulaciones</span>
                 )}
               </div>
             </div>
             <div className={styles.container_button}>
-              {info.status == "Available" ? (
-                <button
-                  disabled={jobAccepted}
-                  onClick={() => handleAction("DeleteJob")}
-                >
-                  <FaTrashAlt size={30} className={styles.icon} />
-                </button>
-              ) : (
+              {jobDeleted ? (
                 <button
                   className={styles.buttonRestore}
                   onClick={() => handleAction("restoreJob")}
                 >
                   Reestablecer
                 </button>
+              ) : (
+                <button disabled={jobAccepted} onClick={() => handleAction("DeleteJob")}>
+                  <FaTrashAlt size={30} className={styles.icon} />
+                </button>
               )}
             </div>
           </div>
 
-          {/* Tabla con scroll y header fijo */}
           <div className={styles.tableContainer}>
-            {postulations.length > 0 ? (
+            {jobDeleted ? (
+              <div className={styles.noPostulations}>
+                <div className={styles.noPostulationsIcon}>❌</div>
+                <h3 className={styles.noPostulationsTitle}>Trabajo cancelado</h3>
+                <p className={styles.noPostulationsMessage}>
+                  Este trabajo fue cancelado. No se pueden mostrar postulaciones.
+                </p>
+              </div>
+            ) : postulations.length > 0 ? (
               <table className={styles.table}>
                 <thead>
                   <tr className={styles.headerRow}>
@@ -273,78 +308,70 @@ export default function EmployerJobDetails() {
                   </tr>
                 </thead>
                 <tbody>
-                  {postulations.map((postulation) => (
-                    <tr key={postulation.id} className={styles.bodyRow}>
-                      <td className={styles.bodyCell}>
-                        {jobAccepted &&
-                        postulation.id === acceptedEmployee?.id ? (
-                          <span style={{ fontWeight: "bold", color: "green" }}>
-                            ✅ {postulation.name}
-                          </span>
-                        ) : (
-                          postulation.name
-                        )}
-                      </td>
-                      <td className={`${styles.bodyCell} ${styles.budget}`}>
-                        {postulation.budget.toLocaleString()}$
-                      </td>
-                      <td className={styles.bodyCell}>{postulation.date}</td>
-                      <td className={styles.bodyCell}>
-                        <div className={styles.actions}>
-                          {!jobAccepted ? (
-                            <>
-                              <button
-                                className={`${styles.button} ${styles.rejectButton}`}
-                                onClick={() =>
-                                  handleAction("Reject", postulation.id)
-                                }
-                                disabled={selectedPostulationId}
-                              >
-                                Rechazar
-                              </button>
-                              <button
-                                className={`${styles.button} ${styles.acceptButton}`}
-                                onClick={() =>
-                                  handleAction("Accept", postulation.id)
-                                }
-                                disabled={selectedPostulationId}
-                              >
-                                Aceptar
-                              </button>
-                            </>
-                          ) : (
-                            <span
-                              style={{ color: "green", fontWeight: "bold" }}
-                            >
-                              Contratado
+                  {postulations
+                    .filter((p) => p.status !== "Rejected" || p.status !== "Cancelled")
+                    .map((postulation) => (
+                      <tr key={postulation.id} className={styles.bodyRow}>
+                        <td className={styles.bodyCell}>
+                          {jobAccepted && postulation.id === acceptedEmployee?.id ? (
+                            <span style={{ fontWeight: "bold", color: "green" }}>
+                              ✅ {postulation.client?.userName}
                             </span>
+                          ) : (
+                            postulation.client?.userName
                           )}
-                        </div>
-                      </td>
-                      {jobAccepted && (
-                        <>
-                          <PostulationNumber
-                            ps={postulation}
-                            userName={user.name}
-                          />
-                          <td>
-                            <FaTrashAlt
-                              onClick={() => handleCancelPostulant()}
-                              className={styles.delete_icon}
-                            />
-                          </td>
-                        </>
-                      )}
-                    </tr>
-                  ))}
+                        </td>
+                        <td className={`${styles.bodyCell} ${styles.budget}`}>
+                          {postulation.budget?.toLocaleString()}$
+                        </td>
+                        <td className={styles.bodyCell}>{postulation.jobDay}</td>
+                        <td className={styles.bodyCell}>
+                          <div className={styles.actions}>
+                            {!jobAccepted ? (
+                              <>
+                                <button
+                                  className={`${styles.button} ${styles.rejectButton}`}
+                                  onClick={() => handleAction("Reject", postulation.id)}
+                                  disabled={processing}
+                                >
+                                  Rechazar
+                                </button>
+                                <button
+                                  className={`${styles.button} ${styles.acceptButton}`}
+                                  onClick={() => handleAction("Accept", postulation.id)}
+                                  disabled={processing}
+                                >
+                                  {processing && selectedPostulationId === postulation.id
+                                    ? "Aceptando..."
+                                    : "Aceptar"}
+                                </button>
+                              </>
+                            ) : (
+                              <span style={{ color: "green", fontWeight: "bold" }}>
+                                Contratado
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                        {jobAccepted && (
+                          <>
+                            <PostulationNumber ps={postulation} userName={user.name} jobId={id} />
+                            <td>
+                              <FaTrashAlt
+                                onClick={() => handleAction("cancelPostulant", postulation.id)}
+                                className={styles.delete_icon}
+                              />
+                            </td>
+                          </>
+                        )}
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             ) : (
               <div className={styles.noPostulations}>
                 <div className={styles.noPostulationsIcon}>📋</div>
-                <h3 className={styles.noPostulationsTitle}>
-                  No hay postulaciones
-                </h3>
+                <h3 className={styles.noPostulationsTitle}>No hay postulaciones</h3>
                 <p className={styles.noPostulationsMessage}>
                   Aún no se han recibido postulaciones para este trabajo.
                 </p>
@@ -355,11 +382,12 @@ export default function EmployerJobDetails() {
       )}
 
       <ModalConfirm
-        message={message.pricipalMessage}
+        message={message.principalMessage}
         subMessage={message.subMessage}
         isModalVisible={isModalVisible}
         handleCancel={handleCancel}
         handleConfirm={getConfirmHandler()}
+        loading={processing}
       />
     </div>
   );
