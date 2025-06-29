@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
 
         break;
       case "Moderator":
-        navigate("/moderator/job/detail", { replace: true });
+        navigate("/moderator/home", { replace: true });
         break;
       case "SysAdmin":
         navigate("/sysadmin/home", { replace: true });
@@ -80,7 +80,7 @@ export function AuthProvider({ children }) {
 
           break;
         case "Moderator":
-          navigate("/moderator/job/detail", { replace: true });
+          navigate("/moderator/home", { replace: true });
           break;
         case "SysAdmin":
           navigate("/sysadmin/home", { replace: true });
