@@ -5,33 +5,54 @@ import Reputation from "../../components/Reputation/Reputation";
 import classNames from "classnames";
 import SearchInput from "../../components/SearchInput/SearchInput";
 import ProfileCircle from "../../components/ProfileCircle/ProfileCircle";
-import useAuth from "../../services/contexts/AuthProvider";
+// import useAuth from "../../services/contexts/AuthProvider";
+import { authService } from "../../services/authservices/authServices";
+import { clientService } from "../../services/authservices/clientServices";
 
 const UserProfile = () => {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const { getCurrentUser } = authService;
+  const { getReputation, updateUser } = clientService;
+
+  const [userData, setUserData] = useState({});
+  const [reputation, setReputation] = useState([]);
 
   const [formData, setFormData] = useState({
-    name: user.name.split(" ")[0],
-    lastName: user.name.split(" ")[1],
-    email: user.email,
-    phoneNumber: user.phoneNumber || "",
-    province: user.province || "",
-    city: user.city || "",
+    name: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    province: "",
+    city: "",
     photo: ""
   });
 
   const [areInputsEditable, setAreInputsEditable] = useState(true);
   const [originalData, setOriginalData] = useState({});
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userData = await getCurrentUser();
+        setUserData(userData);
+        const reputation = await getReputation();
+        setReputation(reputation);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    }
+
+    fetchUser();
+  }, [getCurrentUser, getReputation, updateUser]);
+
   const formatPhoneNumber = (phoneNumber) => {
     if (!phoneNumber) return "";
-    
+
     if (phoneNumber.length >= 10) {
       const areaCode = phoneNumber.slice(0, 4);
       const rest = phoneNumber.slice(4);
       return `(${areaCode}) ${rest}`;
     }
-
     else if (phoneNumber.length >= 5) {
       const areaCode = phoneNumber.slice(0, 4);
       const rest = phoneNumber.slice(4);
@@ -42,38 +63,47 @@ const UserProfile = () => {
   };
 
   useEffect(() => {
-    const initialData = {
-      name: user.name.split(" ")[0],
-      lastName: user.name.split(" ")[1],
-      email: user.email,
-      phoneNumber: user.phoneNumber || "",
-      province: user.province || "",
-      city: user.city || "",
-      photo: ""
-    };
+    if (userData && userData.userName) {
+      const nameParts = userData.userName.split(" ");
+      const initialData = {
+        name: nameParts[0] || "",
+        lastName: nameParts[1] || "",
+        email: userData.email || "",
+        phoneNumber: userData.phoneNumber || "",
+        province: userData.province || "",
+        city: userData.city || "",
+        photo: userData.photo || ""
+      };
 
-    setFormData(initialData);
-    setOriginalData(initialData);
-  }, [user]);
+      setFormData(initialData);
+      setOriginalData(initialData);
+    }
+  }, [userData]);
 
+  // Reputacion para el Empleador
+
+  const reputationEmployer = reputation[0]
   const reputationData1 = {
-    5: 200,
-    4: 40,
-    3: 15,
-    2: 5,
-    1: 0,
+    5: reputationEmployer?.ratings["5"] || 0,
+    4: reputationEmployer?.ratings["4"] || 0,
+    3: reputationEmployer?.ratings["3"] || 0,
+    2: reputationEmployer?.ratings["2"] || 0,
+    1: reputationEmployer?.ratings["1"] || 0,
   };
 
+
+  // Reputacion para el Empleado
+  const reputationEmployee = reputation[1]
   const reputationData2 = {
-    5: 5,
-    4: 10,
-    3: 90,
-    2: 25,
-    1: 8,
+    5: reputationEmployee?.ratings["5"] || 0,
+    4: reputationEmployee?.ratings["4"] || 0,
+    3: reputationEmployee?.ratings["3"] || 0,
+    2: reputationEmployee?.ratings["2"] || 0,
+    1: reputationEmployee?.ratings["1"] || 0,
   };
 
   const handleChange = (name, value) => {
-    switch (name){
+    switch (name) {
       case "phoneNumber":
         const rawValue = value.replace(/\D/g, "").slice(0, 11);
         setFormData(prevData => ({ ...prevData, phoneNumber: rawValue }));
@@ -104,14 +134,26 @@ const UserProfile = () => {
     setAreInputsEditable(!areInputsEditable);
   };
 
-  const handleConfirm = () => {
-    console.log("Cambios realizados", formData);
-    
-    // Aquí harías la llamada a la API
-    // await updateUserProfile(formData);
-    
-    setAreInputsEditable(true);
-    setOriginalData({ ...formData });
+  const handleConfirm = async () => {
+    try {
+      const data = {
+        userName: `${formData.name} ${formData.lastName}`,
+        phoneNumber: formData.phoneNumber,
+        province: formData.province,
+        city: formData.city
+      };
+
+      await updateUser(data);
+      window.location.reload();
+
+      setAreInputsEditable(true);
+      setOriginalData({ ...formData });
+    } catch (error) {
+      console.error("Error updating profile:", error);
+      setFormData({ ...originalData });
+
+      // Handle error appropriately
+    }
   };
 
   const handleCancel = () => {
@@ -132,6 +174,7 @@ const UserProfile = () => {
             <div>
               <label htmlFor="name">Nombre </label>
               <input
+                id="name"
                 name="name"
                 disabled={areInputsEditable}
                 type="text"
@@ -142,6 +185,7 @@ const UserProfile = () => {
             <div>
               <label htmlFor="lastName">Apellido</label>
               <input
+                id="lastName"
                 name="lastName"
                 disabled={areInputsEditable}
                 type="text"
@@ -153,8 +197,9 @@ const UserProfile = () => {
             <div>
               <label htmlFor="email">Email</label>
               <input
+                id="email"
                 name="email"
-                disabled={areInputsEditable}
+                disabled={true}
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange}
@@ -163,20 +208,21 @@ const UserProfile = () => {
             <div>
               <label htmlFor="phoneNumber">Numero de telefono</label>
               <input
+                id="phoneNumber"
                 name="phoneNumber"
                 disabled={areInputsEditable}
                 type="tel"
                 value={formatPhoneNumber(formData.phoneNumber)}
                 onChange={handleInputChange}
-                maxLength={14} 
+                maxLength={14}
                 placeholder="(0123) 4567890"
               />
             </div>
 
-            <SearchInput 
-              onChange={handleCustomChange} 
-              province={formData.province} 
-              city={formData.city} 
+            <SearchInput
+              onChange={handleCustomChange}
+              province={formData.province}
+              city={formData.city}
               isDisabled={areInputsEditable}
             />
 
@@ -187,14 +233,36 @@ const UserProfile = () => {
               className={classNames(styles.button_container, styles.edit, {
                 [styles.pressed]: !areInputsEditable,
               })}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleEdit();
+                }
+              }}
             >
               <FaEdit className={styles.edit_icon} />
             </div>
             <div
               className={classNames(styles.button_container, styles.check, {
                 [styles.pressed]: !areInputsEditable,
+              }, {
+                [styles.disabled]: originalData == formData ||
+                  formData.name === "" ||
+                  formData.lastName === "" || 
+                  formData.phoneNumber === "" || 
+                  formData.province === "" || 
+                  formData.city === "" || 
+                  formData.phoneNumber.length < 10
               })}
               onClick={handleConfirm}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleConfirm();
+                }
+              }}
             >
               <FaCheck className={styles.check_icon} />
             </div>
@@ -203,16 +271,23 @@ const UserProfile = () => {
               className={classNames(styles.button_container, styles.cancel, {
                 [styles.pressed]: !areInputsEditable,
               })}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleCancel();
+                }
+              }}
             >
               <FaPlus className={styles.cancel_icon} />
             </div>
           </div>
         </div>
         <div className={styles.imageAndReputation}>
-          <ProfileCircle 
-            value={formData.photo} 
-            name="photo" 
-            onChange={handleCustomChange} 
+          <ProfileCircle
+            value={formData.photo}
+            name="photo"
+            onChange={handleCustomChange}
             isDisabled={areInputsEditable}
           />
 

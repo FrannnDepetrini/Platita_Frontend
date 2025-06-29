@@ -22,7 +22,7 @@ const ModeratorJobDetail = () => {
 
   const CategoryIcon = UseCategoryIcon(job.category);
 
-  const fethFunction = async () => {
+  const fetchFunction = async () => {
     try {
       const response = await jobService.getJobForModeratorByID(id);
       console.log(response);
@@ -35,7 +35,7 @@ const ModeratorJobDetail = () => {
   };
 
   useEffect(() => {
-    fethFunction();
+    fetchFunction();
   }, []);
 
   const handleAction = (action) => {
@@ -49,7 +49,7 @@ const ModeratorJobDetail = () => {
   const handleConfirmDelete = async () => {
     try {
       const response = await jobService.deleteJobReported(id);
-      console.log(response);
+      // console.log(response);
       setIsModalVisible(false);
       navigate("/moderator/home");
     } catch (error) {
