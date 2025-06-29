@@ -1,15 +1,15 @@
 .title_container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 1200px;
-    margin: 0 auto 0 auto;
-    margin-top: 20px;
-    margin-bottom: 0px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 1200px;
+  margin: 0 auto 0 auto;
+  margin-top: 20px;
+  margin-bottom: 0px;
 }
 
 .grey_title {
-    color: var(--gray);
+  color: var(--gray);
 }
 
 .expired {
@@ -109,7 +109,7 @@ tfoot td {
 }
 
 .job_title {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 .job_title:hover {
@@ -118,29 +118,36 @@ tfoot td {
 }
 
 .job_date {
-    font-weight: normal;
+  font-weight: normal;
 }
 
 .state_finalizado {
-    color: var(--principalRed);
-    background-color: var(--transparentRed);
-    border-radius: 15px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+  color: var(--principalRed);
+  background-color: var(--transparentRed);
+  border-radius: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .state_asignado {
-    color: var(--principalYellow);
-    background-color: var(--transparentYellow);
-    border-radius: 15px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+  color: var(--principalYellow);
+  background-color: var(--transparentYellow);
+  border-radius: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .state_disponible {
-    color: var(--principalGreen);
-    background-color: var(--transparentGreen);
-    border-radius: 15px;
-    padding-top: 7px;
-    padding-bottom: 7px;
+  color: var(--principalGreen);
+  background-color: var(--transparentGreen);
+  border-radius: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+.state_done {
+  color: var(--purple);
+  background-color: var(--transparentPurple);
+  border-radius: 15px;
+  padding-top: 7px;
+  padding-bottom: 7px;
 }

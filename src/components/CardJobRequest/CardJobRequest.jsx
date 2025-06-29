@@ -1,12 +1,18 @@
 // CardJobRequest.jsx
+import { useNavigate } from "react-router-dom";
 import UseCategoryIcon from "../../customHooks/UseCategoryIcon";
 import "./CardJobRequest.css";
 
 export default function CardJobRequest({ jobInfo }) {
   const CategoryIcon = UseCategoryIcon(jobInfo.category);
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => {
+    navigate(`/employer/jobDetails/${id}`);
+  };
 
   return (
-    <div className="cardjob-request">
+    <div onClick={() => handleNavigate(jobInfo.id)} className="cardjob-request">
       <div className="request-title">
         <h2>{jobInfo.title}</h2>
         <CategoryIcon className="rjob-icon" />

@@ -1,9 +1,9 @@
-import styles from './EmployerHistorial.module.css';
+import styles from "./EmployerHistorial.module.css";
 
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
 import { FaTrashAlt } from "../../../utils/icons/icons";
 import { useEffect, useState } from "react";
-import { jobService } from '../../../services/jobService/jobService';
+import { jobService } from "../../../services/jobService/jobService";
 import { useNavigate } from "react-router-dom";
 
 export default function EmployeeHistorial() {
@@ -13,7 +13,7 @@ export default function EmployeeHistorial() {
 
   const handleGoToJobDetail = (id) => {
     navigate(`/employer/jobDetails/${id}`);
-  }
+  };
 
   const handleJobDetail = async (id) => {
     try {
@@ -22,30 +22,29 @@ export default function EmployeeHistorial() {
     } catch (error) {
       alert(error.message);
     }
-  }
-
-  useEffect(() => {
-  const fetchJobs = async () => {
-    try {
-      const response = await jobService.getMyJobs();
-      console.log("RESPONSE:", response);
-
-      if (Array.isArray(response)) {
-        setJobs(response);
-      } else {
-        setJobs([]);
-      }
-    } catch (error) {
-      alert(error.message);
-      setJobs([]);
-    } finally {
-      setLoading(false);
-    }
   };
 
-  fetchJobs();
-}, []);
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await jobService.getMyJobs();
+        console.log("RESPONSE:", response);
 
+        if (Array.isArray(response)) {
+          setJobs(response);
+        } else {
+          setJobs([]);
+        }
+      } catch (error) {
+        alert(error.message);
+        setJobs([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchJobs();
+  }, []);
 
   const handleDeleteJob = async (id) => {
     if (!window.confirm("¿Estás seguro de que quieres eliminar este trabajo?"))
@@ -61,106 +60,107 @@ export default function EmployeeHistorial() {
   };
 
   const jobsMapped = () => {
-  if (jobs.length === 0) {
-    return (
-      <tr>
-        <td colSpan={6}>No tienes trabajos aún!</td>
-      </tr>
-    );
-  }
+    if (jobs.length === 0) {
+      return (
+        <tr>
+          <td colSpan={6}>No tienes trabajos aún!</td>
+        </tr>
+      );
+    }
 
-  return jobs.map((job) => {
-    const CategoryIcon = UseCategoryIcon(job.category);
-    const stateClass = {
-      deleted: styles.state_finalizado,
-      taken: styles.state_asignado,
-      available: styles.state_disponible,
-    };
+    return jobs.map((job) => {
+      const CategoryIcon = UseCategoryIcon(job.category);
+      const stateClass = {
+        deleted: styles.state_finalizado,
+        taken: styles.state_asignado,
+        available: styles.state_disponible,
+        done: styles.state_done,
+      };
 
-    return (
-      <tr key={job.id}>
-        <td
-        onClick={() => handleGoToJobDetail(job.id)}
-        className={styles.job_title}
-        style={{ cursor: "pointer" }}>
-            {job.title}
-        </td>
-        <td
-          onClick={() => handleJobDetail(job.id)}
-          className={styles.td_empleado}
-        >
-          <h4>{job.userName}</h4>
-        </td>
-        <td>
-          <CategoryIcon className={styles.category_icon} />
-        </td>
-        <td>
-          <div
-            className={`${styles.job_state} ${
-              stateClass[job.status?.toLowerCase()] || ""
-            }`}
-            style={{ fontWeight: "normal" }}
+      return (
+        <tr key={job.id}>
+          <td
+            onClick={() => handleGoToJobDetail(job.id)}
+            className={styles.job_title}
+            style={{ cursor: "pointer" }}
           >
-            {job.status}
-          </div>
-        </td>
-        <td>
-          <div className={styles.job_date}>
-            {new Date(job.dayPublicationEnd).toLocaleDateString()}
-          </div>
-        </td>
-        <td>
-          <FaTrashAlt
-            onClick={() => handleDeleteJob(job.id)}
-            className={styles.delete_icon}
-          />
-        </td>
-      </tr>
-    );
-  });
-};
-
-
-return (
-    <>
-        <div className={styles.title_container}>
-            <h1 className={styles.title}>
-                <span className={styles.grey_title}>Inicio</span>
-                /Historial de Trabajos
-            </h1>
-        </div>
-        <div className={styles.job_container}>
-            <div className={styles.table_container}>
-                <table className={styles.table_job}>
-                    <thead>
-                        <tr>
-                            <th>Trabajo</th>
-                            <th>Empleado</th>
-                            <th>Categoría</th>
-                            <th>Estado</th>
-                            <th>Fecha de finalizacion</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {loading ? (
-                            <tr>
-                                <td colSpan={6}>
-                                    Cargando trabajos<span className={styles.dots}></span>
-                                </td>
-                            </tr>
-                        ) : (
-                            jobsMapped()
-                        )}
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colSpan={6}></td>
-                        </tr>
-                    </tfoot>
-                </table>
+            {job.title}
+          </td>
+          <td
+            onClick={() => handleJobDetail(job.id)}
+            className={styles.td_empleado}
+          >
+            <h4>{job.userName}</h4>
+          </td>
+          <td>
+            <CategoryIcon className={styles.category_icon} />
+          </td>
+          <td>
+            <div
+              className={`${styles.job_state} ${
+                stateClass[job.status?.toLowerCase()] || ""
+              }`}
+              style={{ fontWeight: "normal" }}
+            >
+              {job.status}
             </div>
+          </td>
+          <td>
+            <div className={styles.job_date}>
+              {new Date(job.dayPublicationEnd).toLocaleDateString()}
+            </div>
+          </td>
+          <td>
+            <FaTrashAlt
+              onClick={() => handleDeleteJob(job.id)}
+              className={styles.delete_icon}
+            />
+          </td>
+        </tr>
+      );
+    });
+  };
+
+  return (
+    <>
+      <div className={styles.title_container}>
+        <h1 className={styles.title}>
+          <span className={styles.grey_title}>Inicio</span>
+          /Historial de Trabajos
+        </h1>
+      </div>
+      <div className={styles.job_container}>
+        <div className={styles.table_container}>
+          <table className={styles.table_job}>
+            <thead>
+              <tr>
+                <th>Trabajo</th>
+                <th>Empleado</th>
+                <th>Categoría</th>
+                <th>Estado</th>
+                <th>Fecha de finalizacion</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {loading ? (
+                <tr>
+                  <td colSpan={6}>
+                    Cargando trabajos<span className={styles.dots}></span>
+                  </td>
+                </tr>
+              ) : (
+                jobsMapped()
+              )}
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colSpan={6}></td>
+              </tr>
+            </tfoot>
+          </table>
         </div>
+      </div>
     </>
-);
+  );
 }

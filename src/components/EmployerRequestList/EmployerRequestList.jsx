@@ -28,8 +28,12 @@ const EmployerRequestList = () => {
   }, []);
 
   const filteredJobs = useMemo(() => {
+    console.log(jobs);
+    const jobsAvailable = jobs.filter(
+      (j) => j.status === "Available" || j.status === "Taken"
+    );
     const term = searchTerm.toLowerCase();
-    return jobs.filter(
+    return jobsAvailable.filter(
       (job) =>
         job.title.toLowerCase().includes(term) ||
         job.description.toLowerCase().includes(term) ||

@@ -77,6 +77,18 @@
   animation: spin 1s linear infinite;
 }
 
+.loaderFinish {
+  width: 20px;
+  height: 20px;
+  border: 4px solid white !important;
+  border-top-color: transparent !important;
+}
+
+.finishButton {
+  background-color: var(--principalGreen) !important;
+  color: white;
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);

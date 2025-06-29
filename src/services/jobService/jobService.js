@@ -40,7 +40,6 @@ export const jobService = {
       return response;
     } catch (error) {
       throw new Error(
-
         error.response?.data?.message || "Error eliminando el trabajo"
       );
     }
@@ -55,7 +54,6 @@ export const jobService = {
         error.response?.data?.message || "Error creando el trabajo"
       );
     }
-
   },
 
   getJobForModeratorByID: async (id) => {
@@ -84,7 +82,7 @@ export const jobService = {
       );
     }
   },
-    deleteLogicJob: async (id) => {
+  deleteLogicJob: async (id) => {
     try {
       const response = await api.patch(`/Job/DeleteLogic/${id}`);
       return response;
@@ -95,16 +93,28 @@ export const jobService = {
     }
   },
   restoreJob: async (id) => {
-  try {
-    const response = await api.patch("Job/ResetJobCancellation", null, {
-      params: { idJob: id }, // <-- este es el nombre correcto
-    });
-    return response;
-  } catch (error) {
-    throw new Error(
-      error.response?.data?.message || `Error reestableciendo el trabajo ${id}`
-    );
-  }
-}
-
+    try {
+      const response = await api.patch("Job/ResetJobCancellation", null, {
+        params: { idJob: id },
+      });
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message ||
+          `Error reestableciendo el trabajo ${id}`
+      );
+    }
+  },
+  finishJob: async (id) => {
+    try {
+      const response = await api.put("Job/JobFinished", null, {
+        params: { idJob: id },
+      });
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || `Error finalizando el trabajo ${id}`
+      );
+    }
+  },
 };

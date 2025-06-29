@@ -8,6 +8,8 @@ import PostulationNumber from "../../employee/Postulations/PostulationNumber";
 import useAuth from "../../../services/contexts/AuthProvider";
 import { jobService } from "../../../services/jobService/jobService";
 import { postulationService } from "../../../services/postulationServices/postulationService";
+import { MdStayPrimaryLandscape } from "react-icons/md";
+import classNames from "classnames";
 
 export default function EmployerJobDetails() {
   const { id } = useParams();
@@ -27,6 +29,7 @@ export default function EmployerJobDetails() {
   const [jobAccepted, setJobAccepted] = useState(false);
   const [jobDeleted, setJobDeleted] = useState(false);
   const [acceptedEmployee, setAcceptedEmployee] = useState(null);
+  const [finishLoading, setFinishLoading] = useState(false);
 
   const navigate = useNavigate();
   const CategoryIcon = info.category && UseCategoryIcon(info.category);
@@ -147,6 +150,12 @@ export default function EmployerJobDetails() {
           subMessage: "",
         });
         break;
+      case "finishJob":
+        setMessage({
+          principalMessage: "¿Estás seguro de finalizar el trabajo?",
+          subMessage: "",
+        });
+        break;
       default:
         break;
     }
@@ -165,6 +174,20 @@ export default function EmployerJobDetails() {
       alert(
         "Error al reestablecer el trabajo. Inténtalo nuevamente más tarde."
       );
+    }
+  };
+
+  const handleConfirmFinish = async () => {
+    setIsModalVisible(false);
+    try {
+      setFinishLoading(true);
+      await jobService.finishJob(id);
+      navigate("/employer/request");
+    } catch (error) {
+      console.error("Error al finalizar el trabajo", error);
+      alert("Error al finalizar el trabajo. Inténtalo nuevamente más tarde.");
+    } finally {
+      setFinishLoading(false);
     }
   };
 
@@ -256,6 +279,8 @@ export default function EmployerJobDetails() {
         return handleConfirmCancel;
       case "restoreJob":
         return handleConfirmRestore;
+      case "finishJob":
+        return handleConfirmFinish;
       default:
         return () => {};
     }
@@ -308,6 +333,19 @@ export default function EmployerJobDetails() {
                   onClick={() => handleAction("restoreJob")}
                 >
                   Reestablecer
+                </button>
+              ) : info.status === "Taken" ? (
+                <button
+                  className={styles.finishButton}
+                  onClick={() => handleAction("finishJob")}
+                >
+                  {finishLoading ? (
+                    <div
+                      className={classNames(styles.loader, styles.loaderFinish)}
+                    ></div>
+                  ) : (
+                    "Finalizar"
+                  )}
                 </button>
               ) : (
                 <button
