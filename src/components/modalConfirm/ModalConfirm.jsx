@@ -9,7 +9,8 @@ const ModalConfirm = ({
   handleCancel,
   handleConfirm,
   textButtonOne = "Cancelar",
-  textButtonTwo = "Continuar"
+  textButtonTwo = "Continuar",
+  loading = false,
 }) => {
   const [closing, setClosing] = useState(false);
 
@@ -60,7 +61,7 @@ const ModalConfirm = ({
             className={classNames(styles.modalButton, styles.buttonContinue)}
             onClick={handleConfirm}
           >
-            {textButtonTwo}
+            {loading ? "Procesando..." : textButtonTwo}
           </button>
         </div>
       </div>

@@ -1,62 +1,31 @@
-import { useMemo, useState, useCallback } from "react";
+import { useMemo, useState, useCallback, useEffect } from "react";
 import { IoIosArrowDown } from "../../../utils/icons/icons";
 import styles from "./ModeratorHome.module.css";
 import ModeratorCardJob from "./ModeratorCardJob";
+import { moderartorService } from "../../../services/moderatorServices/moderatorServices";
 
-const moderatorInitialJobs = [
-    {
-        id: "1",
-        jobTitle: "Levantar un tapial",
-        description: "Necesito a alguien con conocimientos de albañileria para levantar un tapial en mi local",
-        userName: "Fulano Detal",
-        profilePicture: "1",
-        reports: 0,
-        category: "Construction",
-    },
-    {
-        id: "2",
-        jobTitle: "Arreglar un caño",
-        description: "Necesito a alguien con conocimientos de plomeria para arreglar un caño de mi casa",
-        userName: "Joaquin Tanlongo",
-        profilePicture: "2",
-        reports: 5,
-        category: "Plumbing",
-    },
-    {
-        id: "3",
-        jobTitle: "Arreglar cables",
-        description: "Necesito a alguien con conocimientos de electricista para arreglar cables pelados en mi negocio",
-        userName: "Francisco Depetrini",
-        profilePicture: "3",
-        reports: 10,
-        category: "Electricity",
-    },
-    {
-        id: "4",
-        jobTitle: "Revocar una pared",
-        description: "Necesito a alguien con conocimientos de albañileria para revocar una pared en mi casa",
-        userName: "Antonio Diaz",
-        profilePicture: "4",
-        reports: 7,
-        category: "Construction",
-    },
-    {
-        id: "5",
-        jobTitle: "Cuidar a un niño",
-        description: "Busco a alguien con experiencia en cuidado de niños para cuidar a mi hijo de 5 años",
-        userName: "Brenda Gonzalez",
-        profilePicture: "5",
-        reports: 2,
-        category: "Babysitter",
-    },
-];
-
-const ModeratorHome = ({ handleOpenLogin }) => {
+const ModeratorHome = ({  }) => {
     const [menuOpen, setMenuOpen] = useState(false);
-    const [moderatorJobs, setModeratorJobs] = useState(moderatorInitialJobs);
+    const [moderatorJobs, setModeratorJobs] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const {getJobsForModerator} = moderartorService;
 
     const toggleMenu = useCallback(() => setMenuOpen((prev) => !prev), []);
+
+    useEffect(() => {
+        const fetchingJobs = async () => {
+            try {
+                const response = await getJobsForModerator();
+                if (response){
+                    setModeratorJobs(response);
+                }
+            }catch (error) {
+                console.error("Error fetching jobs for moderator:", error);
+            }
+        }
+
+        fetchingJobs();
+    },[])
 
     const handleSort = useCallback((type) => {
     setModeratorJobs((prevJobs) => {
@@ -64,7 +33,7 @@ const ModeratorHome = ({ handleOpenLogin }) => {
 
     switch (type) {
         case "reports":
-        sortedJobs.sort((a, b) => b.reports - a.reports);
+        sortedJobs.sort((a, b) => b.reportCount - a.reportCount);
         break;
 
         case "name":
@@ -89,16 +58,16 @@ const ModeratorHome = ({ handleOpenLogin }) => {
     const term = searchTerm.toLowerCase();
     return moderatorJobs.filter(
       (job) =>
-        job.jobTitle.toLowerCase().includes(term) ||
+        job.title.toLowerCase().includes(term) ||
         job.description.toLowerCase().includes(term) ||
         job.city.toLowerCase().includes(term)
     );
 }, [moderatorJobs, searchTerm]);
 
-    const jobsMapped = () =>
-        filteredJobs.map((moderatorJob, index) => (
-            <ModeratorCardJob key={index} handleOpenLogin={handleOpenLogin} moderatorJobInfo={moderatorJob} />
-        ));
+    // const jobsMapped = () =>
+    //     filteredJobs.map((moderatorJob, index) => (
+    //         <ModeratorCardJob key={index} handleOpenLogin={handleOpenLogin} moderatorJobInfo={moderatorJob} />
+    //     ));
 
 return (
         <>

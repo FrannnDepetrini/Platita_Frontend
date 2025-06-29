@@ -67,5 +67,16 @@ export const sysadminService = {
                 error.response?.data?.message || "Error al actualizar usuario por id"
             )
         }
+    },
+
+    createUser: async (userData) => {
+        try {
+            const response = await api.post("/Auth/RegisterForSysAdmin/sysAdmin", userData);
+            return response;
+        } catch (error) {
+            throw new Error(
+                error.response?.data?.message || "Error al crear usuario"
+            );
+        }
     }
 };

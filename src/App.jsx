@@ -3,6 +3,7 @@ import AppRoutes from "./routes/AppRoutes";
 import { BrowserRouter as Router } from "react-router-dom";
 import { AuthProvider } from "./services/contexts/AuthProvider";
 import { ModalContextProvider } from "./services/contexts/ModalContext";
+import { ThemeProvider } from "./services/contexts/ThemeContext";
 
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <Router>
         <AuthProvider>
           <ModalContextProvider>
-            <AppRoutes />
+            <ThemeProvider>
+              <AppRoutes />
+            </ThemeProvider>
           </ModalContextProvider>
         </AuthProvider>
       </Router>

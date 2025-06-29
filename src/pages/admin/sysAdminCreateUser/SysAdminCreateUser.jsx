@@ -3,6 +3,10 @@ import SearchInput from "../../../components/SearchInput/SearchInput";
 import { useState, useEffect } from "react";
 import useVerificate from "../../../customHooks/UseVerificate";
 import InputPassword from "../../../components/InputPassword/InputPassword";
+import { authService } from "../../../services/authservices/authServices";
+import { sysadminService } from "../../../services/sysadminServices/sysadminServices";
+import { useNavigate } from "react-router-dom";
+import { SlArrowDown } from "react-icons/sl";
 
 const SysAdminCreateUser = () => {
     const [data, setData] = useState({
@@ -14,11 +18,16 @@ const SysAdminCreateUser = () => {
         phoneNumber: "",
     });
 
+    const {register} = authService;
+    const {createUser} = sysadminService;
+
     const [role, setRole] = useState("Client")
     const [displayTelephone, setDisplayTelephone] = useState("");
     const [confirmPass, setConfirmPass] = useState("");
     const { errors, validateField } = useVerificate();
     const [isDisabled, setIsDisabled] = useState(true);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         if (data.phoneNumber.length < 5 && displayTelephone.includes("(")) {
@@ -65,7 +74,7 @@ const SysAdminCreateUser = () => {
         }
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const isPhoneNumberValid = validateField("phoneNumber", data.phoneNumber);
         const isEmailValid = validateField("email", data.email);
@@ -88,29 +97,32 @@ const SysAdminCreateUser = () => {
             return;
         }
 
-        if (role == "Client" ?
-            //Aca llamo al endpoint de client en useAuth register(data)
-            console.log(
-                data
-            ) :
-            //Aca llamo al endpoint de sysAdmin
-            console.log(
-                {
+        if( role == "Client") {
+            console.log(data);
+            const response = await register(data)
+
+            if (response) {
+                navigate(-1, {replace: true});
+            }
+        } else {
+            const response = await createUser({
                     email: data.email,
                     password: data.password,
                     userName: data.userName,
                     phoneNumber: data.phoneNumber,
-                }
-            ));
+                    role: role,
+                });
 
-
-        // register(data);
-
+            if (response) {
+                navigate(-1, {replace: true});
+            }
+        }
+        
     };
 
     return (
         <div className={styles.register_container}>
-            <div className={styles.breadcrumbs}>Inicio / SysAdmin /<span> Registrar</span></div>
+            <div className={styles.breadcrumbs}>Inicio / SysAdmin/<span> Registrar</span></div>
             <div className={styles.group_formRol}>
                 <form
                     className={styles.register_form}
@@ -209,21 +221,21 @@ const SysAdminCreateUser = () => {
                     </div>
                     <div className={styles.button_container}>
                         <button className={styles.buttonSubmit} type="submit" disabled={isDisabled}>
-                            Regístrate
+                            Registrar
                         </button>
                     </div>
                 </form>
                 <div className={styles.form_group}>
                     <label>Rol</label>
-                    <select name="role" id="value" className={styles.selectInput} onChange={(e) => {
+                    <select name="role" id="value" value={role} className={styles.selectInput} onChange={(e) => {
                         setRole(e.target.value)
-                        console.log(e.target.value)
                     }}>
                         <option value="Client">Cliente</option>
                         <option value="SysAdmin">SysAdmin</option>
                         <option value="Moderator">Moderador</option>
                         <option value="Support">Soporte</option>
                     </select>
+                    <SlArrowDown className={styles.selectIcon} />
                 </div>
             </div>
         </div>

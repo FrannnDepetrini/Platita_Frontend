@@ -35,7 +35,7 @@ const SysAdminHome = () => {
       Moderator: "Moderador",
       Support: "Soporte",
       Client: "Cliente",
-      SysAdmin: "Administrador del Sistema",
+      SysAdmin: "SysAdmin",
     };
 
     return roles[role] || "Rol no encontrado";

@@ -117,6 +117,9 @@ const EmployerCreateJob = () => {
       showRecoverModal("success");
       setTimeout(() => {
         hideRecoverModal();
+        if(localStorage.getItem("hasJobs") === false){
+          localStorage.setItem("hasJobs", true);
+        }
         navigate("/employer/request");
       }, 6000);
     } catch (error) {
@@ -149,7 +152,7 @@ const EmployerCreateJob = () => {
           <div className={styles.form_grid}>
             <div className={styles.input_container}>
               <label htmlFor="Title">Titulo</label>
-              <div className={styles.iconAndInput_container}>
+              <div className={`${styles.iconAndInput_container}`}>
                 <BsFillBriefcaseFill className={styles.icon_generic} />
                 <input
                   className={styles.input_generic}
@@ -169,7 +172,7 @@ const EmployerCreateJob = () => {
 
             <div className={styles.input_container}>
               <label>Localidad</label>
-              <div className={styles.iconAndInput_container}>
+              <div className={`${styles.iconAndInput_container} ${styles.inputLocation}`}>
                 <MdLocationOn className={styles.icon_generic} />
                 <SearchInput
                   onChange={customHandle}
