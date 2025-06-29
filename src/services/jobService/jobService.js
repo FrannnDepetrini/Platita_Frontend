@@ -43,7 +43,9 @@ export const jobService = {
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Error creando el trabajo"
+
       );
+
     }
   },
 
