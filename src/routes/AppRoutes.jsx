@@ -17,6 +17,7 @@ import EmployeeJobDetails from "../pages/employee/EmployeeJobDetails/EmployeeJob
 import Postulations from "../pages/employee/Postulations/Postulations";
 import EmployeeHistorial from "../pages/employee/EmployeeHistorial/EmployeeHistorial";
 import EmployeeRating from "../pages/employee/EmployeeRating/EmployeeRating";
+import EmployeeComplaint from "../pages/employee/EmployeeComplaint/EmployeeComplaint";
 
 // Employer
 import EmployerRequest from "../pages/employer/EmployerRequest/EmployerRequest";
@@ -70,6 +71,14 @@ export default function AppRoutes() {
           }
         />
         <Route
+          path="/employee/complaint"
+          element={
+            <Protected acceptedRoles={["Client"]}>
+              <EmployeeComplaint />
+            </Protected>
+          }
+        />
+        <Route
           path="/employee/job/:id"
           element={
             <Protected acceptedRoles={["Client"]}>
@@ -86,7 +95,7 @@ export default function AppRoutes() {
           }
         />
         <Route
-          path="/employee/rating"
+          path="/employee/rating/:id"
           element={
             <Protected acceptedRoles={["Client"]}>
               <EmployeeRating />
