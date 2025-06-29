@@ -74,21 +74,6 @@ export function AuthProvider({ children }) {
 
       setUser(payload);
       setIsAuthenticated(true);
-      // switch (role) {
-      //   case "Client":
-      //     navigate("/employee/home", { replace: true });
-
-      //     break;
-      //   case "Moderator":
-      //     navigate("/moderator/home", { replace: true });
-      //     break;
-      //   case "SysAdmin":
-      //     navigate("/sysadmin/home", { replace: true });
-      //     break;
-      //   case "Support":
-      //     navigate("/support/home", { replace: true });
-      //     break;
-      // }
 
       autoNavigate(token);
     } else {

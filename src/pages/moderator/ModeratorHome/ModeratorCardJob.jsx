@@ -1,11 +1,12 @@
 import UseCategoryIcon from "../../../customHooks/UseCategoryIcon";
-
+import { useNavigate } from "react-router-dom";
 import styles from "./ModeratorCardJob.module.css";
 
 export default function ModeratorCardJob({ moderatorJob, cardType = false }) {
   const maxLength = 140;
   const wordLimit = 20;
   const ellipsis = "...";
+  const navigate = useNavigate();
 
   const CategoryIcon = UseCategoryIcon(moderatorJob.category);
 
@@ -39,10 +40,13 @@ export default function ModeratorCardJob({ moderatorJob, cardType = false }) {
   return (
     <div
       className={`${styles.parentCard} ${cardType ? styles.clientCard : ""}`}
+      onClick={() => {
+        navigate(`/moderator/job/detail/${moderatorJob.id}`)
+      }}
     >
       <div className={styles.topCardContainer}>
         <div className={styles.cardTitleSection}>
-          <h2>{moderatorJob.jobTitle}</h2>
+          <h2>{moderatorJob.title}</h2>
           <CategoryIcon className={styles.jobCardIcon} />
         </div>
       </div>
@@ -58,7 +62,7 @@ export default function ModeratorCardJob({ moderatorJob, cardType = false }) {
           <div className={styles.jobCard_Divider}></div>
           <div className={styles.reports_container}>
             <span className={styles.report_title}>Reportes: </span>
-            <span className={styles.report_count}>{moderatorJob.reports}</span>
+            <span className={styles.report_count}>{moderatorJob.reportCount}</span>
           </div>
         </div>
       </div>
