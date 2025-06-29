@@ -27,11 +27,20 @@ export const jobService = {
   getMyJobs: async () => {
     try {
       const response = await api.get("/Job/my-jobs");
-
       return response;
     } catch (error) {
       throw new Error(
         error.response?.data?.message || "Error obteniendo tus trabajos"
+      );
+    }
+  },
+  deleteJobById: async (id) => {
+    try {
+      const response = await api.delete(`/Job/Delete/${id}`);
+      return response;
+    } catch (error) {
+      throw new Error(
+        error.response?.data?.message || "Error eliminando el trabajo"
       );
     }
   },
@@ -44,11 +53,6 @@ export const jobService = {
       throw new Error(
         error.response?.data?.message || "Error creando el trabajo"
       );
-    }
-  },
-
-      );
-
     }
   },
 
