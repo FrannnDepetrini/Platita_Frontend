@@ -182,12 +182,16 @@ export default function EmployerJobDetails() {
     try {
       setFinishLoading(true);
       await jobService.finishJob(id);
-      navigate("/employer/request");
+      setInfo((prev) => ({
+        ...prev,
+        status: "Done",
+      }));
     } catch (error) {
       console.error("Error al finalizar el trabajo", error);
-      alert("Error al finalizar el trabajo. Inténtalo nuevamente más tarde.");
+      fetchJobAndPostulations();
     } finally {
       setFinishLoading(false);
+      navigate("/employer/request");
     }
   };
 
@@ -315,6 +319,8 @@ export default function EmployerJobDetails() {
               <div className={styles.number_postulations}>
                 {jobDeleted ? (
                   <span style={{ color: "red" }}>❌ Trabajo cancelado</span>
+                ) : info.status === "Done" ? (
+                  <span style={{color: "green"}}>✅ Trabajo completado</span>
                 ) : jobAccepted ? (
                   <span style={{ color: "green" }}>
                     ✅ Trabajo aceptado -{" "}
@@ -368,6 +374,16 @@ export default function EmployerJobDetails() {
                 <p className={styles.noPostulationsMessage}>
                   Este trabajo fue cancelado. No se pueden mostrar
                   postulaciones.
+                </p>
+              </div>
+            ) : info.status === "Done" ? (
+              <div className={styles.noPostulations}>
+                <div className={styles.noPostulationsIcon}>✅</div>
+                <h3 className={styles.noPostulationsTitle}>
+                  Trabajo completado
+                </h3>
+                <p className={styles.noPostulationsMessage}>
+                  El trabajo fue completado exitosamente.
                 </p>
               </div>
             ) : postulations.length > 0 ? (

@@ -18,7 +18,7 @@ const EmployerRequestList = () => {
         console.log(response);
         setJobs(response);
       } catch (err) {
-        alert(err.message);
+        console.log(err.message);
       } finally {
         setLoading(false);
       }
