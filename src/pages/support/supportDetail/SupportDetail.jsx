@@ -1,64 +1,55 @@
 import { useParams } from "react-router-dom";
 import styles from "./SupportDetail.module.css";
-import { IoCalendarOutline } from "react-icons/io5";
-import { useState } from "react";
+import { IoCalendarOutline, IoLogoWhatsapp } from "react-icons/io5";
+import { useEffect, useState } from "react";
 import ModalConfirm from "../../../components/ModalConfirm/ModalConfirm";
-import { IoLogoWhatsapp } from "react-icons/io5";
-
-// Eliminar cuando este la API
-const supportDetailComplains = [
-  {
-    id: "1",
-    userName: "Fulano Detal",
-    description:
-      "Entre a la aplicacion y tuve un problema con mi lista de trabajos publicados.",
-    date: "04/05/2025",
-  },
-  {
-    id: "2",
-    userName: "Juan Gomez",
-    description: "Intenté actualizar mi perfil y los cambios no se guardaron.",
-    date: "23/05/2025",
-  },
-  {
-    id: "3",
-    userName: "Pedro Sanchez",
-    description: "No puedo subir un nuevo trabajo, el botón no hace nada.",
-    date: "15/04/2025",
-  },
-  {
-    id: "4",
-    userName: "Mario Lopez",
-    description:
-      "La aplicación no carga mis notificaciones, se queda en blanco.",
-    date: "19/03/2025",
-  },
-  {
-    id: "5",
-    userName: "David Martinez",
-    description:
-      "Quise filtrar los trabajos por categoría, pero siempre me muestra los mismos resultados.",
-    date: "20/01/2025",
-  },
-];
+import { complaintService } from "../../../services/complaintService/complaintService";
+import { useNavigate } from "react-router-dom";
 
 export default function SupportDetail() {
   const { id } = useParams();
   const [showResolveModal, setShowResolveModal] = useState(false);
   const [isResolved, setIsResolved] = useState(false);
+  const [complain, setComplain] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
-  const complain = supportDetailComplains.find((j) => j.id === id);
+  useEffect(() => {
+    if (isResolved) {
+      setTimeout(() => {
+        navigate("/support/home");
+      }, 2000);
+    }
+  }, [isResolved, navigate]);
 
-  if (!complain) {
-    return (
-      <div className={styles.complain_not_found}>Trabajo no encontrado</div>
-    );
-  }
+  useEffect(() => {
+    const fetchComplaint = async () => {
+      try {
+        const response = await complaintService.getComplaintById(Number(id));
+        setComplain(response);
+      } catch (error) {
+        console.error("Error al obtener la queja:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchComplaint();
+  }, [id]);
 
-  const handleResolve = () => {
-    setIsResolved(true);
-    setShowResolveModal(false);
+  const handleResolve = async () => {
+    try {
+      await complaintService.completeComplaint(Number(id));
+      setIsResolved(true);
+    } catch (error) {
+      console.error("Error al resolver la queja:", error);
+      alert("No se pudo resolver la queja. Por favor intenta nuevamente.");
+    } finally {
+      setShowResolveModal(false);
+    }
   };
+
+  if (loading) return <p>Cargando queja...</p>;
+  if (!complain) return <p>No se encontró la queja.</p>;
 
   return (
     <div>
@@ -81,7 +72,7 @@ export default function SupportDetail() {
       <div className={styles.complain_align_cards}>
         <div className={styles.complain_container_box}>
           <div className={styles.complain_header}>
-            <h2>{complain.userName}</h2>
+            <h2>{complain.client.userName}</h2>
             <div className={styles.user_picture}></div>
           </div>
 
@@ -100,14 +91,14 @@ export default function SupportDetail() {
         <div className={styles.fecha_container}>
           <IoCalendarOutline className={styles.icon_fecha} />
           <h4>Fecha</h4>
-          <p>{complain.date}</p>
+          <p>{complain.createdAt}</p>
         </div>
 
         <div className={styles.button_container}>
           {!isResolved ? (
             <>
-              <button className={styles.whatsapp_button}>
-                {<IoLogoWhatsapp />} Whatsapp
+              <button onClick={() => window.open(`https://wa.me/${complain.client.phoneNumber}`, "_blank")} className={styles.whatsapp_button}>
+                <IoLogoWhatsapp /> Whatsapp
               </button>
               <button
                 className={styles.resolve_button}

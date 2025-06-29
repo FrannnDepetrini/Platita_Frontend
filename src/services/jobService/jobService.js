@@ -20,7 +20,7 @@ export const jobService = {
       return response;
     } catch (error) {
       throw new Error(
-        error.response?.data?.message || "Error obteniendo postulaciones"
+        error.response?.data?.message || "Error obteniendo la postulacion"
       );
     }
   },
@@ -40,6 +40,7 @@ export const jobService = {
       return response;
     } catch (error) {
       throw new Error(
+
         error.response?.data?.message || "Error eliminando el trabajo"
       );
     }
@@ -54,6 +55,7 @@ export const jobService = {
         error.response?.data?.message || "Error creando el trabajo"
       );
     }
+
   },
 
   getJobForModeratorByID: async (id) => {
@@ -90,7 +92,7 @@ export const jobService = {
       throw new Error(
         error.response?.data?.message || `Error eliminando el trabajo ${id}`
       );
-    };
+    }
   },
   restoreJob: async (id) => {
   try {
