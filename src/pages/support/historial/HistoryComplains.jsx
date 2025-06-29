@@ -1,83 +1,28 @@
 import { useEffect, useState } from "react";
 import styles from "./HistoryComplains.module.css";
-import { FaTrashAlt } from "../../../utils/icons/icons";
+import { complaintService } from "../../../services/complaintService/complaintService";
+import { useNavigate } from "react-router-dom";
 
 export default function HistoryComplains() {
+    const navigate = useNavigate();
     const [complains, setComplains] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showModal, setShowModal] = useState(false);
-    const [complainToDelete, setComplainToDelete] = useState(null);
 
     const fetchData = async () => {
         try {
-            const data = [{
-                id: 1,
-                client: { username: "Fulano detal" },
-                status: "Pendiente",
-                createat: "17/4/2025",
-            },
-            {
-                id: 2,
-                client: { username: "Maria Lopez" },
-                status: "Resuelto",
-                createat: "18/4/2025",
-            },
-            {
-                id: 3,
-                client: { username: "Maria Lopez" },
-                status: "Resuelto",
-                createat: "18/4/2025",
-            },
-            {
-                id: 4,
-                client: { username: "Maria Lopez" },
-                status: "Resuelto",
-                createat: "18/4/2025",
-            },
-            {
-                id: 5,
-                client: { username: "Maria Lopez" },
-                status: "Resuelto",
-                createat: "18/4/2025",
-            },
-            {
-                id: 6,
-                client: { username: "Carlos Sanchez" },
-                status: "Pendiente",
-                createat: "19/4/2025",
-            }];
-
-            setTimeout(() => {
-                setComplains(data);
-                setLoading(false);
-            }, 2000)
+            const response = await complaintService.getAllComplaint();
+            setComplains(response);
         } catch (error) {
+            console.error("Error cargando las quejas:", error);
+        } finally {
             setLoading(false);
-            console.error("Error fetching data:", error);
         }
-    }
+    };
 
-    const handleDelete = (id) => {
-        setComplains(complains.filter(item => item.id != id));
-        setShowModal(false);
-        setComplainToDelete(null);
-    }
+    useEffect(() => {
+        fetchData();
+    }, []);
 
-    const openDeleteModal = (complain) => {
-        setComplainToDelete(complain);
-        setShowModal(true);
-    }
-
-    const closeModal = () => {
-        setShowModal(false);
-        setComplainToDelete(null);
-    }
-
-    const confirmDelete = () => {
-        if (complainToDelete) {
-            handleDelete(complainToDelete.id);
-        }
-    }
 
     const complainsMapped = () => {
         if (complains.length === 0) {
@@ -89,15 +34,15 @@ export default function HistoryComplains() {
         } else {
             return complains.map((cs) => {
                 const statesClass = {
-                    pendiente: styles.state_pending,
-                    resuelto: styles.state_resolved,
+                    pending: styles.state_pending,
+                    resolved: styles.state_resolved,
                 };
 
                 return (
                     <tr key={cs.id}
-                        onClick={() => console.log("ver queja", cs.id)} className={styles.row_table}>
+                        onClick={() => navigate(`/support/detail/${cs.id}`)} className={styles.row_table}>
                         <td className={styles.client_cell}>
-                            <h4 className={styles.userName}>{cs.client?.username}</h4>
+                            <h4 className={styles.userName}>{cs.client?.userName}</h4>
                         </td>
                         <td className={styles.state}>
                             <span className={statesClass[cs.status.toLowerCase()] || ""}>
@@ -106,29 +51,14 @@ export default function HistoryComplains() {
                         </td>
                         <td className={styles.date_cell}>
                             <span className={styles.createat}>
-                                {cs.createat}
+                                {cs.createdAt}
                             </span>
-                        </td>
-                        <td className={styles.actions_cell}>
-                            <button
-                                className={styles.delete_button}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    openDeleteModal(cs);
-                                }}
-                            >
-                                <FaTrashAlt className={styles.icon} />
-                            </button>
                         </td>
                     </tr>
                 )
             })
         }
     }
-
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     return (
         <>
@@ -146,7 +76,6 @@ export default function HistoryComplains() {
                                 <th>Cliente</th>
                                 <th>Estado</th>
                                 <th>Fecha de queja</th>
-                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -163,35 +92,6 @@ export default function HistoryComplains() {
                     </table>
                 </div>
             </div>
-
-            {/* Modal de confirmación */}
-            {showModal && (
-                <div className={styles.modal_overlay} onClick={closeModal}>
-                    <div className={styles.modal_container} onClick={e => e.stopPropagation()}>
-                        <div className={styles.modal_header}>
-                            <h3>Confirmar eliminación</h3>
-                        </div>
-                        <div className={styles.modal_content}>
-                            <p>¿Estás seguro de que deseas eliminar la queja de <strong>{complainToDelete?.client?.username}</strong>?</p>
-                            <p className={styles.warning_text}>Esta acción no se puede deshacer.</p>
-                        </div>
-                        <div className={styles.modal_actions}>
-                            <button 
-                                className={styles.cancel_button}
-                                onClick={closeModal}
-                            >
-                                Cancelar
-                            </button>
-                            <button 
-                                className={styles.confirm_button}
-                                onClick={confirmDelete}
-                            >
-                                Eliminar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
         </>
     );
 }
