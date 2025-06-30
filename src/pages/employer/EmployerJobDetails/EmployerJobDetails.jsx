@@ -262,7 +262,7 @@ export default function EmployerJobDetails() {
       }
 
       await postulationService.approvePostulation(id, selectedPostulationId);
-      window.location.reload(); // O reemplazar por fetchJobAndPostulations()
+      window.location.reload();
     } catch (error) {
       console.error("Error al aprobar la postulación:", error);
     } finally {
@@ -320,7 +320,7 @@ export default function EmployerJobDetails() {
                 {jobDeleted ? (
                   <span style={{ color: "red" }}>❌ Trabajo cancelado</span>
                 ) : info.status === "Done" ? (
-                  <span style={{color: "green"}}>✅ Trabajo completado</span>
+                  <span style={{ color: "green" }}>✅ Trabajo completado</span>
                 ) : jobAccepted ? (
                   <span style={{ color: "green" }}>
                     ✅ Trabajo aceptado -{" "}

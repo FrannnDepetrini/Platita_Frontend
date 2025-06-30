@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ModalConfirm from "../../../components/ModalConfirm/ModalConfirm";
 import { complaintService } from "../../../services/complaintService/complaintService";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../../services/contexts/AuthProvider";
 
 export default function SupportDetail() {
   const { id } = useParams();
@@ -13,6 +14,9 @@ export default function SupportDetail() {
   const [complain, setComplain] = useState(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  let message = `Hola, te hablo desde el soporte de la app Platita. Te escribo para ayudarte con tu problema.`;
+  const encodedMessage = encodeURIComponent(message);
 
   useEffect(() => {
     if (isResolved) {
@@ -97,7 +101,15 @@ export default function SupportDetail() {
         <div className={styles.button_container}>
           {!isResolved ? (
             <>
-              <button onClick={() => window.open(`https://wa.me/${complain.client.phoneNumber}`, "_blank")} className={styles.whatsapp_button}>
+              <button
+                onClick={() =>
+                  window.open(
+                    `https://wa.me/${complain.client.phoneNumber}?text=${encodedMessage}`,
+                    "_blank"
+                  )
+                }
+                className={styles.whatsapp_button}
+              >
                 <IoLogoWhatsapp /> Whatsapp
               </button>
               <button

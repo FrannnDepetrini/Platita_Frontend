@@ -9,7 +9,7 @@ import { useTheme } from "../../services/contexts/ThemeContext";
 
 const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
   const { logout, user } = useAuth();
-  const { theme, toggleTheme} = useTheme();
+  const { theme, toggleTheme } = useTheme();
 
   //Dato que se reemplazara con el themeContext
   // const [theme, setTheme] = useState("Claro");
@@ -17,7 +17,6 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
     e.stopPropagation();
     toggleTheme();
   };
-
 
   const handleNavigateTo = (url) => {
     setIsOverlayVisible(false);
@@ -52,18 +51,19 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
   };
 
   const handleNavigateAside = () => {
-    switch (user.role){
+    switch (user.role) {
       case "Client":
         return (
           <>
             {!user.hasJobs ? (
-              <h3 onClick={() => handleNavigate("/employer/createJob")} className={styles.menu_option}>
+              <h3
+                onClick={() => handleNavigate("/employer/createJob")}
+                className={styles.menu_option}
+              >
                 Publica tu primer trabajo
               </h3>
             ) : (
               <>
-                
-
                 <h3
                   onClick={() => handleNavigate("/employer/createJob")}
                   className={styles.menu_option}
@@ -85,8 +85,13 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
 
                 <div className={styles.dividerOptions}></div>
 
-                <h3 className={`${styles.menu_option} ${styles.centerIcon}`} onClick={() => {handleNavigateTo("/employee/complaint")}}>
-                  Realizar una queja <IoWarning/>
+                <h3
+                  className={`${styles.menu_option} ${styles.centerIcon}`}
+                  onClick={() => {
+                    handleNavigateTo("/employee/complaint");
+                  }}
+                >
+                  Realizar una queja <IoWarning />
                 </h3>
 
                 <div className={styles.divider}></div>
@@ -94,37 +99,8 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
             )}{" "}
           </>
         );
-
-      case "Support":
-        return (
-          <>
-            <h3 className={`${styles.menu_option} ${styles.centerIcon}`} onClick={() => {handleNavigateTo("/employee/complaint")}}>
-                  Realizar una queja <IoWarning/>
-            </h3>
-
-            <div className={styles.divider}></div>
-          </>
-        )
-
-      case "Moderator":
-        return (
-          <>
-            <h3 className={`${styles.menu_option} ${styles.centerIcon}`} onClick={() => {handleNavigateTo("/employee/complaint")}}>
-                  Realizar una queja <IoWarning/>
-            </h3>
-
-            <div className={styles.divider}></div>
-          </>
-        )
-
-      case "SysAdmin":
-        return (
-          <>
-            {""}
-          </>
-        )
-    }  
-  }
+    }
+  };
 
   return (
     <>
@@ -153,9 +129,7 @@ const Aside = ({ isAsideVisible, setIsAsideVisible }) => {
           </div>
         </div>
         <div className={styles.divider}></div>
-        <div className={styles.jobs_container}>
-          {handleNavigateAside()}{" "}
-        </div>
+        <div className={styles.jobs_container}>{handleNavigateAside()} </div>
         <div className={styles.config_container}>
           <div
             onClick={handleIsThemeDrDwVisible}

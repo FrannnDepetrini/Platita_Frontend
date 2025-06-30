@@ -47,6 +47,9 @@
   transition: all 0.3s ease;
 }
 
+.icon-button-container {
+}
+
 .link-button {
   display: flex;
   gap: 10px;
@@ -103,7 +106,6 @@
   gap: 10px;
   justify-content: left;
   align-items: center;
-  margin-right: 40px;
 }
 
 .job-container-box {
@@ -264,4 +266,10 @@
   color: var(--principalGreen);
   font-size: 14px;
   margin: 0;
+}
+
+.report-button {
+  background-color: var(--principalRed) !important;
+  color: white;
+  padding: 7px !important;
 }

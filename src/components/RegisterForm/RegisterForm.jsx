@@ -90,7 +90,10 @@ function RegisterForm() {
     ) {
       return;
     }
+
+    console.log(data);
     register(data);
+    alert("Usuario creado con exito");
 
     // setData({
     //   email: "",

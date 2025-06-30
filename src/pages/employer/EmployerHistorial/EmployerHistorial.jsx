@@ -20,7 +20,7 @@ export default function EmployeeHistorial() {
       const response = await jobService.getJobById(id);
       console.log("Detalle del trabajo:", response);
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
 
@@ -36,7 +36,7 @@ export default function EmployeeHistorial() {
           setJobs([]);
         }
       } catch (error) {
-        alert(error.message);
+        console.log(error.message);
         setJobs([]);
       } finally {
         setLoading(false);
@@ -55,7 +55,7 @@ export default function EmployeeHistorial() {
       setJobs(jobs.filter((job) => job.id !== id));
       console.log("Trabajo eliminado con exito");
     } catch (error) {
-      alert(error.message);
+      console.log(error.message);
     }
   };
 
@@ -111,10 +111,14 @@ export default function EmployeeHistorial() {
             </div>
           </td>
           <td>
-            <FaTrashAlt
-              onClick={() => handleDeleteJob(job.id)}
-              className={styles.delete_icon}
-            />
+            {job.status === "Done" || job.status === "Taken" ? (
+              "-"
+            ) : (
+              <FaTrashAlt
+                onClick={() => handleDeleteJob(job.id)}
+                className={styles.delete_icon}
+              />
+            )}
           </td>
         </tr>
       );

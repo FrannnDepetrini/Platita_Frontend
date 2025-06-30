@@ -52,7 +52,7 @@ const RecoverPassForm = ({ token }) => {
 
     try {
       const response = await fetch(
-        "https://localhost:7224/api/User/reset-password",
+        "https://localhost:7224/api/Auth/reset-password",
         {
           method: "PUT",
           headers: {

@@ -10,7 +10,7 @@
   border-radius: 20px;
   box-shadow: var(--shadowDark);
   width: 50%;
-  height: 70%;
+  height: 80%;
   margin-left: 100px;
   margin-top: 20px;
 }
@@ -116,7 +116,7 @@
 
 .scroll_job_wrapper {
   position: relative;
-  height: 400px;
+  height: 330px;
   overflow: hidden;
 }
 

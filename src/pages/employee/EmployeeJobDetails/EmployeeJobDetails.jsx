@@ -14,6 +14,7 @@ export default function EmployeeJobDetails() {
   const [job, setJob] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isReportModalVisible, setIsReportModalVisible] = useState(false);
 
   useEffect(() => {
     const getJobById = async () => {
@@ -30,8 +31,19 @@ export default function EmployeeJobDetails() {
     job.dayPublicationStart
   ).toLocaleDateString();
 
+  const handleReport = (id) => {
+    setIsReportModalVisible(true);
+  };
+
   return (
     <>
+      {isReportModalVisible && (
+        <ModalPostulation
+          onClose={() => setIsReportModalVisible(false)}
+          jobId={job.id}
+          isReport={true}
+        />
+      )}
       {showModal && (
         <ModalPostulation onClose={() => setShowModal(false)} jobId={job.id} />
       )}
@@ -88,6 +100,12 @@ export default function EmployeeJobDetails() {
                 </button>
                 <button className="link-button">
                   <IoLink className="icon-link" />
+                </button>
+                <button
+                  onClick={() => setIsReportModalVisible(true)}
+                  className={`link-button report-button`}
+                >
+                  Reportar
                 </button>
               </div>
             </div>

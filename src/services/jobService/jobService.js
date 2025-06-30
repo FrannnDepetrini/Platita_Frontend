@@ -36,6 +36,7 @@ export const jobService = {
   },
   deleteJobById: async (id) => {
     try {
+      console.log(id);
       const response = await api.delete(`/Job/Delete/${id}`);
       return response;
     } catch (error) {

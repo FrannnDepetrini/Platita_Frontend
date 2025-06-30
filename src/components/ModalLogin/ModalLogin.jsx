@@ -6,6 +6,7 @@ import Loader from "../Loader/Loader";
 import useVerificate from "../../customHooks/UseVerificate";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../services/contexts/AuthProvider";
+import { authService } from "../../services/authservices/AuthServices";
 
 const ModalLogin = ({ isOpen, onClose }) => {
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -24,31 +25,30 @@ const ModalLogin = ({ isOpen, onClose }) => {
 
   const navigate = useNavigate();
 
-  const mockApi = (email) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(true);
-      }, 2500);
-    });
-  };
+  // const mockApi = (email) => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       resolve(true);
+  //     }, 2500);
+  //   });
+  // };
 
   const handleSendLink = async () => {
     setLoaderStatus("loading");
 
     try {
-      // Simulando una llamada a la API
-      const response = await mockApi(restoreEmail);
-
-      if (response) {
-        setLoaderStatus("success");
-        setTimeout(() => {
-          setIsFlipped(false);
-          setLoaderStatus("idle");
-          setRestoreEmail("");
-        }, 3000);
-      }
+      const response = await authService.forgotPassword({
+        email: restoreEmail,
+      });
+      setLoaderStatus("success");
+      return response;
     } catch (error) {
+      console.log(error);
       setLoaderStatus("error");
+      setTimeout(() => {
+        setLoaderStatus("idle");
+      }, 2000);
+    } finally {
       setTimeout(() => {
         setLoaderStatus("idle");
       }, 2000);

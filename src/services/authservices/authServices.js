@@ -41,4 +41,15 @@ export const authService = {
       );
     }
   },
+  forgotPassword: async (email) => {
+    try {
+      const response = api.post(
+        "https://localhost:7224/api/Auth/forgot-password",
+        email
+      );
+      return response;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Error enviando mail");
+    }
+  },
 };

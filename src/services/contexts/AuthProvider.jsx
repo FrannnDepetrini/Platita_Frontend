@@ -113,6 +113,7 @@ export function AuthProvider({ children }) {
   const register = async (userData) => {
     try {
       await authService.register(userData);
+
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };

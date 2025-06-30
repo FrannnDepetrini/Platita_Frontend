@@ -114,11 +114,14 @@ export default function AppRoutes() {
         <Route
           path="/myProfile"
           element={
-            <Protected acceptedRoles={["Client"]}>
+            <Protected
+              acceptedRoles={["Client", "Support", "Moderator", "Sysadmin"]}
+            >
               <UserProfile />
             </Protected>
           }
         />
+
         {/*Empleador*/}
 
         <Route

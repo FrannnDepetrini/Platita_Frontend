@@ -13,6 +13,7 @@ const EmployeeJobList = () => {
   useEffect(() => {
     const getJobs = async () => {
       const data = await jobService.getJobs();
+      console.log(data);
       setJobs(data);
     };
     getJobs();
